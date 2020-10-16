@@ -1,0 +1,12 @@
+.sidebar {
+  grid-area: s;
+  //   background-color: aquamarine;
+  padding-top: 30px;
+  padding-left: 30px;
+  max-width: 340px;
+  .sidebar__title {
+    font-family: "Sansita Swashed", cursive;
+    font-weight: 700;
+    font-size: 25px;
+  }
+}

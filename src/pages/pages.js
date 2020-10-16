@@ -3,7 +3,7 @@ import Home from "./home";
 
 const Pages = () => {
   return (
-    <div>
+    <div className="pages">
       <Home />
     </div>
   );
