@@ -1,10 +1,14 @@
 import React from "react";
-import "./App.css";
+import Sidebar from "./components/sidebar";
+import Footer from "./components/footer";
+import Pages from "./pages/home";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <Sidebar />
+      <Pages />
+      <Footer />
     </div>
   );
 }
