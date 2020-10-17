@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./sidebar.scss";
 
 const Sidebar = () => {
@@ -7,28 +8,42 @@ const Sidebar = () => {
       <div className="sidebar__title">Cinema__Classic__Shop</div>
       <div className="sidebar__nav">
         <ul>
-          <li>Home</li>
-          <li>Shop</li>
-          <li>Film</li>
-          <li>Checkout</li>
+          <NavLink className="sidebar__li" to="/" exact>
+            <li>Home</li>
+          </NavLink>
+          <NavLink className="sidebar__li" to="/shop">
+            <li>Shop</li>
+          </NavLink>
+          <NavLink className="sidebar__li" to="/film">
+            <li>Film</li>
+          </NavLink>
+          <NavLink className="sidebar__li" to="/checkout">
+            <li>Checkout</li>
+          </NavLink>
         </ul>
       </div>
       <div className="sidebar__search">
-        <i class="fas fa-search"></i> Search
+        <p>
+          <i className="fas fa-search"></i> Search
+        </p>
       </div>
       <div className="sidebar__cart">
-        <i class="fas fa-shopping-cart"></i> Cart
+        <NavLink className="sidebar__p" to="/cart">
+          <p>
+            <i className="fas fa-shopping-cart"></i> Cart
+          </p>
+        </NavLink>
       </div>
       <div className="sidebar__link">
-        <a href="#">
-          <i className="fab fa-instagram-square"></i>
-        </a>
-        <a href="#">
-          <i className="fab fa-facebook-f"></i>
-        </a>
-        <a href="#">
-          <i className="fab fa-twitter"></i>
-        </a>
+        <button>
+          <i className="fab fa-instagram-square fa-2x"></i>
+        </button>
+        <button>
+          <i className="fab fa-facebook-f fa-2x"></i>
+        </button>
+        <button>
+          <i className="fab fa-twitter fa-2x"></i>
+        </button>
       </div>
     </div>
   );

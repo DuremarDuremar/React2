@@ -3,10 +3,64 @@
   //   background-color: aquamarine;
   padding-top: 30px;
   padding-left: 30px;
-  max-width: 340px;
+  padding-right: 10px;
+  //   max-width: 340px;
   .sidebar__title {
     font-family: "Sansita Swashed", cursive;
     font-weight: 700;
     font-size: 25px;
+    margin-bottom: 30px;
+  }
+  .sidebar__nav {
+    font-family: "Sansita Swashed", cursive;
+    font-weight: 700;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 30px;
+    li {
+      color: black;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+      &:hover {
+        color: darkcyan;
+      }
+    }
+  }
+  .sidebar__search {
+    font-weight: 600;
+    margin-bottom: 10px;
+    p {
+      cursor: pointer;
+      display: inline-block;
+    }
+  }
+  .sidebar__cart {
+    font-weight: 600;
+    margin-bottom: 30px;
+    p {
+      color: black;
+      cursor: pointer;
+      display: inline-block;
+      &:hover {
+        color: darkcyan;
+      }
+    }
+  }
+  .sidebar__link {
+    display: flex;
+    button {
+      width: 30px;
+      height: 30px;
+      padding: 2px;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+      &:hover {
+        background-color: darkcyan;
+        color: #fff;
+      }
+    }
   }
 }
