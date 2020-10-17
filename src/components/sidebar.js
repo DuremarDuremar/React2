@@ -1,8 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { filmLoaded } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = () => {
+const Sidebar = ({ films, filmLoaded }) => {
+  console.log(films);
+
   return (
     <div className="sidebar">
       <div className="sidebar__title">Cinema__Classic__Shop</div>
@@ -23,7 +27,7 @@ const Sidebar = () => {
         </ul>
       </div>
       <div className="sidebar__search">
-        <p>
+        <p onClick={() => filmLoaded()}>
           <i className="fas fa-search"></i> Search
         </p>
       </div>
@@ -49,4 +53,12 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = ({ filmData: { films } }) => {
+  return { films };
+};
+
+const mapDispatchToProps = {
+  filmLoaded,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

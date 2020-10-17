@@ -17,20 +17,27 @@
     font-weight: 400;
     font-size: 18px;
     margin-bottom: 30px;
-    li {
-      color: black;
-      cursor: pointer;
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-      &:hover {
-        color: darkcyan;
+
+    ul {
+      .sidebar__li {
+        display: block;
+        &:not(:first-child) {
+          margin-top: 20px;
+        }
+        li {
+          color: black;
+          cursor: pointer;
+
+          &:hover {
+            color: darkcyan;
+          }
+        }
       }
     }
   }
   .sidebar__search {
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     p {
       cursor: pointer;
       display: inline-block;
