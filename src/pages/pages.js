@@ -17,14 +17,14 @@ const Pages = ({ films, filmLoaded }) => {
     dataServer.getServer().then((data) => {
       filmLoaded(data);
     });
-  }, []);
+  }, [filmLoaded]);
 
   console.log("pages", films);
 
   return (
     <div className="pages">
       <Switch>
-        <Route path="/" component={Home} exact />
+        <Route path="/" component={Home} films={films} exact />
         <Route path="/film" component={Film} exact />
         <Route path="/shop" component={Shop} exact />
         <Route path="/checkout" component={Checkout} exact />

@@ -1,7 +1,7 @@
 const updateFilmData = (state, action) => {
   if (state === undefined) {
     return {
-      films: [],
+      films: null,
     };
   }
 

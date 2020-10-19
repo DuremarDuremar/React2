@@ -1,0 +1,12 @@
+.home {
+  .home__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .home__item {
+      img {
+        max-width: 100%;
+        display: block;
+      }
+    }
+  }
+}
