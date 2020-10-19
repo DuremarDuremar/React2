@@ -1,8 +1,7 @@
-const filmLoaded = (newFilm, str) => {
+const filmLoaded = (newFilm) => {
   return {
     type: "FILMS_LOADED",
     payload: newFilm,
-    str: str,
   };
 };
 

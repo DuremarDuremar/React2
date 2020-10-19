@@ -5,7 +5,7 @@ import { filmLoaded } from "../reducers/action";
 import "./sidebar.scss";
 
 const Sidebar = ({ films, filmLoaded }) => {
-  console.log(films);
+  console.log("sidebar", films);
 
   return (
     <div className="sidebar">
@@ -27,7 +27,7 @@ const Sidebar = ({ films, filmLoaded }) => {
         </ul>
       </div>
       <div className="sidebar__search">
-        <p onClick={() => filmLoaded()}>
+        <p onClick={() => filmLoaded([2, 4])}>
           <i className="fas fa-search"></i> Search
         </p>
       </div>

@@ -1,7 +1,7 @@
 const updateFilmData = (state, action) => {
   if (state === undefined) {
     return {
-      films: 0,
+      films: [],
     };
   }
 
@@ -9,7 +9,7 @@ const updateFilmData = (state, action) => {
     case "FILMS_LOADED":
       return {
         ...state.filmData,
-        films: 1,
+        films: action.payload,
       };
     default:
       return state.filmData;
