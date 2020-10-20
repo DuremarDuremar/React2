@@ -1,10 +1,11 @@
 .sidebar {
   grid-area: s;
-  //   background-color: aquamarine;
+  background-color: #636e72;
   padding-top: 30px;
   padding-left: 30px;
   padding-right: 10px;
-  //   max-width: 340px;
+  border-right: 4px solid #6d214f;
+
   .sidebar__title {
     font-family: "Sansita Swashed", cursive;
     font-weight: 700;
@@ -29,7 +30,7 @@
           cursor: pointer;
 
           &:hover {
-            color: darkcyan;
+            color: #6d214f;
           }
         }
       }
@@ -51,7 +52,7 @@
       cursor: pointer;
       display: inline-block;
       &:hover {
-        color: darkcyan;
+        color: #6d214f;
       }
     }
   }
@@ -65,7 +66,7 @@
         margin-right: 10px;
       }
       &:hover {
-        background-color: darkcyan;
+        background-color: #6d214f;
         color: #fff;
       }
     }

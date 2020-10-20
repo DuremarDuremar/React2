@@ -27,7 +27,7 @@ const Sidebar = ({ films, filmLoaded }) => {
         </ul>
       </div>
       <div className="sidebar__search">
-        <p onClick={() => filmLoaded([2, 4])}>
+        <p>
           <i className="fas fa-search"></i> Search
         </p>
       </div>
