@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { chunk } from "lodash";
 import { filmLoaded } from "../reducers/action";
 import shuffle from "../utils/shuffle";
 import "./home.scss";
 
 const Home = ({ films }) => {
+  const [filmsView, setFilmVieW] = useState(6);
+  const [homeFilms, setHomeFilms] = useState(null);
+
+  console.log("films", films);
+  console.log("homeFilms", homeFilms);
+
   if (films) {
     shuffle(films);
-    const filmsHome = films.filter((item, index) => index < 6);
+
+    const filmsHome = chunk(films, filmsView);
 
     return (
       <div className="home">
         <div className="home__container">
-          {filmsHome.map((film) => (
+          {filmsHome[0].map((film) => (
             <div key={film.id} className="home__item">
               <img src={film.image} alt={film.title} />
               <div className="home__item_info">
@@ -26,6 +34,12 @@ const Home = ({ films }) => {
               <div className="home__item_price">{film.price}$</div>
             </div>
           ))}
+        </div>
+        <div
+          className="home__item_more"
+          onClick={() => setFilmVieW(filmsView + 3)}
+        >
+          more
         </div>
       </div>
     );

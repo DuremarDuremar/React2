@@ -80,6 +80,26 @@ export default class Server {
       image:
         "https://st.kp.yandex.net/im/poster/1/7/3/kinopoisk.ru-Ladri-di-biciclette-1736437.jpg",
     },
+    {
+      id: 9,
+      title: "Огни большого города",
+      author: "Чарльз Чаплин",
+      year: 1931,
+      price: 15,
+      country: "США",
+      image:
+        "https://st.kp.yandex.net/im/poster/1/2/5/kinopoisk.ru-City-Lights-1258948.jpg",
+    },
+    {
+      id: 10,
+      title: "Плата за страх",
+      author: "Анри-Жорж Клузо",
+      year: 1952,
+      price: 12,
+      country: "Франция, Италия",
+      image:
+        "https://st.kp.yandex.net/im/poster/7/3/0/kinopoisk.ru-Le-salaire-de-la-peur-730585.jpg",
+    },
   ];
 
   getServer() {
