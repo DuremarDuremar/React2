@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { chunk } from "lodash";
 import { filmLoaded } from "../reducers/action";
@@ -9,13 +9,15 @@ const Home = ({ films }) => {
   const [filmsView, setFilmVieW] = useState(6);
   const [homeFilms, setHomeFilms] = useState(null);
 
-  console.log("films", films);
-  console.log("homeFilms", homeFilms);
+  useEffect(() => {
+    if (films) {
+      shuffle(films);
+      setHomeFilms(films);
+    }
+  }, [films]);
 
-  if (films) {
-    shuffle(films);
-
-    const filmsHome = chunk(films, filmsView);
+  if (homeFilms) {
+    const filmsHome = chunk(homeFilms, filmsView);
 
     return (
       <div className="home">

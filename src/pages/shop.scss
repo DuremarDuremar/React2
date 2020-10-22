@@ -1,0 +1,69 @@
+.shop {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  min-height: 100vh;
+  grid-template-areas:
+    "s h h h h"
+    "s c c c c"
+    "s c c c c"
+    "s c c c c";
+
+  .shop__sidebar {
+    grid-area: s;
+    background-color: brown;
+    .shop__nav {
+      text-align: center;
+      padding-top: 35px;
+      h4 {
+        font-size: 24px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: 3px solid black;
+        border-top: 3px solid black;
+      }
+      ul {
+        li {
+          font-family: "Sansita Swashed", cursive;
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: 500;
+          padding-top: 15px;
+          &:hover {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .shop__header {
+    grid-area: h;
+    background-color: cadetblue;
+
+    .shop__form {
+      padding-top: 35px;
+      display: flex;
+      justify-content: space-evenly;
+      form {
+        input {
+          width: 220px;
+          padding: 10px 0 10px 5px;
+          font-size: 16px;
+          line-height: 16px;
+          border: 2px solid black;
+        }
+        button {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+          position: relative;
+          right: 20px;
+          border: 3px solid black;
+        }
+      }
+    }
+  }
+  .shop__content {
+    grid-area: c;
+    background-color: darkorchid;
+  }
+}
