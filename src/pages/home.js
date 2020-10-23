@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { chunk } from "lodash";
-import { filmLoaded } from "../reducers/action";
 import shuffle from "../utils/shuffle";
 import "./home.scss";
 
@@ -54,8 +53,4 @@ const mapStateToProps = ({ filmData: { films } }) => {
   return { films };
 };
 
-const mapDispatchToProps = {
-  filmLoaded,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

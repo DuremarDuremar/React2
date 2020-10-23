@@ -19,7 +19,7 @@ const Pages = ({ films, filmLoaded }) => {
     });
   }, [filmLoaded]);
 
-  console.log("pages", films);
+  // console.log("pages", films);
 
   return (
     <div className="pages">

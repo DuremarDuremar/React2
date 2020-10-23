@@ -1,11 +1,10 @@
 .shop {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 2fr 10fr;
   min-height: 100vh;
   grid-template-areas:
     "s h h h h"
-    "s c c c c"
-    "s c c c c"
     "s c c c c";
 
   .shop__sidebar {
@@ -38,7 +37,6 @@
   .shop__header {
     grid-area: h;
     background-color: cadetblue;
-
     .shop__form {
       padding-top: 35px;
       display: flex;
@@ -58,6 +56,9 @@
           position: relative;
           right: 20px;
           border: 3px solid black;
+          &:hover {
+            background-color: #fff;
+          }
         }
       }
     }

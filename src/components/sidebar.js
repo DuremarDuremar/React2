@@ -5,7 +5,7 @@ import { filmLoaded } from "../reducers/action";
 import "./sidebar.scss";
 
 const Sidebar = ({ films, filmLoaded }) => {
-  console.log("sidebar", films);
+  // console.log("sidebar", films);
 
   return (
     <div className="sidebar">
