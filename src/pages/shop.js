@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { sortBy } from "lodash";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
   const [stateShop, setStateShop] = useState("All");
 
   console.log(stateShop);
+
+  const filmsYear = sortBy(films, ["year"]);
 
   return (
     <div className="shop">
@@ -43,10 +45,26 @@ const Shop = ({ films }) => {
         </div>
       </div>
       {films && stateShop == "All" && (
-        <div className="shop__content">{films.map((film) => film.title)}</div>
+        <div className="shop__content">
+          {films.map((film) => (
+            <div key={film.id} className="shop__content_item">
+              <h3>{film.title}</h3>
+              <img src={film.image} alt={film.title} />
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
       )}
       {films && stateShop == "Year" && (
-        <div className="shop__content">{films.map((film) => film.year)}</div>
+        <div className="shop__content">
+          {filmsYear.map((film) => (
+            <div key={film.id} className="shop__content_item">
+              <h3>{film.year}</h3>
+              <img src={film.image} alt={film.title} />
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
       )}
       {films && stateShop == "Country" && (
         <div className="shop__content">{films.map((film) => film.country)}</div>
