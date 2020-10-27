@@ -27,9 +27,13 @@
           font-size: 20px;
           font-weight: 500;
           padding-top: 15px;
+
           &:hover {
             background-color: #fff;
           }
+        }
+        .activeLi {
+          color: #6d214f;
         }
       }
     }
