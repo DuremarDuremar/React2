@@ -33,7 +33,14 @@
           }
         }
         .activeLi {
-          color: #6d214f;
+          &:after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 5px;
+            background-color: black;
+            margin: 0px auto;
+          }
         }
       }
     }

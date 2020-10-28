@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { sortBy } from "lodash";
-import classNames from "classnames";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
@@ -9,42 +8,38 @@ const Shop = ({ films }) => {
 
   const [stateArrow, setStateArrow] = useState(true);
 
+  //создаем переменную для изменения направления стрелки
   const classI =
     stateArrow === true ? "fas fa-arrow-down fa-xs" : "fas fa-arrow-up fa-xs";
 
+  //делаем кнопку активной и меняем положение стрелки при повторном нажатии
   const changeArrow = (e) => {
     if (stateShop === e.id) {
       setStateArrow(!stateArrow);
+    } else {
+      setStateArrow(true);
     }
 
-    console.log(e);
-    console.log(stateArrow);
     setStateShop(e.id);
-
-    // e.classList.toggle("activeLi");
-
-    // if ((e.id = stateShop)) {
-    //   setStateArrow(
-    //     stateArrow === "fas fa-arrow-up"
-    //       ? "fas fa-arrow-down"
-    //       : "fas fa-arrow-up"
-    //   );
-    // }
   };
 
-  // const liClasses = classNames({
-  //   if(stateShop = this.title) {
-  //     return "activeLi";
-  //   },
-  // });
+  // добовляем видимость стрелки при активной кнопки, стрелка моежет быть вверх или вниз
+  const arrow = (classI, state) => {
+    if (state === stateShop) {
+      return <i className={classI}></i>;
+    }
+  };
 
-  // console.log(stateShop);
-
-  const filmsYear = sortBy(films, ["year"]);
-  const filmsPrice = sortBy(films, ["price"]);
-  const filmsCountry = sortBy(films, ["country"]);
-
-  // console.log("filmsPrice", sortBy(films, ["price"]).reverse());
+  //создаем переменные для осортрованных по типу массивов, в зависемости от направления стрелки
+  const filmsYear = stateArrow
+    ? sortBy(films, ["year"])
+    : sortBy(films, ["year"]).reverse();
+  const filmsPrice = stateArrow
+    ? sortBy(films, ["price"])
+    : sortBy(films, ["price"]).reverse();
+  const filmsCountry = stateArrow
+    ? sortBy(films, ["country"])
+    : sortBy(films, ["country"]).reverse();
 
   return (
     <div className="shop">
@@ -63,21 +58,21 @@ const Shop = ({ films }) => {
               className={stateShop === "Year" ? "activeLi" : null}
               id="Year"
             >
-              Year <i className={classI}></i>
+              Year {arrow(classI, "Year")}
             </li>
             <li
               onClick={(e) => changeArrow(e.currentTarget)}
               className={stateShop === "Country" ? "activeLi" : null}
               id="Country"
             >
-              Country <i className={classI}></i>
+              Country {arrow(classI, "Country")}
             </li>
             <li
               onClick={(e) => changeArrow(e.currentTarget)}
               className={stateShop === "Price" ? "activeLi" : null}
               id="Price"
             >
-              Price <i className={classI}></i>
+              Price {arrow(classI, "Price")}
             </li>
           </ul>
         </div>
