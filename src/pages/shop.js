@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { sortBy } from "lodash";
+import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
+  // стэйт активной кнопки
   const [stateShop, setStateShop] = useState("All");
-
+  // стэйт направления стрелки и сортировки массива
   const [stateArrow, setStateArrow] = useState(true);
-
+  // стэйт для перемешевания
   const [filmsRandom, setFilmsRandom] = useState(false);
+  // стэйт для пагинации
+  const [shopFilms, setShopFilms] = useState(null);
+
+  useEffect(() => {
+    if (films) {
+      setShopFilms(chunk(films, 12));
+    }
+  }, [films]);
+
+  console.log(shopFilms);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -162,6 +173,12 @@ const Shop = ({ films }) => {
           ))}
         </div>
       )}
+      <div className="shop__pagination">
+        {shopFilms &&
+          shopFilms.map((page, indexPage) => (
+            <div key={indexPage}>{indexPage + 1}</div>
+          ))}
+      </div>
     </div>
   );
 };
