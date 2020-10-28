@@ -100,6 +100,46 @@ export default class Server {
       image:
         "https://st.kp.yandex.net/im/poster/7/3/0/kinopoisk.ru-Le-salaire-de-la-peur-730585.jpg",
     },
+    {
+      id: 11,
+      title: "Его девушка Пятница",
+      author: "Ховард Хоукс",
+      year: 1940,
+      price: 10,
+      country: "США",
+      image:
+        "https://st.kp.yandex.net/im/poster/7/6/2/kinopoisk.ru-His-Girl-Friday-762439.jpg",
+    },
+    {
+      id: 12,
+      title: "Небо над Берлином",
+      author: "Вим Вендерс",
+      year: 1987,
+      price: 12,
+      country: "Германия (ФРГ), Франция",
+      image:
+        "https://st.kp.yandex.net/im/poster/5/2/8/kinopoisk.ru-Der-Himmel-_26uuml_3Bber-Berlin-528958.jpg",
+    },
+    {
+      id: 13,
+      title: "Слово",
+      author: "Карл Теодор Дрейер",
+      year: 1955,
+      price: 10,
+      country: "Дания",
+      image:
+        "https://st.kp.yandex.net/im/poster/2/9/5/kinopoisk.ru-Ordet-2952325.jpg",
+    },
+    {
+      id: 14,
+      title: "Андрей Рублев",
+      author: "Андрей Тарковский",
+      year: 1966,
+      price: 13,
+      country: "СССР",
+      image:
+        "https://st.kp.yandex.net/im/poster/2/4/4/kinopoisk.ru-Andrey-Rublyov-2447504.jpg",
+    },
   ];
 
   getServer() {

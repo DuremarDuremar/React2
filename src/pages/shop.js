@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { sortBy } from "lodash";
+import shuffle from "../utils/shuffle";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
   const [stateShop, setStateShop] = useState("All");
 
   const [stateArrow, setStateArrow] = useState(true);
+
+  const [filmsRandom, setFilmsRandom] = useState(false);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -23,10 +26,26 @@ const Shop = ({ films }) => {
     setStateShop(e.id);
   };
 
+  //делаем кнопку активной для "All" , при повторном нажатии сортирум заново случаным образом
+  const changeFilms = (e) => {
+    setStateShop(e.id);
+
+    if (stateShop === e.id) {
+      shuffle(films);
+      setFilmsRandom(!filmsRandom);
+    }
+  };
+
   // добовляем видимость стрелки при активной кнопки, стрелка моежет быть вверх или вниз
   const arrow = (classI, state) => {
     if (state === stateShop) {
       return <i className={classI}></i>;
+    }
+  };
+  // добовляем видимость значка для "All"
+  const all = (state) => {
+    if (state === stateShop) {
+      return <i className="fas fa-infinity"></i>;
     }
   };
 
@@ -48,10 +67,11 @@ const Shop = ({ films }) => {
           <h4>Catagories</h4>
           <ul>
             <li
-              onClick={() => setStateShop("All")}
+              onClick={(e) => changeFilms(e.currentTarget)}
               className={stateShop === "All" ? "activeLi" : null}
+              id="All"
             >
-              All <i className="fas fa-infinity"></i>
+              All {all("All")}
             </li>
             <li
               onClick={(e) => changeArrow(e.currentTarget)}
