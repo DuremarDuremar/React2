@@ -80,6 +80,7 @@
     background-color: darkorchid;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-row-gap: 10px;
     grid-column-gap: 2px;
     padding: 10px 5px 5px 5px;
@@ -129,6 +130,9 @@
       &:hover {
         background-color: #fff;
       }
+    }
+    .activePage {
+      border: 6px solid black;
     }
   }
 }

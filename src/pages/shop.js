@@ -12,15 +12,14 @@ const Shop = ({ films }) => {
   // стэйт для перемешевания
   const [filmsRandom, setFilmsRandom] = useState(false);
   // стэйт для пагинации
-  const [shopFilms, setShopFilms] = useState(null);
+  const [shopAllPage, setShopAllPage] = useState(null);
+  const [shopPage, setShopPage] = useState(0);
 
   useEffect(() => {
     if (films) {
-      setShopFilms(chunk(films, 12));
+      setShopAllPage(chunk(films, 12));
     }
   }, [films]);
-
-  console.log(shopFilms);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -131,7 +130,7 @@ const Shop = ({ films }) => {
       </div>
       {films && stateShop === "All" && (
         <div className="shop__content">
-          {films.map((film) => (
+          {chunk(films, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
               <h3>{film.title}</h3>
               <img src={film.image} alt={film.title} />
@@ -142,7 +141,7 @@ const Shop = ({ films }) => {
       )}
       {films && stateShop === "Year" && (
         <div className="shop__content">
-          {filmsYear.map((film) => (
+          {chunk(filmsYear, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
               <h3>{film.year}</h3>
               <img src={film.image} alt={film.title} />
@@ -153,7 +152,7 @@ const Shop = ({ films }) => {
       )}
       {films && stateShop === "Country" && (
         <div className="shop__content">
-          {filmsCountry.map((film) => (
+          {chunk(filmsCountry, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
               <h3>{film.country}</h3>
               <img src={film.image} alt={film.title} />
@@ -164,7 +163,7 @@ const Shop = ({ films }) => {
       )}
       {films && stateShop === "Price" && (
         <div className="shop__content">
-          {filmsPrice.map((film) => (
+          {chunk(filmsPrice, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
               <h3>{film.price}$</h3>
               <img src={film.image} alt={film.title} />
@@ -174,9 +173,15 @@ const Shop = ({ films }) => {
         </div>
       )}
       <div className="shop__pagination">
-        {shopFilms &&
-          shopFilms.map((page, indexPage) => (
-            <div key={indexPage}>{indexPage + 1}</div>
+        {shopAllPage &&
+          shopAllPage.map((page, indexPage) => (
+            <div
+              key={indexPage}
+              onClick={() => setShopPage(indexPage)}
+              className={indexPage === shopPage ? "activePage" : null}
+            >
+              {indexPage + 1}
+            </div>
           ))}
       </div>
     </div>
