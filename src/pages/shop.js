@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
+import search from "../utils/search";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
@@ -14,6 +15,8 @@ const Shop = ({ films }) => {
   // стэйт для пагинации
   const [shopAllPage, setShopAllPage] = useState(null);
   const [shopPage, setShopPage] = useState(0);
+  // стэйт для поиска
+  const [shopValue, setShopValue] = useState("");
 
   useEffect(() => {
     if (films) {
@@ -58,6 +61,15 @@ const Shop = ({ films }) => {
       return <i className="fas fa-infinity"></i>;
     }
   };
+
+  // создаем поиск
+  if (films) {
+    const title = films.map((item) => item.title);
+    const arrFilms = search(title, shopValue);
+    console.log(arrFilms);
+  }
+
+  console.log("shopValue", shopValue);
 
   //создаем переменные для осортрованных по типу массивов, в зависемости от направления стрелки
   const filmsYear = stateArrow
@@ -114,6 +126,7 @@ const Shop = ({ films }) => {
               className="shop__search_title"
               type="text"
               placeholder="film"
+              onChange={(e) => setShopValue(e.target.value)}
             />
             <button>go</button>
           </form>
