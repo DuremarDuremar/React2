@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
-import search from "../utils/search";
+import { titleSearch, autorSearch } from "../utils/search";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
+  //стэйт для отображения
+  const [arrShop, setArrShop] = useState(null);
   // стэйт активной кнопки
   const [stateShop, setStateShop] = useState("All");
   // стэйт направления стрелки и сортировки массива
@@ -15,14 +17,26 @@ const Shop = ({ films }) => {
   // стэйт для пагинации
   const [shopAllPage, setShopAllPage] = useState(null);
   const [shopPage, setShopPage] = useState(0);
-  // стэйт для поиска
-  const [shopValue, setShopValue] = useState("");
+  // стэйт для вывода ошибка при не нахождении в поиске
+  const [shopNone, setShopNone] = useState(false);
+  // стэйт для очистки value
+  const [shopValueTitle, setShopValueTitle] = useState("");
+  const [shopValueAutor, setShopValueAutor] = useState("");
 
   useEffect(() => {
     if (films) {
       setShopAllPage(chunk(films, 12));
+      setArrShop(films);
     }
   }, [films]);
+
+  // if (arrShop.length == 0 && !arrShop) {
+  //   setArrShop(films);
+  // }
+
+  // useEffect(() => {
+  //   setArrShop(search(films, shopValue));
+  // }, [shopValue]);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -63,24 +77,34 @@ const Shop = ({ films }) => {
   };
 
   // создаем поиск
-  if (films) {
-    const title = films.map((item) => item.title);
-    const arrFilms = search(title, shopValue);
-    console.log(arrFilms);
-  }
 
-  console.log("shopValue", shopValue);
+  const searchTitle = (e) => {
+    setShopValueTitle(e);
+    let arr = titleSearch(films, e);
+    if (arr.length === 0) {
+      setShopNone(true);
+    } else {
+      setArrShop(arr);
+      setShopNone(false);
+    }
+  };
+
+  const searchReturn = () => {
+    setShopNone(false);
+    setArrShop(films);
+    setShopValueTitle("");
+  };
 
   //создаем переменные для осортрованных по типу массивов, в зависемости от направления стрелки
   const filmsYear = stateArrow
-    ? sortBy(films, ["year"])
-    : sortBy(films, ["year"]).reverse();
+    ? sortBy(arrShop, ["year"])
+    : sortBy(arrShop, ["year"]).reverse();
   const filmsPrice = stateArrow
-    ? sortBy(films, ["price"])
-    : sortBy(films, ["price"]).reverse();
+    ? sortBy(arrShop, ["price"])
+    : sortBy(arrShop, ["price"]).reverse();
   const filmsCountry = stateArrow
-    ? sortBy(films, ["country"])
-    : sortBy(films, ["country"]).reverse();
+    ? sortBy(arrShop, ["country"])
+    : sortBy(arrShop, ["country"]).reverse();
 
   return (
     <div className="shop">
@@ -126,7 +150,8 @@ const Shop = ({ films }) => {
               className="shop__search_title"
               type="text"
               placeholder="film"
-              onChange={(e) => setShopValue(e.target.value)}
+              onChange={(e) => searchTitle(e.target.value)}
+              value={shopValueTitle}
             />
             <button>go</button>
           </form>
@@ -141,9 +166,15 @@ const Shop = ({ films }) => {
           </form>
         </div>
       </div>
-      {films && stateShop === "All" && (
+      {shopNone && (
+        <div className="shop__content shop__none">
+          <p>None</p>
+          <button onClick={() => searchReturn()}> return </button>
+        </div>
+      )}
+      {arrShop && stateShop === "All" && !shopNone && (
         <div className="shop__content">
-          {chunk(films, 12)[shopPage].map((film) => (
+          {chunk(arrShop, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
               <h3>{film.title}</h3>
               <img src={film.image} alt={film.title} />
@@ -152,7 +183,7 @@ const Shop = ({ films }) => {
           ))}
         </div>
       )}
-      {films && stateShop === "Year" && (
+      {arrShop && stateShop === "Year" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsYear, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
@@ -163,7 +194,7 @@ const Shop = ({ films }) => {
           ))}
         </div>
       )}
-      {films && stateShop === "Country" && (
+      {arrShop && stateShop === "Country" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsCountry, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
@@ -174,7 +205,7 @@ const Shop = ({ films }) => {
           ))}
         </div>
       )}
-      {films && stateShop === "Price" && (
+      {arrShop && stateShop === "Price" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsPrice, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
@@ -187,6 +218,7 @@ const Shop = ({ films }) => {
       )}
       <div className="shop__pagination">
         {shopAllPage &&
+          !shopNone &&
           shopAllPage.map((page, indexPage) => (
             <div
               key={indexPage}

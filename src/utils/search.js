@@ -1,6 +1,6 @@
-export default function (items, term) {
+export function titleSearch(items, term) {
   if (!items) {
-    return [];
+    return null;
   }
 
   if (term.length === 0) {
@@ -8,6 +8,20 @@ export default function (items, term) {
   }
 
   return items.filter((item) => {
-    return item.toLowerCase().indexOf(term.toLowerCase()) > -1;
+    return item.title.toLowerCase().indexOf(term.toLowerCase()) > -1;
+  });
+}
+
+export function autorSearch(items, term) {
+  if (!items) {
+    return null;
+  }
+
+  if (term.length === 0) {
+    return items;
+  }
+
+  return items.filter((item) => {
+    return item.autor.toLowerCase().indexOf(term.toLowerCase()) > -1;
   });
 }
