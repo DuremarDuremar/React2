@@ -12,7 +12,7 @@ export function titleSearch(items, term) {
   });
 }
 
-export function autorSearch(items, term) {
+export function authorSearch(items, term) {
   if (!items) {
     return null;
   }
@@ -22,6 +22,6 @@ export function autorSearch(items, term) {
   }
 
   return items.filter((item) => {
-    return item.autor.toLowerCase().indexOf(term.toLowerCase()) > -1;
+    return item.author.toLowerCase().indexOf(term.toLowerCase()) > -1;
   });
 }

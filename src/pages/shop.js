@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
-import { titleSearch, autorSearch } from "../utils/search";
+import { titleSearch, authorSearch } from "../utils/search";
 import "./shop.scss";
 
 const Shop = ({ films }) => {
@@ -21,22 +21,19 @@ const Shop = ({ films }) => {
   const [shopNone, setShopNone] = useState(false);
   // стэйт для очистки value
   const [shopValueTitle, setShopValueTitle] = useState("");
-  const [shopValueAutor, setShopValueAutor] = useState("");
+  const [shopValueAuthor, setShopValueAuthor] = useState("");
 
   useEffect(() => {
     if (films) {
-      setShopAllPage(chunk(films, 12));
       setArrShop(films);
     }
   }, [films]);
 
-  // if (arrShop.length == 0 && !arrShop) {
-  //   setArrShop(films);
-  // }
-
-  // useEffect(() => {
-  //   setArrShop(search(films, shopValue));
-  // }, [shopValue]);
+  useEffect(() => {
+    if (arrShop) {
+      setShopAllPage(chunk(arrShop, 12));
+    }
+  }, [arrShop]);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -81,6 +78,17 @@ const Shop = ({ films }) => {
   const searchTitle = (e) => {
     setShopValueTitle(e);
     let arr = titleSearch(films, e);
+    if (arr.length === 0) {
+      setShopNone(true);
+    } else {
+      setArrShop(arr);
+      setShopNone(false);
+    }
+  };
+
+  const searchAuthor = (e) => {
+    setShopValueAuthor(e);
+    let arr = authorSearch(films, e);
     if (arr.length === 0) {
       setShopNone(true);
     } else {
@@ -160,7 +168,9 @@ const Shop = ({ films }) => {
             <input
               className="shop__search_autor"
               type="text"
-              placeholder="autor"
+              placeholder="author"
+              onChange={(e) => searchAuthor(e.target.value)}
+              value={shopValueAuthor}
             />
             <button>go</button>
           </form>
@@ -176,6 +186,7 @@ const Shop = ({ films }) => {
         <div className="shop__content">
           {chunk(arrShop, 12)[shopPage].map((film) => (
             <div key={film.id} className="shop__content_item">
+              <div className="shop__content_author">{film.author}</div>
               <h3>{film.title}</h3>
               <img src={film.image} alt={film.title} />
               <div className="shop__content_price">{film.price} $</div>

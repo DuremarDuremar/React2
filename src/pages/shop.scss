@@ -111,6 +111,18 @@
         padding: 10px;
         border-radius: 75%;
       }
+      .shop__content_author {
+        position: absolute;
+        top: 40px;
+        max-width: 100px;
+        right: 5px;
+        color: #fff;
+        background-color: #6d214f;
+        text-align: center;
+        padding: 0;
+        transform: rotate(10deg);
+        font-size: 11px;
+      }
     }
   }
   .shop__pagination {
