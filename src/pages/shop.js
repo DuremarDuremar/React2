@@ -101,6 +101,7 @@ const Shop = ({ films }) => {
     setShopNone(false);
     setArrShop(films);
     setShopValueTitle("");
+    setShopValueAuthor("");
   };
 
   //создаем переменные для осортрованных по типу массивов, в зависемости от направления стрелки
@@ -161,7 +162,7 @@ const Shop = ({ films }) => {
               onChange={(e) => searchTitle(e.target.value)}
               value={shopValueTitle}
             />
-            <button>go</button>
+            {/* <button>go</button> */}
           </form>
 
           <form>
@@ -172,7 +173,7 @@ const Shop = ({ films }) => {
               onChange={(e) => searchAuthor(e.target.value)}
               value={shopValueAuthor}
             />
-            <button>go</button>
+            {/* <button>go</button> */}
           </form>
         </div>
       </div>
