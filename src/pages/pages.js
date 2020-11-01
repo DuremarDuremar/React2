@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { filmLoaded } from "../reducers/action";
+import { filmLoaded, filmActive } from "../reducers/action";
 import Server from "../server";
 import Home from "./home";
 import Film from "./film";
@@ -12,14 +12,25 @@ import "./pages.scss";
 
 const dataServer = new Server();
 
-const Pages = ({ films, filmLoaded }) => {
+const Pages = ({ films, filmLoaded, filmActive, film }) => {
+  //получаем масиис фильмов
   useEffect(() => {
     dataServer.getServer().then((data) => {
       filmLoaded(data);
+      console.log(data[0]);
     });
   }, [filmLoaded]);
+  // вычлиняем из полученного массива один фильм
+  useEffect(() => {
+    if (films) {
+      let number = getRandomInt(0, films.length - 1);
+      filmActive(films[number]);
+    }
+  }, [films, filmActive]);
 
-  // console.log("pages", films);
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   return (
     <div className="pages">
@@ -35,12 +46,13 @@ const Pages = ({ films, filmLoaded }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({ filmData: { films, film } }) => {
+  return { films, film };
 };
 
 const mapDispatchToProps = {
   filmLoaded,
+  filmActive,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);

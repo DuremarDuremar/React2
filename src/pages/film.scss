@@ -1,0 +1,22 @@
+.film {
+  display: grid;
+  grid-template-areas:
+    "p in"
+    "im im";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 8fr 4fr;
+  min-height: 100vh;
+
+  .film__poster {
+    background-color: aqua;
+    grid-area: p;
+  }
+  .film__info {
+    background-color: darkgreen;
+    grid-area: in;
+  }
+  .film__images {
+    grid-area: im;
+    background-color: darkorange;
+  }
+}

@@ -5,4 +5,11 @@ const filmLoaded = (newFilm) => {
   };
 };
 
-export { filmLoaded };
+const filmActive = (film) => {
+  return {
+    type: "FILM",
+    payload: film,
+  };
+};
+
+export { filmLoaded, filmActive };
