@@ -8,15 +8,82 @@
   min-height: 100vh;
 
   .film__poster {
-    background-color: aqua;
+    // background-color: aqua;
     grid-area: p;
+    margin-right: 15px;
+    img {
+      display: block;
+      max-width: 100%;
+      border: 4px solid #6d214f;
+      border-left: none;
+    }
   }
   .film__info {
-    background-color: darkgreen;
+    font-family: "Sansita Swashed", cursive;
     grid-area: in;
+    .film__info_price {
+      padding-top: 15px;
+
+      font-size: 20px;
+      color: #fbb710;
+      &:before {
+        content: "";
+        display: block;
+        background-color: #fbb710;
+        width: 70px;
+        height: 5px;
+      }
+    }
+    .film__info_title {
+      font-size: 35px;
+    }
+    .film__info_subtitle {
+      display: flex;
+      justify-content: space-around;
+      .film__info_country {
+        font-size: 15px;
+        font-weight: 700;
+        font-family: "Ubuntu";
+      }
+      .film__info_author {
+        font-size: 25px;
+        font-weight: 400;
+      }
+    }
+    .film__info_text {
+      margin-right: 10px;
+      margin-top: 30px;
+      padding: 5px;
+      font-size: 18px;
+      font-weight: 400;
+      border: 1px solid black;
+    }
   }
   .film__images {
     grid-area: im;
     background-color: darkorange;
+  }
+  .film__info_form {
+    margin-top: 50px;
+    display: flex;
+    input {
+      appearance: textfield;
+      color: #959595;
+      overflow: visible;
+      text-align: center;
+    }
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .film__info_arrow {
+      display: block;
+      i {
+        cursor: pointer;
+        width: 20px;
+        padding-left: 3px;
+      }
+    }
   }
 }

@@ -4,10 +4,45 @@ import "./film.scss";
 
 const Film = ({ film }) => {
   console.log("film", film);
+
+  if (!film) {
+    return <p>loading</p>;
+  }
+
   return (
     <div className="film">
-      <div className="film__poster">1</div>
-      <div className="film__info">2</div>
+      <div className="film__poster">
+        <img src={film.image} alt={film.title} />
+      </div>
+      <div className="film__info">
+        <div className="film__info_price">$ {film.price}</div>
+        <div className="film__info_title">{film.title}</div>
+        <div className="film__info_subtitle">
+          <div className="film__info_country">{film.country}</div>
+          <div className="film__info_author">{film.author}</div>
+        </div>
+        <div className="film__info_text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+          fugiat quo recusandae?Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Non esse ex ipsam fuga earum facilis voluptatem, vel
+          maxime quam quaerat iure, impedit labore qui a voluptates similique
+          quidem corporis est?Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Dolore odit voluptas expedita animi dicta culpa,
+          repudiandae dignissimos ullam fugiat, excepturi molestiae fuga impedit
+          amet labore, soluta adipisci sed. Doloribus, obcaecati.
+        </div>
+        <form action="" className="film__info_form">
+          <input type="number" min="1" max="10" value="1" />
+          <div className="film__info_arrow">
+            <div>
+              <i className="fas fa-sort-up"></i>
+            </div>
+            <div>
+              <i className="fas fa-sort-down"></i>
+            </div>
+          </div>
+        </form>
+      </div>
       <div className="film__images">3</div>
     </div>
   );
