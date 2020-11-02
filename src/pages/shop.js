@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { filmActive } from "../reducers/action";
 import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
 import { titleSearch, authorSearch } from "../utils/search";
 import "./shop.scss";
 
-const Shop = ({ films }) => {
+const Shop = ({ films, filmActive }) => {
   //стэйт для отображения
   const [arrShop, setArrShop] = useState(null);
   // стэйт активной кнопки
@@ -186,10 +188,16 @@ const Shop = ({ films }) => {
       {arrShop && stateShop === "All" && !shopNone && (
         <div className="shop__content">
           {chunk(arrShop, 12)[shopPage].map((film) => (
-            <div key={film.id} className="shop__content_item">
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
               <div className="shop__content_author">{film.author}</div>
               <h3>{film.title}</h3>
-              <img src={film.image} alt={film.title} />
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
               <div className="shop__content_price">{film.price} $</div>
             </div>
           ))}
@@ -198,9 +206,15 @@ const Shop = ({ films }) => {
       {arrShop && stateShop === "Year" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsYear, 12)[shopPage].map((film) => (
-            <div key={film.id} className="shop__content_item">
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
               <h3>{film.year}</h3>
-              <img src={film.image} alt={film.title} />
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
               <div className="shop__content_price">{film.price} $</div>
             </div>
           ))}
@@ -209,9 +223,15 @@ const Shop = ({ films }) => {
       {arrShop && stateShop === "Country" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsCountry, 12)[shopPage].map((film) => (
-            <div key={film.id} className="shop__content_item">
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
               <h3>{film.country}</h3>
-              <img src={film.image} alt={film.title} />
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
               <div className="shop__content_price">{film.price} $</div>
             </div>
           ))}
@@ -220,9 +240,15 @@ const Shop = ({ films }) => {
       {arrShop && stateShop === "Price" && !shopNone && (
         <div className="shop__content">
           {chunk(filmsPrice, 12)[shopPage].map((film) => (
-            <div key={film.id} className="shop__content_item">
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
               <h3>{film.price}$</h3>
-              <img src={film.image} alt={film.title} />
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
               <div className="shop__content_price">{film.price} $</div>
             </div>
           ))}
@@ -245,8 +271,12 @@ const Shop = ({ films }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({ filmData: { films, film } }) => {
+  return { films, film };
 };
 
-export default connect(mapStateToProps)(Shop);
+const mapDispatchToProps = {
+  filmActive,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);

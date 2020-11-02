@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./film.scss";
 
 const Film = ({ film }) => {
-  console.log("film", film);
+  window.scrollTo(0, 0);
 
   if (!film) {
     return <p>loading</p>;
@@ -18,7 +18,11 @@ const Film = ({ film }) => {
         <div className="film__info_price">$ {film.price}</div>
         <div className="film__info_title">{film.title}</div>
         <div className="film__info_subtitle">
-          <div className="film__info_country">{film.country}</div>
+          <div className="film__info_country">
+            {film.country}
+            <p />
+            {film.year}
+          </div>
           <div className="film__info_author">{film.author}</div>
         </div>
         <div className="film__info_text">
@@ -32,7 +36,7 @@ const Film = ({ film }) => {
           amet labore, soluta adipisci sed. Doloribus, obcaecati.
         </div>
         <form action="" className="film__info_form">
-          <input type="number" min="1" max="10" value="1" />
+          <input type="number" min="1" max="10" placeholder="1" />
           <div className="film__info_arrow">
             <div>
               <i className="fas fa-sort-up"></i>

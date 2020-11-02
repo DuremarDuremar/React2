@@ -35,7 +35,7 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
   return (
     <div className="pages">
       <Switch>
-        <Route path="/" component={Home} films={films} exact />
+        <Route path="/" component={Home} exact />
         <Route path="/film" component={Film} exact />
         <Route path="/shop" component={Shop} exact />
         <Route path="/checkout" component={Checkout} exact />
