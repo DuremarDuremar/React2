@@ -17,7 +17,6 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
   useEffect(() => {
     dataServer.getServer().then((data) => {
       filmLoaded(data);
-      console.log(data[0]);
     });
   }, [filmLoaded]);
   // вычлиняем из полученного массива один фильм

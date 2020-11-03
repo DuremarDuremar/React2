@@ -1,29 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { filmActive } from "../reducers/action";
 import "./film.scss";
 
-const Film = ({ film }) => {
+const Film = ({ film, films }) => {
   window.scrollTo(0, 0);
 
-  if (!film) {
+  const [filmAct, setFilmAct] = useState("");
+
+  useEffect(() => {
+    if (film) {
+      setFilmAct(film);
+    }
+  }, [film]);
+
+  const nextFilm = () => {
+    const newFilm = films.filter((item) => {
+      if (filmAct.id === films.length) {
+        return item.id === 1;
+      }
+      return item.id === filmAct.id + 1;
+    });
+    setFilmAct(...newFilm);
+  };
+
+  const prevFilm = () => {
+    const newFilm = films.filter((item) => {
+      if (filmAct.id === 1) {
+        return item.id === films.length;
+      }
+      return item.id === filmAct.id - 1;
+    });
+    setFilmAct(...newFilm);
+  };
+
+  if (!filmAct) {
     return <p>loading</p>;
   }
 
   return (
     <div className="film">
       <div className="film__poster">
-        <img src={film.image} alt={film.title} />
+        <img src={filmAct.image} alt={filmAct.title} />
       </div>
       <div className="film__info">
-        <div className="film__info_price">$ {film.price}</div>
-        <div className="film__info_title">{film.title}</div>
+        <div className="film__info_price">$ {filmAct.price}</div>
+        <div className="film__info_title">{filmAct.title}</div>
         <div className="film__info_subtitle">
           <div className="film__info_country">
-            {film.country}
+            {filmAct.country}
             <p />
-            {film.year}
+            {filmAct.year}
           </div>
-          <div className="film__info_author">{film.author}</div>
+          <div className="film__info_author">{filmAct.author}</div>
         </div>
         <div className="film__info_text">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
@@ -53,9 +82,15 @@ const Film = ({ film }) => {
           </button>
         </form>
         <div className="film__slider">
-          <i className="fas fa-play fa-4x play-reverce film__play"></i>
+          <i
+            className="fas fa-play fa-4x play-reverce film__play"
+            onClick={() => prevFilm()}
+          ></i>
           <i className="fas fa-circle fa-4x"></i>
-          <i className="fas fa-play fa-4x film__play"></i>
+          <i
+            className="fas fa-play fa-4x film__play"
+            onClick={() => nextFilm()}
+          ></i>
         </div>
       </div>
       <div className="film__images">3</div>
@@ -63,8 +98,12 @@ const Film = ({ film }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { film } }) => {
-  return { film };
+const mapStateToProps = ({ filmData: { film, films } }) => {
+  return { film, films };
 };
 
-export default connect(mapStateToProps)(Film);
+const mapDispatchToProps = {
+  filmActive,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Film);
