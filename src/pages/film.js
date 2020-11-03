@@ -45,7 +45,18 @@ const Film = ({ film }) => {
               <i className="fas fa-sort-down"></i>
             </div>
           </div>
+          <button
+            className="film__cart"
+            onClick={(event) => event.preventDefault()}
+          >
+            Add to cart
+          </button>
         </form>
+        <div className="film__slider">
+          <i className="fas fa-play fa-4x play-reverce film__play"></i>
+          <i className="fas fa-circle fa-4x"></i>
+          <i className="fas fa-play fa-4x film__play"></i>
+        </div>
       </div>
       <div className="film__images">3</div>
     </div>

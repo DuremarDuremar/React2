@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { filmActive } from "../reducers/action";
 import { chunk } from "lodash";
 import shuffle from "../utils/shuffle";
 import "./home.scss";
 
-const Home = ({ films }) => {
+const Home = ({ films, filmActive }) => {
   const [filmsView, setFilmVieW] = useState(6);
   const [homeFilms, setHomeFilms] = useState(null);
 
@@ -22,8 +24,14 @@ const Home = ({ films }) => {
       <div className="home">
         <div className="home__container">
           {filmsHome[0].map((film) => (
-            <div key={film.id} className="home__item">
-              <img src={film.image} alt={film.title} />
+            <div
+              key={film.id}
+              className="home__item"
+              onClick={() => filmActive(film)}
+            >
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
               <div className="home__item_info">
                 <h3>{film.title}</h3>
                 <span>
@@ -53,4 +61,8 @@ const mapStateToProps = ({ filmData: { films } }) => {
   return { films };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = {
+  filmActive,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

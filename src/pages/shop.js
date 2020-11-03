@@ -271,8 +271,8 @@ const Shop = ({ films, filmActive }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films, film } }) => {
-  return { films, film };
+const mapStateToProps = ({ filmData: { films } }) => {
+  return { films };
 };
 
 const mapDispatchToProps = {
