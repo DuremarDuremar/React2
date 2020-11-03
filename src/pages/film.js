@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { filmActive } from "../reducers/action";
+import { filmBuy } from "../reducers/action";
 import "./film.scss";
 
-const Film = ({ film, films }) => {
+const Film = ({ film, films, filmBuy }) => {
   window.scrollTo(0, 0);
 
   const [filmAct, setFilmAct] = useState("");
@@ -14,6 +14,7 @@ const Film = ({ film, films }) => {
     }
   }, [film]);
 
+  // функция перелистывания вперед
   const nextFilm = () => {
     const newFilm = films.filter((item) => {
       if (filmAct.id === films.length) {
@@ -24,6 +25,7 @@ const Film = ({ film, films }) => {
     setFilmAct(...newFilm);
   };
 
+  // функция перелистывания назад
   const prevFilm = () => {
     const newFilm = films.filter((item) => {
       if (filmAct.id === 1) {
@@ -76,7 +78,10 @@ const Film = ({ film, films }) => {
           </div>
           <button
             className="film__cart"
-            onClick={(event) => event.preventDefault()}
+            onClick={(event) => {
+              event.preventDefault();
+              filmBuy(filmAct);
+            }}
           >
             Add to cart
           </button>
@@ -103,7 +108,7 @@ const mapStateToProps = ({ filmData: { film, films } }) => {
 };
 
 const mapDispatchToProps = {
-  filmActive,
+  filmBuy,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Film);

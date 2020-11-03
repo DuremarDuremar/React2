@@ -12,4 +12,11 @@ const filmActive = (film) => {
   };
 };
 
-export { filmLoaded, filmActive };
+const filmBuy = (cart) => {
+  return {
+    type: "BUY",
+    payload: cart,
+  };
+};
+
+export { filmLoaded, filmActive, filmBuy };

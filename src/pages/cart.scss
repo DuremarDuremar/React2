@@ -1,0 +1,13 @@
+.cart {
+  display: flex;
+
+  .cart__shopping {
+    background-color: coral;
+    flex: 0 1 65%;
+  }
+
+  .cart__total {
+    background-color: darkgoldenrod;
+    flex: 0 1 35%;
+  }
+}
