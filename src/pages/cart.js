@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { filmBuy } from "../reducers/action";
 import "./cart.scss";
 
 const Cart = ({ buy }) => {
-  console.log(buy);
+  const [newBuy, setNewBuy] = useState(null);
+
+  useEffect(() => {
+    if (buy.length !== 0) {
+      const newSet = new Set(buy);
+      setNewBuy(Array.from(newSet));
+    }
+  }, [buy]);
+
+  console.log("buy", buy);
+  console.log("newBuy", newBuy);
+
   return (
     <div className="cart">
       <div className="cart__shopping">
@@ -16,13 +27,13 @@ const Cart = ({ buy }) => {
           <li>Quantity</li>
         </ul>
 
-        {buy && (
+        {newBuy && (
           <div className="cart__content">
-            {buy.map((film) => (
+            {newBuy.map((film) => (
               <ul className="cart__item" key={film.id}>
                 <li className="cart__film">{film.title}</li>
                 <li>${film.price}</li>
-                <li>1</li>
+                <li>{film.quantity}</li>
               </ul>
             ))}
           </div>

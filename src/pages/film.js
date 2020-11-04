@@ -6,7 +6,7 @@ import "./film.scss";
 const Film = ({ film, films, filmBuy }) => {
   window.scrollTo(0, 0);
 
-  const [filmAct, setFilmAct] = useState("");
+  const [filmAct, setFilmAct] = useState(null);
 
   useEffect(() => {
     if (film) {
@@ -34,6 +34,11 @@ const Film = ({ film, films, filmBuy }) => {
       return item.id === filmAct.id - 1;
     });
     setFilmAct(...newFilm);
+  };
+
+  const quantityFilm = (event) => {
+    event.preventDefault();
+    filmBuy({ ...filmAct, quantity: 4 });
   };
 
   if (!filmAct) {
@@ -79,8 +84,7 @@ const Film = ({ film, films, filmBuy }) => {
           <button
             className="film__cart"
             onClick={(event) => {
-              event.preventDefault();
-              filmBuy(filmAct);
+              quantityFilm(event);
             }}
           >
             Add to cart
