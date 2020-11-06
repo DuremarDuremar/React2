@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { uniqBy } from "lodash";
 import { filmBuy } from "../reducers/action";
 import "./cart.scss";
 
@@ -8,8 +9,7 @@ const Cart = ({ buy }) => {
 
   useEffect(() => {
     if (buy.length !== 0) {
-      const newSet = new Set(buy);
-      setNewBuy(Array.from(newSet));
+      setNewBuy(uniqBy(buy, "id"));
     }
   }, [buy]);
 

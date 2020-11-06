@@ -38,7 +38,7 @@ const Film = ({ film, films, filmBuy }) => {
 
   const quantityFilm = (event) => {
     event.preventDefault();
-    filmBuy({ ...filmAct, quantity: 4 });
+    filmBuy({ ...filmAct, quantity: 1 });
   };
 
   if (!filmAct) {
