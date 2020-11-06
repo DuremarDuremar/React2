@@ -36,6 +36,7 @@ const Film = ({ film, films, filmBuy }) => {
     setFilmAct(...newFilm);
   };
 
+  // функция добавления кол-во и отправка в корзину
   const quantityFilm = (event) => {
     event.preventDefault();
     filmBuy({ ...filmAct, quantity: 1 });

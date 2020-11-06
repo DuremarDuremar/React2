@@ -1,17 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { uniqBy } from "lodash";
+import { uniqBy, reduce } from "lodash";
 import { filmBuy } from "../reducers/action";
 import "./cart.scss";
 
 const Cart = ({ buy }) => {
   const [newBuy, setNewBuy] = useState(null);
 
+  // делаем логику изменения значения кол-во и общей суммы в прайсе
   useEffect(() => {
     if (buy.length !== 0) {
-      setNewBuy(uniqBy(buy, "id"));
+      const buyMap = buy.map((item) => {
+        let buyFilter = buy.filter((film) => film.id === item.id);
+        return {
+          ...item,
+          price: item.price * buyFilter.length,
+          quantity: buyFilter.length,
+        };
+      });
+      // превращаем массив в коллекцию
+      setNewBuy(uniqBy(buyMap, "id"));
     }
   }, [buy]);
+
+  // общая сумма
+  const totalCart = () => {
+    if (newBuy) {
+      return newBuy.reduce(
+        function (total, item) {
+          return Number(total + item.price);
+        },
+        [0]
+      );
+    } else {
+      return 0;
+    }
+  };
 
   console.log("buy", buy);
   console.log("newBuy", newBuy);
@@ -42,10 +66,11 @@ const Cart = ({ buy }) => {
       <div className="cart__total">
         <h4>Cart Total</h4>
         <div className="cart__quantity cart__info">
-          Quantity: <span> 22 </span> <i>films</i>
+          Quantity: <span> {buy.length} </span>{" "}
+          <i>{buy.length !== 1 ? "films" : "film"}</i>
         </div>
         <div className="cart__sum cart__info">
-          Total: <span> $278</span>
+          Total: <span> ${totalCart()}</span>
         </div>
         <button className="film__cart">Checkcout</button>
       </div>
