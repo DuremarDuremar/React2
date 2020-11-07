@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { uniqBy, reduce } from "lodash";
+import { uniqBy } from "lodash";
 import { filmBuy } from "../reducers/action";
 import "./cart.scss";
 

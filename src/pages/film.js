@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { filmBuy } from "../reducers/action";
+import { getFrames } from "../server";
 import "./film.scss";
 
 const Film = ({ film, films, filmBuy }) => {
   window.scrollTo(0, 0);
 
   const [filmAct, setFilmAct] = useState(null);
+  const [frames, setFrames] = useState([]);
 
   useEffect(() => {
     if (film) {
       setFilmAct(film);
     }
   }, [film]);
+
+  useEffect(() => {
+    if (filmAct) {
+      getFrames(filmAct.frames).then((response) => setFrames(response));
+    }
+  }, [filmAct]);
+
+  console.log(frames[0]);
 
   // функция перелистывания вперед
   const nextFilm = () => {
@@ -103,7 +113,14 @@ const Film = ({ film, films, filmBuy }) => {
           ></i>
         </div>
       </div>
-      <div className="film__images">3</div>
+      <div className="film__images">
+        {frames &&
+          frames.map((film, index) => (
+            <div className="film__frame" key={index}>
+              <img src={film.image} alt="22" />
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

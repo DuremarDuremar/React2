@@ -60,8 +60,14 @@
     }
   }
   .film__images {
-    grid-area: im;
-    background-color: darkorange;
+    display: grid;
+    grid-auto-flow: column;
+    .film__frame {
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
   }
   .film__info_form {
     margin-top: 50px;
