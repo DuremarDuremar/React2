@@ -182,5 +182,9 @@ export const getFrames = async (frames) => {
     resJson.frames[1],
     resJson.frames[2],
     resJson.frames[3],
+    resJson.frames[4],
+    resJson.frames[5],
+    resJson.frames[6],
+    resJson.frames[7],
   ];
 };

@@ -4,7 +4,7 @@
     "p in"
     "im im";
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 8fr 4fr;
+  grid-template-rows: auto;
   min-height: 100vh;
 
   .film__poster {
@@ -61,11 +61,16 @@
   }
   .film__images {
     display: grid;
-    grid-auto-flow: column;
+    grid-area: im;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    // grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    // grid-template-rows: repeat(2, 1fr);
+    padding: 20px;
     .film__frame {
       img {
         display: block;
         width: 100%;
+        // max-width: 200px;
       }
     }
   }
