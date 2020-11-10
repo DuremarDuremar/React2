@@ -141,7 +141,7 @@ export default class Server {
       country: "Дания",
       image:
         "https://st.kp.yandex.net/im/poster/2/9/5/kinopoisk.ru-Ordet-2952325.jpg",
-      frames: 580639,
+      frames: 74507,
     },
     {
       id: 14,
@@ -186,5 +186,6 @@ export const getFrames = async (frames) => {
     resJson.frames[5],
     resJson.frames[6],
     resJson.frames[7],
+    resJson.frames[8],
   ];
 };

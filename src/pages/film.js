@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { filmBuy } from "../reducers/action";
 import { getFrames } from "../server";
+import Spinner from "../components/spinner";
 import "./film.scss";
 
 const Film = ({ film, films, filmBuy }) => {
@@ -22,7 +23,7 @@ const Film = ({ film, films, filmBuy }) => {
     }
   }, [filmAct]);
 
-  console.log(frames[0]);
+  // console.log(frames[0]);
 
   // функция перелистывания вперед
   const nextFilm = () => {
@@ -53,7 +54,7 @@ const Film = ({ film, films, filmBuy }) => {
   };
 
   if (!filmAct) {
-    return <p>loading</p>;
+    return <Spinner />;
   }
 
   return (
@@ -113,13 +114,17 @@ const Film = ({ film, films, filmBuy }) => {
           ></i>
         </div>
       </div>
+
       <div className="film__images">
-        {frames &&
+        {!frames ? (
+          <Spinner />
+        ) : (
           frames.map((film, index) => (
             <div className="film__frame" key={index}>
               <img src={film.image} alt="22" />
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
