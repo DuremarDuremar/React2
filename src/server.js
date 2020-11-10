@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export default class Server {
   data = [
     {
@@ -163,8 +165,25 @@ export default class Server {
   }
 }
 
-export const getFrames = async (frames) => {
-  const res = await fetch(
+// export const getFrames = async (frames) => {
+//   const res = await fetch(
+//     `https://kinopoiskapiunofficial.tech/api/v2.1/films/${frames}/frames`,
+//     {
+//       method: "GET",
+//       headers: {
+//         "X-API-KEY": "9fbbb1e4-8c01-4ed2-ac4c-9d8a1ac83e48",
+//       },
+//     }
+//   );
+//   if (!res.ok) {
+//     throw new Error(`could not fetch ${res}`);
+//   }
+//   const resJson = await res.json();
+//   return resJson.frames.slice(0, 9);
+// };
+
+export const getAxiosFrames = async (frames) => {
+  const res = await axios.get(
     `https://kinopoiskapiunofficial.tech/api/v2.1/films/${frames}/frames`,
     {
       method: "GET",
@@ -173,19 +192,5 @@ export const getFrames = async (frames) => {
       },
     }
   );
-  if (!res.ok) {
-    throw new Error(`could not fetch ${res}`);
-  }
-  const resJson = await res.json();
-  return [
-    resJson.frames[0],
-    resJson.frames[1],
-    resJson.frames[2],
-    resJson.frames[3],
-    resJson.frames[4],
-    resJson.frames[5],
-    resJson.frames[6],
-    resJson.frames[7],
-    resJson.frames[8],
-  ];
+  return res.data.frames.slice(0, 9);
 };
