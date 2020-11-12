@@ -56,7 +56,8 @@
       padding: 5px;
       font-size: 18px;
       font-weight: 400;
-      border: 1px solid black;
+      // border: 1px solid black;
+      min-height: 280px;
     }
   }
   .film__images {
@@ -75,49 +76,60 @@
     }
   }
   .film__info_form {
-    margin-top: 50px;
+    margin: 50px 0;
     display: flex;
-    margin-bottom: 50px;
-    input {
-      width: 50px;
-      height: 40px;
-      appearance: textfield;
-      color: #959595;
-      overflow: visible;
-      text-align: center;
-    }
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    .film__info_arrow {
-      display: block;
-      i {
-        cursor: pointer;
-        width: 20px;
-        padding-left: 3px;
+
+    justify-content: space-around;
+
+    .film__input {
+      display: flex;
+      padding-top: 5px;
+      input {
+        width: 50px;
+        height: 40px;
+        appearance: textfield;
+        color: #959595;
+        overflow: visible;
+        text-align: center;
+      }
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      .film__info_arrow {
+        display: block;
+        i {
+          cursor: pointer;
+          width: 20px;
+          padding-left: 3px;
+        }
       }
     }
-    .film__cart {
-      background-color: #fbb710;
-      width: 100px;
-      height: 60px;
-      border-radius: 20px;
-      display: block;
-      margin-right: 10px;
-      margin-left: auto;
-    }
-  }
-  .film__slider {
-    text-align: center;
-    .play-reverce {
-      transform: rotate(180deg);
-    }
-    .film__play {
-      cursor: pointer;
-      &:hover {
-        color: #fbb710;
+
+    .film__slider {
+      text-align: center;
+      display: flex;
+      .play-reverce {
+        transform: rotate(180deg);
+      }
+      .film__play {
+        cursor: pointer;
+        &:hover {
+          color: #fbb710;
+        }
+      }
+      .film__cart {
+        background-color: #fff;
+        width: 100px;
+        height: 60px;
+        font-weight: 700;
+        border-radius: 20px;
+        display: block;
+        margin: 0 5px;
+        &:hover {
+          background-color: #fbb710;
+        }
       }
     }
   }

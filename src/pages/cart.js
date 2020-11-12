@@ -12,10 +12,17 @@ const Cart = ({ buy }) => {
     if (buy.length !== 0) {
       const buyMap = buy.map((item) => {
         let buyFilter = buy.filter((film) => film.id === item.id);
+        let buyReduce = buyFilter.reduce(
+          function (total, item) {
+            return Number(total + item.quantity);
+          },
+          [0]
+        );
+        // console.log("buyFilter", buyReduce);
         return {
           ...item,
-          price: item.price * buyFilter.length,
-          quantity: buyFilter.length,
+          price: item.price * buyReduce,
+          quantity: buyReduce,
         };
       });
       // превращаем массив в коллекцию
@@ -29,6 +36,20 @@ const Cart = ({ buy }) => {
       return newBuy.reduce(
         function (total, item) {
           return Number(total + item.price);
+        },
+        [0]
+      );
+    } else {
+      return 0;
+    }
+  };
+
+  // общее кол-во фильмов
+  const totalAll = () => {
+    if (newBuy) {
+      return newBuy.reduce(
+        function (total, item) {
+          return Number(total + item.quantity);
         },
         [0]
       );
@@ -66,7 +87,7 @@ const Cart = ({ buy }) => {
       <div className="cart__total">
         <h4>Cart Total</h4>
         <div className="cart__quantity cart__info">
-          Quantity: <span> {buy.length} </span>{" "}
+          Quantity: <span> {totalAll()} </span>{" "}
           <i>{buy.length !== 1 ? "films" : "film"}</i>
         </div>
         <div className="cart__sum cart__info">
