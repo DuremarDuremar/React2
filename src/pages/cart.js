@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { uniqBy } from "lodash";
-import { filmBuy } from "../reducers/action";
+import { filmBuy, filmActive } from "../reducers/action";
 import "./cart.scss";
 
-const Cart = ({ buy }) => {
+const Cart = ({ buy, films, filmActive }) => {
   const [newBuy, setNewBuy] = useState(null);
 
   // делаем логику изменения значения кол-во и общей суммы в прайсе
@@ -58,8 +59,11 @@ const Cart = ({ buy }) => {
     }
   };
 
-  console.log("buy", buy);
-  console.log("newBuy", newBuy);
+  // ссылка на страницу с фильмом
+  const returnLinkFilm = (id) => {
+    let filmLink = films.filter((film) => film.id === id);
+    filmActive(...filmLink);
+  };
 
   return (
     <div className="cart">
@@ -75,8 +79,16 @@ const Cart = ({ buy }) => {
         {newBuy && (
           <div className="cart__content">
             {newBuy.map((film) => (
-              <ul className="cart__item" key={film.id}>
-                <li className="cart__film">{film.title}</li>
+              <ul
+                className="cart__item"
+                key={film.id}
+                onClick={() => returnLinkFilm(film.id)}
+              >
+                <li className="cart__film">
+                  <Link to="/film">
+                    <p>{film.title}</p>
+                  </Link>
+                </li>
                 <li>${film.price}</li>
                 <li>{film.quantity}</li>
               </ul>
@@ -99,12 +111,13 @@ const Cart = ({ buy }) => {
   );
 };
 
-const mapStateToProps = ({ filmCart: { buy } }) => {
-  return { buy };
+const mapStateToProps = ({ filmCart: { buy }, filmData: { films } }) => {
+  return { buy, films };
 };
 
 const mapDispatchToProps = {
   filmBuy,
+  filmActive,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

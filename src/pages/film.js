@@ -28,8 +28,6 @@ const Film = ({ film, films, filmBuy }) => {
     }
   }, [filmAct]);
 
-  console.log(quantity);
-
   // функция перелистывания вперед
   const nextFilm = () => {
     setQuantity(1);
