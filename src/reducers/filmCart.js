@@ -2,18 +2,21 @@ const updateFilmCart = (state, action) => {
   if (state === undefined) {
     return {
       buy: [],
-      total: null,
+      total: 0,
     };
   }
 
   switch (action.type) {
     case "BUY":
-      console.log(state.filmCart.buy);
       return {
         ...state.filmCart,
         buy: [...state.filmCart.buy, action.payload],
       };
-
+    case "TOTAL":
+      return {
+        ...state.filmCart,
+        total: action.payload,
+      };
     default:
       return state.filmCart;
   }

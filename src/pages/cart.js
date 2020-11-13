@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { uniqBy } from "lodash";
-import { filmBuy, filmActive } from "../reducers/action";
+import { filmBuy, filmActive, filmTotal } from "../reducers/action";
 import "./cart.scss";
 
-const Cart = ({ buy, films, filmActive }) => {
+const Cart = ({ buy, total, films, filmTotal, filmActive }) => {
   const [newBuy, setNewBuy] = useState(null);
 
   // делаем логику изменения значения кол-во и общей суммы в прайсе
@@ -32,18 +32,21 @@ const Cart = ({ buy, films, filmActive }) => {
   }, [buy]);
 
   // общая сумма
-  const totalCart = () => {
-    if (newBuy) {
-      return newBuy.reduce(
-        function (total, item) {
-          return Number(total + item.price);
-        },
-        [0]
-      );
-    } else {
-      return 0;
-    }
-  };
+  useEffect(() => {
+    const totalCart = () => {
+      if (newBuy) {
+        return newBuy.reduce(
+          function (total, item) {
+            return Number(total + item.price);
+          },
+          [0]
+        );
+      } else {
+        return 0;
+      }
+    };
+    filmTotal(totalCart());
+  }, [newBuy, filmTotal]);
 
   // общее кол-во фильмов
   const totalAll = () => {
@@ -63,6 +66,50 @@ const Cart = ({ buy, films, filmActive }) => {
   const returnLinkFilm = (id) => {
     let filmLink = films.filter((film) => film.id === id);
     filmActive(...filmLink);
+  };
+
+  // удаление фильма из корзины
+  const deleteFilmAll = (id) => {
+    const deleteAll = newBuy.filter((item) => item.id !== id);
+    setNewBuy(deleteAll);
+  };
+
+  //уменьшение кол-во копий одного фильма в корзине
+  const deleteFilmCart = (id) => {
+    const deleteFilm = newBuy.map(function (item) {
+      if (item.id === id) {
+        return {
+          ...item,
+          quantity: item.quantity > 1 ? item.quantity - 1 : 1,
+          price:
+            item.quantity > 1
+              ? (item.price / item.quantity) * (item.quantity - 1)
+              : item.price,
+        };
+      } else {
+        return item;
+      }
+    });
+    setNewBuy(deleteFilm);
+  };
+
+  //увелечение кол-во копий одного фильма в корзине
+  const addFilmCart = (id) => {
+    const addFilm = newBuy.map(function (item) {
+      if (item.id === id) {
+        return {
+          ...item,
+          quantity: item.quantity < 10 ? item.quantity + 1 : 10,
+          price:
+            item.quantity < 10
+              ? (item.price / item.quantity) * (item.quantity + 1)
+              : item.price,
+        };
+      } else {
+        return item;
+      }
+    });
+    setNewBuy(addFilm);
   };
 
   return (
@@ -91,6 +138,20 @@ const Cart = ({ buy, films, filmActive }) => {
                 </li>
                 <li>${film.price}</li>
                 <li>{film.quantity}</li>
+                <li>
+                  <i
+                    className="fas fa-angle-left"
+                    onClick={() => deleteFilmCart(film.id)}
+                  ></i>
+                  <i
+                    className="fas fa-minus-circle cart__delete"
+                    onClick={() => deleteFilmAll(film.id)}
+                  ></i>
+                  <i
+                    className="fas fa-angle-right"
+                    onClick={() => addFilmCart(film.id)}
+                  ></i>
+                </li>
               </ul>
             ))}
           </div>
@@ -99,11 +160,11 @@ const Cart = ({ buy, films, filmActive }) => {
       <div className="cart__total">
         <h4>Cart Total</h4>
         <div className="cart__quantity cart__info">
-          Quantity: <span> {totalAll()} </span>{" "}
+          Quantity: <span> {totalAll()} </span>
           <i>{buy.length !== 1 ? "films" : "film"}</i>
         </div>
         <div className="cart__sum cart__info">
-          Total: <span> ${totalCart()}</span>
+          Total: <span> ${total}</span>
         </div>
         <button className="film__cart">Checkcout</button>
       </div>
@@ -111,12 +172,13 @@ const Cart = ({ buy, films, filmActive }) => {
   );
 };
 
-const mapStateToProps = ({ filmCart: { buy }, filmData: { films } }) => {
-  return { buy, films };
+const mapStateToProps = ({ filmCart: { buy, total }, filmData: { films } }) => {
+  return { buy, total, films };
 };
 
 const mapDispatchToProps = {
   filmBuy,
+  filmTotal,
   filmActive,
 };
 

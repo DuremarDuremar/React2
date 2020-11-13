@@ -19,4 +19,11 @@ const filmBuy = (cart) => {
   };
 };
 
-export { filmLoaded, filmActive, filmBuy };
+const filmTotal = (total) => {
+  return {
+    type: "TOTAL",
+    payload: total,
+  };
+};
+
+export { filmLoaded, filmActive, filmBuy, filmTotal };

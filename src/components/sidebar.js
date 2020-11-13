@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { filmLoaded } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = ({ films, filmLoaded }) => {
+const Sidebar = ({ films, filmLoaded, total }) => {
   // console.log("sidebar", films);
 
   return (
@@ -36,6 +36,7 @@ const Sidebar = ({ films, filmLoaded }) => {
           <p>
             <i className="fas fa-shopping-cart"></i> Cart
           </p>
+          <span> ${total}</span>
         </NavLink>
       </div>
       <div className="sidebar__link">
@@ -53,8 +54,8 @@ const Sidebar = ({ films, filmLoaded }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({ filmData: { films }, filmCart: { total } }) => {
+  return { films, total };
 };
 
 const mapDispatchToProps = {

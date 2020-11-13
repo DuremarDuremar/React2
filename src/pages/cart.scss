@@ -32,7 +32,7 @@
       font-family: "Sansita Swashed", cursive;
 
       li {
-        flex: 0 0 33.333%;
+        flex: 0 0 25%;
         text-align: center;
       }
       .cart__film {
@@ -42,6 +42,17 @@
             outline: 6px solid black;
           }
         }
+      }
+      .cart__delete {
+        margin: 0 3px;
+        color: red;
+        &:hover {
+          border: 1px solid black;
+          border-radius: 100%;
+        }
+      }
+      i {
+        cursor: pointer;
       }
     }
   }
