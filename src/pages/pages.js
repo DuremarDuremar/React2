@@ -6,6 +6,7 @@ import Server from "../server";
 import Home from "./home";
 import Film from "./film";
 import Shop from "./shop";
+import Reg from "./reg";
 import Checkout from "./checkout";
 import Cart from "./cart";
 import "./pages.scss";
@@ -38,6 +39,8 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
         <Route path="/film" component={Film} exact />
         <Route path="/shop" component={Shop} exact />
         <Route path="/checkout" component={Checkout} exact />
+        <Route path="/reg" component={Reg} exact />
+        <Route path="/log" component={Reg} exact />
         <Route path="/cart" component={Cart} exact />
         <Redirect to="/" />
       </Switch>

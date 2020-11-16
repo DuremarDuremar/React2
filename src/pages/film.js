@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { filmBuy } from "../reducers/action";
+import { filmBuy, filmTotal } from "../reducers/action";
 import { getAxiosFrames, getAxiosDescription } from "../server";
 import Spinner from "../components/spinner";
 import "./film.scss";
 
-const Film = ({ film, films, filmBuy }) => {
+const Film = ({ film, films, total, filmBuy, filmTotal }) => {
   window.scrollTo(0, 0);
 
   const [filmAct, setFilmAct] = useState(null);
@@ -57,6 +57,8 @@ const Film = ({ film, films, filmBuy }) => {
     event.preventDefault();
     console.log("quantity", quantity);
     filmBuy({ ...filmAct, quantity: quantity });
+    filmTotal(total + quantity * filmAct.price);
+    console.log("total", total);
   };
 
   if (!filmAct) {
@@ -147,12 +149,16 @@ const Film = ({ film, films, filmBuy }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { film, films } }) => {
-  return { film, films };
+const mapStateToProps = ({
+  filmData: { film, films },
+  filmCart: { total },
+}) => {
+  return { film, films, total };
 };
 
 const mapDispatchToProps = {
   filmBuy,
+  filmTotal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Film);
