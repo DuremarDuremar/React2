@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { filmLoaded, filmActive } from "../reducers/action";
+import getRandomInt from "../utils/getRandom";
 import Server from "../server";
 import Home from "./home";
 import Film from "./film";
@@ -27,10 +28,6 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
       filmActive(films[number]);
     }
   }, [films, filmActive]);
-
-  function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
 
   return (
     <div className="pages">

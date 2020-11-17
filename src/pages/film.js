@@ -58,7 +58,6 @@ const Film = ({ film, films, total, filmBuy, filmTotal }) => {
     console.log("quantity", quantity);
     filmBuy({ ...filmAct, quantity: quantity });
     filmTotal(total + quantity * filmAct.price);
-    console.log("total", total);
   };
 
   if (!filmAct) {
