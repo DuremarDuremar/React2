@@ -26,4 +26,11 @@ const filmTotal = (total) => {
   };
 };
 
-export { filmLoaded, filmActive, filmBuy, filmTotal };
+const logLogin = (log) => {
+  return {
+    type: "LOGIN",
+    payload: log,
+  };
+};
+
+export { filmLoaded, filmActive, filmBuy, filmTotal, logLogin };

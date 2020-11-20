@@ -6,14 +6,21 @@ import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
 
-const Reg = ({ films }) => {
+const Reg = ({ films, match }) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
 
+  console.log(match);
+
+  // мешаем разные кадры
   const int = () => {
     return getRandomInt(0, 8);
   };
+
+  // проверяем какая страница
+  const loginTrue = match.path === "/log";
+
   useEffect(() => {
     if (films) {
       const frames = shuffle(films).map((film) => film.filmId);
@@ -28,15 +35,15 @@ const Reg = ({ films }) => {
       );
     }
   }, [films]);
-  console.log("regFrames0", regFrames0);
-  console.log("regFrames1", regFrames1);
-  console.log("regFrames2", regFrames2);
 
   return (
     <div className="reg">
       <form>
         <div className="reg__input">
-          <input type="text" placeholder="Name" className="reg__name" />
+          {!loginTrue && (
+            <input type="text" placeholder="Name" className="reg__name" />
+          )}
+
           <input type="email" placeholder="Email" className="reg__email" />
           <input
             type="password"
@@ -45,7 +52,7 @@ const Reg = ({ films }) => {
           />
         </div>
         <div className="reg__submit">
-          <h2>Login Up</h2>
+          <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
           <button type="submit">
             <i className="fas fa-door-open fa-2x"></i>
           </button>

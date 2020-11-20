@@ -1,7 +1,7 @@
 const updateFilmLog = (state, action) => {
   if (state === undefined) {
     return {
-      loading: null,
+      loading: false,
       login: false,
     };
   }

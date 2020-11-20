@@ -1,17 +1,24 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { filmLoaded } from "../reducers/action";
+import { logLogin } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = ({ films, filmLoaded, total }) => {
-  // console.log("sidebar", films);
+const Sidebar = ({ total, login, logLogin }) => {
+  console.log("sidebar", login);
 
   return (
     <div className="sidebar">
       <div className="sidebar__title">Cinema__Classic__Shop</div>
       <div className="sidebar__nav">
         <ul>
+          {!login ? (
+            <NavLink className="sidebar__li" to="/log">
+              <li>Sign In</li>
+            </NavLink>
+          ) : (
+            <li className="sidebar__name">Hello, Ivan</li>
+          )}
           <NavLink className="sidebar__li" to="/" exact>
             <li>Home</li>
           </NavLink>
@@ -20,9 +27,6 @@ const Sidebar = ({ films, filmLoaded, total }) => {
           </NavLink>
           <NavLink className="sidebar__li" to="/film">
             <li>Film</li>
-          </NavLink>
-          <NavLink className="sidebar__li" to="/checkout">
-            <li>Checkout</li>
           </NavLink>
         </ul>
       </div>
@@ -54,12 +58,12 @@ const Sidebar = ({ films, filmLoaded, total }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films }, filmCart: { total } }) => {
-  return { films, total };
+const mapStateToProps = ({ filmCart: { total }, filmLog: { login } }) => {
+  return { total, login };
 };
 
 const mapDispatchToProps = {
-  filmLoaded,
+  logLogin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

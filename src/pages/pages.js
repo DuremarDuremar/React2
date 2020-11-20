@@ -32,10 +32,10 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
   return (
     <div className="pages">
       <Switch>
+        <Route path="/checkout" component={Checkout} exact />
         <Route path="/" component={Home} exact />
         <Route path="/film" component={Film} exact />
         <Route path="/shop" component={Shop} exact />
-        <Route path="/checkout" component={Checkout} exact />
         <Route path="/reg" component={Reg} exact />
         <Route path="/log" component={Reg} exact />
         <Route path="/cart" component={Cart} exact />
