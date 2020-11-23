@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
+import { logLogin } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
@@ -36,9 +38,14 @@ const Reg = ({ films, match }) => {
     }
   }, [films]);
 
+  // заходим на сайт или регистрируемся
+  const handleSubmit = () => {
+    logLogin(true);
+  };
+
   return (
     <div className="reg">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="reg__input">
           {!loginTrue && (
             <input type="text" placeholder="Name" className="reg__name" />
@@ -50,9 +57,13 @@ const Reg = ({ films, match }) => {
             placeholder="Password"
             className="reg__password"
           />
+          <Link to={loginTrue ? "log/reg" : "/log"}>
+            <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
+          </Link>
         </div>
         <div className="reg__submit">
           <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
+
           <button type="submit">
             <i className="fas fa-door-open fa-2x"></i>
           </button>
@@ -73,10 +84,12 @@ const Reg = ({ films, match }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({ filmData: { films }, filmLog: { login } }) => {
+  return { films, login };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  logLogin,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);

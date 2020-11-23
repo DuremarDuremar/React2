@@ -34,11 +34,11 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
       <Switch>
         <Route path="/checkout" component={Checkout} exact />
         <Route path="/" component={Home} exact />
-        <Route path="/film" component={Film} exact />
-        <Route path="/shop" component={Shop} exact />
-        <Route path="/reg" component={Reg} exact />
-        <Route path="/log" component={Reg} exact />
-        <Route path="/cart" component={Cart} exact />
+        <Route path="/film" component={Film} />
+        <Route path="/shop" component={Shop} />
+        <Route path="/log/reg" component={Reg} />
+        <Route path="/log" component={Reg} />
+        <Route path="/cart" component={Cart} />
         <Redirect to="/" />
       </Switch>
     </div>

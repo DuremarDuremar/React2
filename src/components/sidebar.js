@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logLogin } from "../reducers/action";
 import "./sidebar.scss";
@@ -17,7 +17,16 @@ const Sidebar = ({ total, login, logLogin }) => {
               <li>Sign In</li>
             </NavLink>
           ) : (
-            <li className="sidebar__name">Hello, Ivan</li>
+            <li className="sidebar__name">
+              Hello, Ivan
+              <Link to="/">
+                <i
+                  className="fas fa-sign-out-alt"
+                  title="exit"
+                  onClick={() => logLogin(false)}
+                ></i>
+              </Link>
+            </li>
           )}
           <NavLink className="sidebar__li" to="/" exact>
             <li>Home</li>
