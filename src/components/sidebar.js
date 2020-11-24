@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { logLogin } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = ({ total, login, logLogin }) => {
+const Sidebar = ({ total, login, logLogin, name }) => {
   console.log("sidebar", login);
 
   return (
@@ -18,7 +18,7 @@ const Sidebar = ({ total, login, logLogin }) => {
             </NavLink>
           ) : (
             <li className="sidebar__name">
-              Hello, Ivan
+              Hello, {name}
               <Link to="/">
                 <i
                   className="fas fa-sign-out-alt"
@@ -67,8 +67,8 @@ const Sidebar = ({ total, login, logLogin }) => {
   );
 };
 
-const mapStateToProps = ({ filmCart: { total }, filmLog: { login } }) => {
-  return { total, login };
+const mapStateToProps = ({ filmCart: { total }, filmLog: { login, name } }) => {
+  return { total, login, name };
 };
 
 const mapDispatchToProps = {

@@ -33,4 +33,11 @@ const logLogin = (log) => {
   };
 };
 
-export { filmLoaded, filmActive, filmBuy, filmTotal, logLogin };
+const logName = (name) => {
+  return {
+    type: "NAME",
+    payload: name,
+  };
+};
+
+export { filmLoaded, filmActive, filmBuy, filmTotal, logLogin, logName };

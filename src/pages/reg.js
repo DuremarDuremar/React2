@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logLogin } from "../reducers/action";
+import { logLogin, logName } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
 
-const Reg = ({ films, match }) => {
+const Reg = ({ films, logLogin, match, login, name, logName }) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
 
-  console.log(match);
+  console.log("name", name);
 
   // мешаем разные кадры
   const int = () => {
@@ -38,17 +38,30 @@ const Reg = ({ films, match }) => {
     }
   }, [films]);
 
-  // заходим на сайт или регистрируемся
+  // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = () => {
-    logLogin(true);
+    if (name.length > 1) {
+      logLogin(true);
+    }
   };
+
+  // если зарегистрированы, переходим на главную страницу
+  if (login) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="reg">
       <form onSubmit={handleSubmit}>
         <div className="reg__input">
           {!loginTrue && (
-            <input type="text" placeholder="Name" className="reg__name" />
+            <input
+              type="text"
+              placeholder="Name"
+              className="reg__name"
+              value={name}
+              onChange={(e) => logName(e.target.value)}
+            />
           )}
 
           <input type="email" placeholder="Email" className="reg__email" />
@@ -84,12 +97,13 @@ const Reg = ({ films, match }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films }, filmLog: { login } }) => {
-  return { films, login };
+const mapStateToProps = ({ filmData: { films }, filmLog: { login, name } }) => {
+  return { films, login, name };
 };
 
 const mapDispatchToProps = {
   logLogin,
+  logName,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);

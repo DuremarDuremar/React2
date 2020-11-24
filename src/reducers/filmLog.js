@@ -2,7 +2,8 @@ const updateFilmLog = (state, action) => {
   if (state === undefined) {
     return {
       loading: false,
-      login: true,
+      name: "",
+      login: false,
     };
   }
 
@@ -16,6 +17,11 @@ const updateFilmLog = (state, action) => {
       return {
         ...state.filmLog,
         login: action.payload,
+      };
+    case "NAME":
+      return {
+        ...state.filmLog,
+        name: action.payload,
       };
     default:
       return state.filmLog;
