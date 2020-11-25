@@ -13,8 +13,6 @@ const Reg = ({ films, logLogin, match, login, name, logName }) => {
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
 
-  console.log("name", name);
-
   // мешаем разные кадры
   const int = () => {
     return getRandomInt(0, 8);
@@ -39,9 +37,12 @@ const Reg = ({ films, logLogin, match, login, name, logName }) => {
   }, [films]);
 
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (name.length > 1) {
       logLogin(true);
+    } else {
+      alert("user not found");
     }
   };
 
