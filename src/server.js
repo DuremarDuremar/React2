@@ -207,3 +207,21 @@ export const getAxiosDescription = async (id) => {
   );
   return res.data.data.description;
 };
+
+export const getAxiosLogin = async (email, password) => {
+  axios("https://conduit.productionready.io/api/users/login", {
+    method: "post",
+    data: {
+      user: {
+        email: { email },
+        password: { password },
+      },
+    },
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log("33", error);
+    });
+};

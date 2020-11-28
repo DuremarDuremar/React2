@@ -40,4 +40,20 @@ const logName = (name) => {
   };
 };
 
-export { filmLoaded, filmActive, filmBuy, filmTotal, logLogin, logName };
+const regLogin = (email, password) => {
+  return {
+    type: "REG",
+    payloadEmail: email,
+    payloadPassword: password,
+  };
+};
+
+export {
+  filmLoaded,
+  filmActive,
+  filmBuy,
+  filmTotal,
+  logLogin,
+  logName,
+  regLogin,
+};

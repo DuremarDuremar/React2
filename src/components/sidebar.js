@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
 import { logLogin } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = ({ total, login, logLogin, name }) => {
-  console.log("sidebar", login);
+const Sidebar = ({ total, login, logLogin, name, email, password }) => {
+  useEffect(() => {
+    getAxiosLogin(email, password);
+  }, [email, password]);
+
+  console.log("sidebar", email, password);
 
   return (
     <div className="sidebar">
@@ -67,8 +72,11 @@ const Sidebar = ({ total, login, logLogin, name }) => {
   );
 };
 
-const mapStateToProps = ({ filmCart: { total }, filmLog: { login, name } }) => {
-  return { total, login, name };
+const mapStateToProps = ({
+  filmCart: { total },
+  filmLog: { login, name, email, password },
+}) => {
+  return { total, login, name, email, password };
 };
 
 const mapDispatchToProps = {

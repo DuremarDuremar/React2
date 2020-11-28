@@ -3,15 +3,27 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logLogin, logName } from "../reducers/action";
+import { logLogin, logName, regLogin } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
 
-const Reg = ({ films, logLogin, match, login, name, logName }) => {
+const Reg = ({
+  films,
+  logLogin,
+  match,
+  login,
+  name,
+  logName,
+  email,
+  password,
+  regLogin,
+}) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
+  const [emailReg, setEmailReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
 
   // мешаем разные кадры
   const int = () => {
@@ -39,11 +51,14 @@ const Reg = ({ films, logLogin, match, login, name, logName }) => {
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name.length > 1) {
-      logLogin(true);
-    } else {
-      alert("user not found");
-    }
+    regLogin(emailReg, passwordReg);
+    // if (name.length > 1) {
+    //   logLogin(true);
+    // } else {
+    //   alert("user not found");
+    // }
+    console.log(email, password);
+    console.log("enter");
   };
 
   // если зарегистрированы, переходим на главную страницу
@@ -65,11 +80,19 @@ const Reg = ({ films, logLogin, match, login, name, logName }) => {
             />
           )}
 
-          <input type="email" placeholder="Email" className="reg__email" />
+          <input
+            type="email"
+            placeholder="Email"
+            className="reg__email"
+            // value={email}
+            onChange={(e) => setEmailReg(e.target.value)}
+          />
           <input
             type="password"
             placeholder="Password"
             className="reg__password"
+            // value={password}
+            onChange={(e) => setPasswordReg(e.target.value)}
           />
           <Link to={loginTrue ? "log/reg" : "/log"}>
             <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
@@ -98,13 +121,17 @@ const Reg = ({ films, logLogin, match, login, name, logName }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films }, filmLog: { login, name } }) => {
-  return { films, login, name };
+const mapStateToProps = ({
+  filmData: { films },
+  filmLog: { login, name, email, password },
+}) => {
+  return { films, login, name, email, password };
 };
 
 const mapDispatchToProps = {
   logLogin,
   logName,
+  regLogin,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);

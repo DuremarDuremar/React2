@@ -4,6 +4,8 @@ const updateFilmLog = (state, action) => {
       loading: false,
       name: "",
       login: false,
+      email: "",
+      password: "",
     };
   }
 
@@ -22,6 +24,12 @@ const updateFilmLog = (state, action) => {
       return {
         ...state.filmLog,
         name: action.payload,
+      };
+    case "REG":
+      return {
+        ...state.filmLog,
+        email: action.payloadEmail,
+        password: action.payloadPassword,
       };
     default:
       return state.filmLog;
