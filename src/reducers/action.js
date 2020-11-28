@@ -48,6 +48,13 @@ const regLogin = (email, password) => {
   };
 };
 
+const logSubmit = (sub) => {
+  return {
+    type: "SUBMIT",
+    payload: sub,
+  };
+};
+
 export {
   filmLoaded,
   filmActive,
@@ -56,4 +63,5 @@ export {
   logLogin,
   logName,
   regLogin,
+  logSubmit,
 };

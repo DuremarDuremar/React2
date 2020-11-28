@@ -2,15 +2,29 @@ import React, { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
-import { logLogin } from "../reducers/action";
+import { logLogin, logSubmit } from "../reducers/action";
 import "./sidebar.scss";
 
-const Sidebar = ({ total, login, logLogin, name, email, password }) => {
+const Sidebar = ({
+  total,
+  login,
+  logLogin,
+  name,
+  email,
+  password,
+  submit,
+  logSubmit,
+}) => {
   useEffect(() => {
-    getAxiosLogin(email, password);
-  }, [email, password]);
+    if (submit) {
+      getAxiosLogin(email, password);
+      setTimeout(() => logSubmit(false), 2000);
+    } else {
+      return;
+    }
+  }, [email, password, submit, logSubmit]);
 
-  console.log("sidebar", email, password);
+  console.log("sub", submit);
 
   return (
     <div className="sidebar">
@@ -74,13 +88,14 @@ const Sidebar = ({ total, login, logLogin, name, email, password }) => {
 
 const mapStateToProps = ({
   filmCart: { total },
-  filmLog: { login, name, email, password },
+  filmLog: { login, name, email, password, submit },
 }) => {
-  return { total, login, name, email, password };
+  return { total, login, name, email, password, submit };
 };
 
 const mapDispatchToProps = {
   logLogin,
+  logSubmit,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

@@ -1,7 +1,7 @@
 const updateFilmLog = (state, action) => {
   if (state === undefined) {
     return {
-      loading: false,
+      submit: true,
       name: "",
       login: false,
       email: "",
@@ -10,10 +10,10 @@ const updateFilmLog = (state, action) => {
   }
 
   switch (action.type) {
-    case "LOADING":
+    case "SUBMIT":
       return {
         ...state.filmLog,
-        loading: action.payload,
+        submit: action.payload,
       };
     case "LOGIN":
       return {

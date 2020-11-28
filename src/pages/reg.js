@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logLogin, logName, regLogin } from "../reducers/action";
+import { logLogin, logName, regLogin, logSubmit } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
@@ -18,6 +18,8 @@ const Reg = ({
   email,
   password,
   regLogin,
+  logSubmit,
+  submit,
 }) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
@@ -51,7 +53,9 @@ const Reg = ({
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = (e) => {
     e.preventDefault();
+    logSubmit(true);
     regLogin(emailReg, passwordReg);
+
     // if (name.length > 1) {
     //   logLogin(true);
     // } else {
@@ -101,7 +105,7 @@ const Reg = ({
         <div className="reg__submit">
           <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
 
-          <button type="submit">
+          <button type="submit" disabled={submit}>
             <i className="fas fa-door-open fa-2x"></i>
           </button>
         </div>
@@ -123,15 +127,16 @@ const Reg = ({
 
 const mapStateToProps = ({
   filmData: { films },
-  filmLog: { login, name, email, password },
+  filmLog: { login, name, email, password, submit },
 }) => {
-  return { films, login, name, email, password };
+  return { films, login, name, email, password, submit };
 };
 
 const mapDispatchToProps = {
   logLogin,
   logName,
   regLogin,
+  logSubmit,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);
