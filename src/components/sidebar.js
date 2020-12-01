@@ -17,8 +17,7 @@ const Sidebar = ({
 }) => {
   useEffect(() => {
     if (submit) {
-      getAxiosLogin(email, password);
-      setTimeout(() => logSubmit(false), 2000);
+      getAxiosLogin(email, password, logSubmit);
     } else {
       return;
     }

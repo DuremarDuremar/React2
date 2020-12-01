@@ -208,7 +208,7 @@ export const getAxiosDescription = async (id) => {
   return res.data.data.description;
 };
 
-export const getAxiosLogin = async (email, password) => {
+export const getAxiosLogin = async (email, password, func) => {
   axios("https://conduit.productionready.io/api/users/login", {
     method: "post",
     data: {
@@ -219,9 +219,9 @@ export const getAxiosLogin = async (email, password) => {
     },
   })
     .then((res) => {
-      console.log(res);
+      func(false);
     })
     .catch((error) => {
-      console.log("33", error);
+      func(false);
     });
 };
