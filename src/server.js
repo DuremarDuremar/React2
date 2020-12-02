@@ -208,14 +208,28 @@ export const getAxiosDescription = async (id) => {
   return res.data.data.description;
 };
 
-export const getAxiosLogin = async (email, password, func) => {
-  axios("https://conduit.productionready.io/api/users/login", {
+export const getAxiosLogin = async (email, password, func, url, name) => {
+  const Users = () => {
+    if (url === "users") {
+      return {
+        email: email,
+        password: password,
+        username: name,
+      };
+    } else {
+      return {
+        email: email,
+        password: password,
+      };
+    }
+  };
+
+  // const Users = url === "users" ?
+
+  axios(`https://conduit.productionready.io/api/${url}`, {
     method: "post",
     data: {
-      user: {
-        email: { email },
-        password: { password },
-      },
+      user: Users(),
     },
   })
     .then((res) => {

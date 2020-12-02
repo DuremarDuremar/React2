@@ -55,6 +55,13 @@ const logSubmit = (sub) => {
   };
 };
 
+const logUrl = (url) => {
+  return {
+    type: "URL",
+    payload: url,
+  };
+};
+
 export {
   filmLoaded,
   filmActive,
@@ -64,4 +71,5 @@ export {
   logName,
   regLogin,
   logSubmit,
+  logUrl,
 };

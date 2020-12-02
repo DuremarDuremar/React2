@@ -6,6 +6,7 @@ const updateFilmLog = (state, action) => {
       login: false,
       email: "",
       password: "",
+      url: "users/login",
     };
   }
 
@@ -30,6 +31,11 @@ const updateFilmLog = (state, action) => {
         ...state.filmLog,
         email: action.payloadEmail,
         password: action.payloadPassword,
+      };
+    case "URL":
+      return {
+        ...state.filmLog,
+        url: action.payload,
       };
     default:
       return state.filmLog;

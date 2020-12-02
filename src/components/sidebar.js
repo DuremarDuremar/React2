@@ -14,16 +14,17 @@ const Sidebar = ({
   password,
   submit,
   logSubmit,
+  url,
 }) => {
   useEffect(() => {
     if (submit) {
-      getAxiosLogin(email, password, logSubmit);
+      getAxiosLogin(email, password, logSubmit, url, name);
     } else {
       return;
     }
-  }, [email, password, submit, logSubmit]);
+  }, [email, password, submit, logSubmit, url]);
 
-  console.log("sub", submit);
+  console.log("sub", email);
 
   return (
     <div className="sidebar">
@@ -87,9 +88,9 @@ const Sidebar = ({
 
 const mapStateToProps = ({
   filmCart: { total },
-  filmLog: { login, name, email, password, submit },
+  filmLog: { login, name, email, password, submit, url },
 }) => {
-  return { total, login, name, email, password, submit };
+  return { total, login, name, email, password, submit, url };
 };
 
 const mapDispatchToProps = {

@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logLogin, logName, regLogin, logSubmit } from "../reducers/action";
+import {
+  logLogin,
+  logName,
+  regLogin,
+  logSubmit,
+  logUrl,
+} from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
@@ -20,6 +26,7 @@ const Reg = ({
   regLogin,
   logSubmit,
   submit,
+  logUrl,
 }) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
@@ -34,6 +41,14 @@ const Reg = ({
 
   // проверяем какая страница
   const loginTrue = match.path === "/log";
+
+  useEffect(() => {
+    if (!loginTrue) {
+      logUrl("users");
+    } else {
+      logUrl("users/log");
+    }
+  }, [loginTrue, logUrl]);
 
   useEffect(() => {
     if (films) {
@@ -137,6 +152,7 @@ const mapDispatchToProps = {
   logName,
   regLogin,
   logSubmit,
+  logUrl,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);
