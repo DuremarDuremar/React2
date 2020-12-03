@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
@@ -16,15 +16,16 @@ const Sidebar = ({
   logSubmit,
   url,
 }) => {
+  //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
     if (submit) {
-      getAxiosLogin(email, password, logSubmit, url, name);
+      getAxiosLogin(email, password, logSubmit, url, name, logLogin);
     } else {
       return;
     }
-  }, [email, password, submit, logSubmit, url]);
+  }, [email, password, submit, logSubmit, url, name, logLogin]);
 
-  console.log("sub", email);
+  // console.log("token", token);
 
   return (
     <div className="sidebar">

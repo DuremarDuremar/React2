@@ -208,7 +208,7 @@ export const getAxiosDescription = async (id) => {
   return res.data.data.description;
 };
 
-export const getAxiosLogin = async (email, password, func, url, name) => {
+export const getAxiosLogin = async (email, password, sub, url, name, log) => {
   const Users = () => {
     if (url === "users") {
       return {
@@ -233,9 +233,13 @@ export const getAxiosLogin = async (email, password, func, url, name) => {
     },
   })
     .then((res) => {
-      func(false);
+      sub(false);
+      log(true);
+      console.log(res.data.user.token);
+      localStorage.setItem("token", res.data.user.token);
     })
     .catch((error) => {
-      func(false);
+      sub(false);
+      alert(error);
     });
 };
