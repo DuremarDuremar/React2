@@ -208,7 +208,16 @@ export const getAxiosDescription = async (id) => {
   return res.data.data.description;
 };
 
-export const getAxiosLogin = async (email, password, sub, url, name, log) => {
+export const getAxiosLogin = async (
+  email,
+  password,
+  sub,
+  url,
+  name,
+  log,
+  settoken,
+  logname
+) => {
   const Users = () => {
     if (url === "users") {
       return {
@@ -224,7 +233,7 @@ export const getAxiosLogin = async (email, password, sub, url, name, log) => {
     }
   };
 
-  // const Users = url === "users" ?
+  console.log("password", password);
 
   axios(`https://conduit.productionready.io/api/${url}`, {
     method: "post",
@@ -236,10 +245,11 @@ export const getAxiosLogin = async (email, password, sub, url, name, log) => {
       sub(false);
       log(true);
       console.log(res.data.user.token);
-      localStorage.setItem("token", res.data.user.token);
+      logname(res.data.user.username);
+      settoken(res.data.user.token);
     })
     .catch((error) => {
       sub(false);
-      alert(error);
+      // alert(error);
     });
 };

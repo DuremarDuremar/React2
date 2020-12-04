@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
-import { logLogin, logSubmit } from "../reducers/action";
+import { logLogin, logSubmit, logName } from "../reducers/action";
+import useLocalStorage from "../utils/localStorage";
 import "./sidebar.scss";
 
 const Sidebar = ({
@@ -10,22 +11,46 @@ const Sidebar = ({
   login,
   logLogin,
   name,
-  email,
-  password,
   submit,
   logSubmit,
   url,
+  logName,
 }) => {
+  const [token, setToken] = useLocalStorage("token");
+  const [email, setEmail] = useLocalStorage("email");
+  const [password, setPassword] = useLocalStorage("password");
+
+  console.log("email", email);
+
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
     if (submit) {
-      getAxiosLogin(email, password, logSubmit, url, name, logLogin);
+      getAxiosLogin(
+        email,
+        password,
+        logSubmit,
+        url,
+        name,
+        logLogin,
+        setToken,
+        logName
+      );
     } else {
       return;
     }
-  }, [email, password, submit, logSubmit, url, name, logLogin]);
+  }, [
+    email,
+    password,
+    submit,
+    logSubmit,
+    url,
+    name,
+    logLogin,
+    setToken,
+    logName,
+  ]);
 
-  // console.log("token", token);
+  console.log("token", token);
 
   return (
     <div className="sidebar">
@@ -43,7 +68,12 @@ const Sidebar = ({
                 <i
                   className="fas fa-sign-out-alt"
                   title="exit"
-                  onClick={() => logLogin(false)}
+                  onClick={() => {
+                    logLogin(false);
+                    setToken("");
+                    setPassword("");
+                    setEmail("");
+                  }}
                 ></i>
               </Link>
             </li>
@@ -89,14 +119,15 @@ const Sidebar = ({
 
 const mapStateToProps = ({
   filmCart: { total },
-  filmLog: { login, name, email, password, submit, url },
+  filmLog: { login, name, submit, url },
 }) => {
-  return { total, login, name, email, password, submit, url };
+  return { total, login, name, submit, url };
 };
 
 const mapDispatchToProps = {
   logLogin,
   logSubmit,
+  logName,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

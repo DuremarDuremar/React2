@@ -4,8 +4,6 @@ const updateFilmLog = (state, action) => {
       submit: true,
       name: "",
       login: false,
-      email: "",
-      password: "",
       url: "users/login",
     };
   }
@@ -25,12 +23,6 @@ const updateFilmLog = (state, action) => {
       return {
         ...state.filmLog,
         name: action.payload,
-      };
-    case "REG":
-      return {
-        ...state.filmLog,
-        email: action.payloadEmail,
-        password: action.payloadPassword,
       };
     case "URL":
       return {

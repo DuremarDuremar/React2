@@ -3,13 +3,8 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import {
-  logLogin,
-  logName,
-  regLogin,
-  logSubmit,
-  logUrl,
-} from "../reducers/action";
+import { logLogin, logName, logSubmit, logUrl } from "../reducers/action";
+import useLocalStorage from "../utils/localStorage";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
 import "./reg.scss";
@@ -21,9 +16,6 @@ const Reg = ({
   login,
   name,
   logName,
-  email,
-  password,
-  regLogin,
   logSubmit,
   submit,
   logUrl,
@@ -31,8 +23,10 @@ const Reg = ({
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
-  const [emailReg, setEmailReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
+  // const [emailReg, setEmailReg] = useState("");
+  // const [passwordReg, setPasswordReg] = useState("");
+  const [email, setEmail] = useLocalStorage("email");
+  const [password, setPassword] = useLocalStorage("password");
 
   // мешаем разные кадры
   const int = () => {
@@ -46,7 +40,7 @@ const Reg = ({
     if (!loginTrue) {
       logUrl("users");
     } else {
-      logUrl("users/log");
+      logUrl("users/login");
     }
   }, [loginTrue, logUrl]);
 
@@ -67,16 +61,9 @@ const Reg = ({
 
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     logSubmit(true);
-    regLogin(emailReg, passwordReg);
 
-    // if (name.length > 1) {
-    //   logLogin(true);
-    // } else {
-    //   alert("user not found");
-    // }
-    console.log(email, password);
     console.log("enter");
   };
 
@@ -104,14 +91,14 @@ const Reg = ({
             placeholder="Email"
             className="reg__email"
             // value={email}
-            onChange={(e) => setEmailReg(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             className="reg__password"
             // value={password}
-            onChange={(e) => setPasswordReg(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <Link to={loginTrue ? "log/reg" : "/log"}>
             <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
@@ -150,7 +137,6 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
   logLogin,
   logName,
-  regLogin,
   logSubmit,
   logUrl,
 };
