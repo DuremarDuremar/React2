@@ -16,11 +16,11 @@ const Sidebar = ({
   url,
   logName,
 }) => {
-  const [token, setToken] = useLocalStorage("token");
+  const [, setToken] = useLocalStorage("token");
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
 
-  console.log("email", email);
+  // console.log("email", email);
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -50,7 +50,7 @@ const Sidebar = ({
     logName,
   ]);
 
-  console.log("token", token);
+  // console.log("token", token);
 
   return (
     <div className="sidebar">

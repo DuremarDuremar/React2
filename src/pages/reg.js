@@ -3,15 +3,95 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logLogin, logName, logSubmit, logUrl } from "../reducers/action";
+import { logName, logSubmit, logUrl } from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
-import "./reg.scss";
+import styled from "styled-components";
+
+const StylesReg = styled.div`
+  .reg {
+    display: grid;
+    grid-template-rows: minmax(220px, auto) 300px;
+    form {
+      display: flex;
+      background-color: burlywood;
+      .reg__input {
+        border-right: 3px solid black;
+        flex: 0 1 70%;
+        input {
+          display: block;
+          margin: 0px auto;
+          margin-top: 20px;
+          padding: 10px 10px 10px 5px;
+          border-radius: 9px;
+          border: 1px solid black;
+          &:last-child {
+            margin-bottom: 30px;
+          }
+        }
+        h4 {
+          text-align: center;
+          margin-top: 10px;
+          font-style: italic;
+          margin-bottom: 5px;
+          cursor: pointer;
+          color: black;
+          &:hover {
+            &::after {
+              content: "";
+              display: block;
+              width: 80px;
+              height: 2px;
+              background-color: #6d214f;
+              margin: 0px auto;
+            }
+          }
+        }
+      }
+      .reg__submit {
+        flex: 0 1 30%;
+        h2 {
+          text-align: center;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+        button {
+          margin: 0px auto;
+          background-color: #fff;
+          width: 100px;
+          height: 60px;
+          font-weight: 700;
+          border-radius: 20px;
+          display: block;
+
+          &:hover {
+            background-color: #fbb710;
+          }
+        }
+      }
+    }
+    .reg__img {
+      display: grid;
+
+      .reg__img_wrapper {
+        display: grid;
+        padding: 20px 0;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+        img {
+          background-color: black;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+`;
 
 const Reg = ({
   films,
-  logLogin,
   match,
   login,
   name,
@@ -23,10 +103,8 @@ const Reg = ({
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
-  // const [emailReg, setEmailReg] = useState("");
-  // const [passwordReg, setPasswordReg] = useState("");
-  const [email, setEmail] = useLocalStorage("email");
-  const [password, setPassword] = useLocalStorage("password");
+  const [, setEmail] = useLocalStorage("email");
+  const [, setPassword] = useLocalStorage("password");
 
   // мешаем разные кадры
   const int = () => {
@@ -73,57 +151,59 @@ const Reg = ({
   }
 
   return (
-    <div className="reg">
-      <form onSubmit={handleSubmit}>
-        <div className="reg__input">
-          {!loginTrue && (
+    <StylesReg>
+      <div className="reg">
+        <form onSubmit={handleSubmit}>
+          <div className="reg__input">
+            {!loginTrue && (
+              <input
+                type="text"
+                placeholder="Name"
+                className="reg__name"
+                value={name}
+                onChange={(e) => logName(e.target.value)}
+              />
+            )}
+
             <input
-              type="text"
-              placeholder="Name"
-              className="reg__name"
-              value={name}
-              onChange={(e) => logName(e.target.value)}
+              type="email"
+              placeholder="Email"
+              className="reg__email"
+              // value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-          )}
-
-          <input
-            type="email"
-            placeholder="Email"
-            className="reg__email"
-            // value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="reg__password"
-            // value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Link to={loginTrue ? "log/reg" : "/log"}>
-            <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
-          </Link>
-        </div>
-        <div className="reg__submit">
-          <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
-
-          <button type="submit" disabled={submit}>
-            <i className="fas fa-door-open fa-2x"></i>
-          </button>
-        </div>
-      </form>
-      <div className="reg__img">
-        {regFrames2 && regFrames1 && regFrames0 ? (
-          <div className="reg__img_wrapper">
-            <img src={regFrames0.image} alt="1" />
-            <img src={regFrames1.image} alt="2" />
-            <img src={regFrames2.image} alt="3" />
+            <input
+              type="password"
+              placeholder="Password"
+              className="reg__password"
+              // value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Link to={loginTrue ? "log/reg" : "/log"}>
+              <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
+            </Link>
           </div>
-        ) : (
-          <Spinner />
-        )}
+          <div className="reg__submit">
+            <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
+
+            <button type="submit" disabled={submit}>
+              <i className="fas fa-door-open fa-2x"></i>
+            </button>
+          </div>
+        </form>
+        <div className="reg__img">
+          {regFrames2 && regFrames1 && regFrames0 ? (
+            <div className="reg__img_wrapper">
+              <img src={regFrames0.image} alt="1" />
+              <img src={regFrames1.image} alt="2" />
+              <img src={regFrames2.image} alt="3" />
+            </div>
+          ) : (
+            <Spinner />
+          )}
+        </div>
       </div>
-    </div>
+    </StylesReg>
   );
 };
 
@@ -135,7 +215,6 @@ const mapStateToProps = ({
 };
 
 const mapDispatchToProps = {
-  logLogin,
   logName,
   logSubmit,
   logUrl,

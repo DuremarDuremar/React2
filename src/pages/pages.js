@@ -8,7 +8,6 @@ import Home from "./home";
 import Film from "./film";
 import Shop from "./shop";
 import Reg from "./reg";
-import Checkout from "./checkout";
 import Cart from "./cart";
 import "./pages.scss";
 
@@ -32,7 +31,6 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
   return (
     <div className="pages">
       <Switch>
-        <Route path="/checkout" component={Checkout} exact />
         <Route path="/" component={Home} exact />
         <Route path="/film" component={Film} />
         <Route path="/shop" component={Shop} />

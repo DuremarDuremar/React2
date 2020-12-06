@@ -233,7 +233,7 @@ export const getAxiosLogin = async (
     }
   };
 
-  console.log("password", password);
+  // console.log("password", password);
 
   axios(`https://conduit.productionready.io/api/${url}`, {
     method: "post",
@@ -244,7 +244,6 @@ export const getAxiosLogin = async (
     .then((res) => {
       sub(false);
       log(true);
-      console.log(res.data.user.token);
       logname(res.data.user.username);
       settoken(res.data.user.token);
     })
