@@ -4,6 +4,7 @@ import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
 import { logLogin, logSubmit, logName } from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
+import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
 const StyleSidebar = styled.div`
@@ -138,7 +139,7 @@ const Sidebar = ({
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
 
-  // console.log("email", email);
+  const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -171,7 +172,19 @@ const Sidebar = ({
   return (
     <StyleSidebar>
       <div className="sidebar">
-        <div className="sidebar__title">Cinema__Classic__Shop</div>
+        <div className="sidebar__title">
+          {s1200 ? (
+            "Cinema__Classic__Shop"
+          ) : (
+            <span>
+              _Cinema
+              <br />
+              __Classic
+              <br />
+              ___Shop
+            </span>
+          )}
+        </div>
         <div className="sidebar__nav">
           <ul>
             {!login ? (

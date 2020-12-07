@@ -1,8 +1,7 @@
 import updateFilmData from "./filmData";
 import updateFilmCart from "./filmCart";
 import updateFilmLog from "./filmLog";
-// import updateFilmList from "./filmList";
-// import upadateAuthentication from "./authentication";
+import updateFilmResponsive from "./filmResponsive";
 
 const reducer = (state, action) => {
   console.log(action.type);
@@ -10,7 +9,7 @@ const reducer = (state, action) => {
     filmData: updateFilmData(state, action),
     filmCart: updateFilmCart(state, action),
     filmLog: updateFilmLog(state, action),
-    // authentication: upadateAuthentication(state, action),
+    filmResponsive: updateFilmResponsive(state, action),
   };
 };
 

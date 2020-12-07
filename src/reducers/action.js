@@ -54,6 +54,13 @@ const logUrl = (url) => {
   };
 };
 
+const res1200 = (res) => {
+  return {
+    type: "1200",
+    payload: res,
+  };
+};
+
 export {
   filmLoaded,
   filmActive,
@@ -63,4 +70,5 @@ export {
   logName,
   logSubmit,
   logUrl,
+  res1200,
 };

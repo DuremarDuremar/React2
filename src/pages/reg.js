@@ -12,7 +12,8 @@ import styled from "styled-components";
 const StylesReg = styled.div`
   .reg {
     display: grid;
-    grid-template-rows: minmax(220px, auto) 300px;
+    grid-template-rows: minmax(220px, auto) minmax(300px, auto);
+    min-height: 100%;
     form {
       display: flex;
       background-color: burlywood;
@@ -78,12 +79,13 @@ const StylesReg = styled.div`
         display: grid;
         padding: 20px 0;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
+        height: 100%;
         img {
           background-color: black;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: fill;
+          border-radius: 30px;
         }
       }
     }
@@ -151,7 +153,7 @@ const Reg = ({
   }
 
   return (
-    <StylesReg>
+    <StylesReg style={{ height: "100%" }}>
       <div className="reg">
         <form onSubmit={handleSubmit}>
           <div className="reg__input">

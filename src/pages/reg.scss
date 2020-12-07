@@ -1,6 +1,7 @@
 .reg {
   display: grid;
   grid-template-rows: minmax(220px, auto) 300px;
+
   form {
     display: flex;
     background-color: burlywood;
@@ -72,6 +73,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border-radius: 30px;
       }
     }
   }

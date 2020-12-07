@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { filmLoaded, filmActive } from "../reducers/action";
+import { filmLoaded, filmActive, res1200 } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Server from "../server";
 import Home from "./home";
@@ -9,10 +9,15 @@ import Film from "./film";
 import Shop from "./shop";
 import Reg from "./reg";
 import Cart from "./cart";
+import { useMediaQuery } from "react-responsive";
 
 const dataServer = new Server();
 
-const Pages = ({ films, filmLoaded, filmActive, film }) => {
+const Pages = ({ films, filmLoaded, filmActive, film, res1200, pages1200 }) => {
+  const p1200 = useMediaQuery({ query: "(min-width: 1200px)" });
+
+  console.log("pages1200", pages1200);
+
   //получаем масиис фильмов
   useEffect(() => {
     dataServer.getServer().then((data) => {
@@ -26,6 +31,10 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
       filmActive(films[number]);
     }
   }, [films, filmActive]);
+
+  useEffect(() => {
+    res1200(p1200);
+  }, [p1200, res1200]);
 
   return (
     <div className="pages">
@@ -42,13 +51,17 @@ const Pages = ({ films, filmLoaded, filmActive, film }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films, film } }) => {
-  return { films, film };
+const mapStateToProps = ({
+  filmData: { films, film },
+  filmResponsive: { pages1200 },
+}) => {
+  return { films, film, pages1200 };
 };
 
 const mapDispatchToProps = {
   filmLoaded,
   filmActive,
+  res1200,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);
