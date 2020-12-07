@@ -9,6 +9,12 @@
     "f f f f";
 }
 
+.sidebar {
+  grid-area: s;
+  background-color: #636e72;
+  height: 100%;
+}
+
 .pages {
   grid-area: p;
   background-color: gray;
@@ -17,4 +23,5 @@
 .footer {
   grid-area: f;
   background-color: green;
+  min-height: 200px;
 }

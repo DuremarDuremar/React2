@@ -202,7 +202,7 @@ const Film = ({ film, films, total, filmBuy, filmTotal }) => {
   }
 
   return (
-    <StylesFilm style={{ "min-height": "100vh" }}>
+    <StylesFilm>
       <div className="film">
         <div className="film__poster">
           <img src={filmAct.image} alt={filmAct.title} />

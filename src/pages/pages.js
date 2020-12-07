@@ -9,7 +9,6 @@ import Film from "./film";
 import Shop from "./shop";
 import Reg from "./reg";
 import Cart from "./cart";
-import "./pages.scss";
 
 const dataServer = new Server();
 
