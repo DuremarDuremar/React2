@@ -74,17 +74,17 @@ const StylesReg = styled.div`
     }
     .reg__img {
       display: grid;
-
+      border-bottom: 3px solid #6d214f;
       .reg__img_wrapper {
         display: grid;
         padding: 20px 0;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        height: 100%;
+
         img {
           background-color: black;
           width: 100%;
           height: 100%;
-          object-fit: fill;
+          object-fit: cover;
           border-radius: 30px;
         }
       }
@@ -101,12 +101,17 @@ const Reg = ({
   logSubmit,
   submit,
   logUrl,
+  pages820,
+  pages1200,
+  pages1250,
 }) => {
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
   const [, setEmail] = useLocalStorage("email");
   const [, setPassword] = useLocalStorage("password");
+
+  console.log("pages1250", pages1250);
 
   // мешаем разные кадры
   const int = () => {
@@ -197,8 +202,8 @@ const Reg = ({
           {regFrames2 && regFrames1 && regFrames0 ? (
             <div className="reg__img_wrapper">
               <img src={regFrames0.image} alt="1" />
-              <img src={regFrames1.image} alt="2" />
-              <img src={regFrames2.image} alt="3" />
+              {pages820 && <img src={regFrames1.image} alt="2" />}
+              {pages1250 && <img src={regFrames2.image} alt="3" />}
             </div>
           ) : (
             <Spinner />
@@ -212,8 +217,19 @@ const Reg = ({
 const mapStateToProps = ({
   filmData: { films },
   filmLog: { login, name, email, password, submit },
+  filmResponsive: { pages1200, pages1250, pages820 },
 }) => {
-  return { films, login, name, email, password, submit };
+  return {
+    films,
+    login,
+    name,
+    email,
+    password,
+    submit,
+    pages820,
+    pages1200,
+    pages1250,
+  };
 };
 
 const mapDispatchToProps = {

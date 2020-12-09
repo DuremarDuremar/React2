@@ -54,9 +54,23 @@ const logUrl = (url) => {
   };
 };
 
+const res1250 = (res) => {
+  return {
+    type: "1250",
+    payload: res,
+  };
+};
+
 const res1200 = (res) => {
   return {
     type: "1200",
+    payload: res,
+  };
+};
+
+const res820 = (res) => {
+  return {
+    type: "820",
     payload: res,
   };
 };
@@ -71,4 +85,6 @@ export {
   logSubmit,
   logUrl,
   res1200,
+  res1250,
+  res820,
 };

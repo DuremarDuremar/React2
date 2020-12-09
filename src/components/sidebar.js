@@ -125,6 +125,108 @@ const StyleSidebar = styled.div`
   }
 `;
 
+const StyleSidebarAdap = styled.div`
+  .sidebar {
+    padding-top: 30px;
+    padding-left: 15px;
+    border-right: 4px solid #6d214f;
+
+    .sidebar__title {
+      font-family: "Sansita Swashed", cursive;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+    .sidebar__nav {
+      font-family: "Sansita Swashed", cursive;
+      font-weight: 700;
+      font-weight: 400;
+      font-size: 18px;
+      margin-bottom: 30px;
+
+      ul {
+        .sidebar__li {
+          display: block;
+          &:not(:first-child) {
+            margin-top: 20px;
+          }
+          i {
+            color: black;
+            cursor: pointer;
+
+            &:hover {
+              color: #6d214f;
+            }
+          }
+        }
+        .sidebar__name {
+          text-align: center;
+          font-size: 20px;
+          font-style: normal;
+          border: 3px solid #6d214f;
+          border-radius: 30px;
+          background-color: #fff;
+          i {
+            margin-left: 6px;
+            cursor: pointer;
+            color: black;
+          }
+        }
+      }
+    }
+    .sidebar__search {
+      font-weight: 600;
+      margin-bottom: 20px;
+      p {
+        cursor: pointer;
+        display: inline-block;
+      }
+    }
+    .sidebar__cart {
+      font-weight: 600;
+      margin-bottom: 30px;
+
+      i {
+        color: black;
+        cursor: pointer;
+        display: inline-block;
+        &:hover {
+          color: #6d214f;
+        }
+      }
+      span {
+        color: #fbb710;
+      }
+    }
+    .sidebar__link {
+      display: flex;
+      button {
+        width: 13px;
+        height: 13px;
+
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+        &:hover {
+          background-color: #6d214f;
+          color: #fff;
+        }
+      }
+    }
+    .sidebar__li.active {
+      i {
+        color: #6d214f !important;
+      }
+    }
+
+    .sidebar__p.active {
+      i {
+        color: #6d214f !important;
+      }
+    }
+  }
+`;
+
 const Sidebar = ({
   total,
   login,
@@ -140,6 +242,7 @@ const Sidebar = ({
   const [password, setPassword] = useLocalStorage("password");
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
+  const s600 = useMediaQuery({ query: "(min-width: 600px)" });
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -168,6 +271,75 @@ const Sidebar = ({
     setToken,
     logName,
   ]);
+
+  if (!s600) {
+    return (
+      <StyleSidebarAdap>
+        <div className="sidebar">
+          <div className="sidebar__title">
+            <p>
+              Cinema <br />
+              Classic
+              <br />
+              Shop
+            </p>
+          </div>
+          <div className="sidebar__nav">
+            <ul>
+              {!login ? (
+                <NavLink className="sidebar__li" to="/log">
+                  <i className="fas fa-key fa-2x"></i>
+                </NavLink>
+              ) : (
+                <li className="sidebar__name">
+                  Hello, {name}
+                  <Link to="/">
+                    <i
+                      className="fas fa-sign-out-alt"
+                      title="exit"
+                      onClick={() => {
+                        logLogin(false);
+                        setToken("");
+                        setPassword("");
+                        setEmail("");
+                      }}
+                    ></i>
+                  </Link>
+                </li>
+              )}
+              <NavLink className="sidebar__li" to="/" exact>
+                <i className="fas fa-home fa-2x"></i>
+              </NavLink>
+              <NavLink className="sidebar__li" to="/shop">
+                <i className="fas fa-layer-group fa-2x"></i>
+              </NavLink>
+              <NavLink className="sidebar__li" to="/film">
+                <i className="fas fa-film fa-2x"></i>
+              </NavLink>
+            </ul>
+          </div>
+          <div className="sidebar__cart">
+            <NavLink className="sidebar__p" to="/cart">
+              <i className="fas fa-shopping-cart fa-2x"></i>
+
+              <span> ${total}</span>
+            </NavLink>
+          </div>
+          <div className="sidebar__link">
+            <button>
+              <i className="fab fa-instagram-square"></i>
+            </button>
+            <button>
+              <i className="fab fa-facebook-f"></i>
+            </button>
+            <button>
+              <i className="fab fa-twitter "></i>
+            </button>
+          </div>
+        </div>
+      </StyleSidebarAdap>
+    );
+  }
 
   return (
     <StyleSidebar>
