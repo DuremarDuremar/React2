@@ -20,6 +20,22 @@ const StyleApp = styled.div`
       "f f f f";
   }
 
+  .viewBlock {
+    display: block;
+    height: 30px;
+    text-align: center;
+    background-color: #636e72;
+    padding: 3px 0;
+    i {
+      cursor: pointer;
+    }
+
+    span {
+      padding-left: 5px;
+      font-size: 25px;
+      color: #fff;
+    }
+  }
   .app__adap {
     display: grid;
     min-height: 100vh;
@@ -72,6 +88,15 @@ const App = () => {
     <Provider store={Store}>
       <Router>
         <StyleApp>
+          {!view && (
+            <div className="viewBlock">
+              <i
+                className="fas fa-exchange-alt fa-2x view"
+                onClick={() => setView(!view)}
+              ></i>
+              <span> Cinema Classic Shop</span>
+            </div>
+          )}
           <div
             className={
               a600 ? "app" : "app__adap" + `${!view ? " appView" : ""}`
