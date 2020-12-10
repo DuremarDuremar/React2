@@ -127,14 +127,19 @@ const StyleSidebar = styled.div`
 
 const StyleSidebarAdap = styled.div`
   .sidebar {
-    padding-top: 30px;
+    padding-top: 10px;
     padding-left: 15px;
     border-right: 4px solid #6d214f;
+
+    .view {
+      cursor: pointer;
+    }
 
     .sidebar__title {
       font-family: "Sansita Swashed", cursive;
       font-weight: 700;
       font-size: 15px;
+      margin-top: 15px;
       margin-bottom: 30px;
     }
     .sidebar__nav {
@@ -194,7 +199,8 @@ const StyleSidebarAdap = styled.div`
           color: #6d214f;
         }
       }
-      span {
+      p {
+        margin-top: 5px;
         color: #fbb710;
       }
     }
@@ -236,6 +242,8 @@ const Sidebar = ({
   logSubmit,
   url,
   logName,
+  view,
+  setView,
 }) => {
   const [, setToken] = useLocalStorage("token");
   const [email, setEmail] = useLocalStorage("email");
@@ -243,6 +251,8 @@ const Sidebar = ({
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
   const s600 = useMediaQuery({ query: "(min-width: 600px)" });
+
+  console.log("view", view);
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -276,6 +286,11 @@ const Sidebar = ({
     return (
       <StyleSidebarAdap>
         <div className="sidebar">
+          <i
+            className="fas fa-exchange-alt fa-3x view"
+            onClick={() => setView(!view)}
+          ></i>
+
           <div className="sidebar__title">
             <p>
               Cinema <br />
@@ -322,7 +337,7 @@ const Sidebar = ({
             <NavLink className="sidebar__p" to="/cart">
               <i className="fas fa-shopping-cart fa-2x"></i>
 
-              <span> ${total}</span>
+              <p> ${total}</p>
             </NavLink>
           </div>
           <div className="sidebar__link">

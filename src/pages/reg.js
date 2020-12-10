@@ -111,8 +111,6 @@ const Reg = ({
   const [, setEmail] = useLocalStorage("email");
   const [, setPassword] = useLocalStorage("password");
 
-  console.log("pages1250", pages1250);
-
   // мешаем разные кадры
   const int = () => {
     return getRandomInt(0, 8);
