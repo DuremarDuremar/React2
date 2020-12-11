@@ -12,73 +12,85 @@ const StyleHome = styled.div`
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       background-color: #636e72;
-      .home__item {
-        cursor: pointer;
-        position: relative;
-        z-index: 1;
-        border: 4px solid #6d214f;
-        img {
-          width: 100%;
-          height: 100%;
-          display: block;
-        }
-        .home__item_info {
-          position: absolute;
-          z-index: 2;
-          bottom: 0;
-          width: 100%;
-          background-color: #636e72;
-          display: none;
-          text-align: center;
-          padding: 10px 0;
-        }
-        .home__item_price {
-          position: absolute;
-          top: 0;
-          right: 0;
-          z-index: 2;
-          width: 50px;
-          font-size: 18px;
-          line-height: 18px;
-          font-weight: 700;
-          padding: 10px;
-          text-align: center;
-          background-color: #636e72;
-        }
+    }
+    .home__container2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background-color: #636e72;
+    }
+    .home__container3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      background-color: #636e72;
+    }
+    .home__item {
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      border: 4px solid #6d214f;
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .home__item_info {
+        position: absolute;
+        z-index: 2;
+        bottom: 0;
+        width: 100%;
+        background-color: #636e72;
+        display: none;
+        text-align: center;
+        padding: 10px 0;
+      }
+      .home__item_price {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        width: 50px;
+        font-size: 18px;
+        line-height: 18px;
+        font-weight: 700;
+        padding: 10px;
+        text-align: center;
+        background-color: #636e72;
+      }
 
-        &:hover img {
-          opacity: 0.4;
-        }
+      &:hover img {
+        opacity: 0.4;
+      }
 
-        &:hover .home__item_info {
-          display: block;
-        }
+      &:hover .home__item_info {
+        display: block;
       }
     }
-    .home__item_more {
-      cursor: pointer;
-      text-align: center;
-      margin: 0px auto;
-      width: 50%;
-      height: 30px;
-      margin-bottom: 20px;
-      border-bottom-right-radius: 40%;
-      border-bottom-left-radius: 40%;
-      font-size: 20px;
-      background-color: #636e72;
-      color: #fff;
-      &:hover {
-        border: 4px solid black;
-        color: black;
-        font-weight: 800;
-      }
+  }
+  .home__item_more {
+    cursor: pointer;
+    text-align: center;
+    margin: 0px auto;
+    width: 50%;
+    height: 30px;
+    margin-bottom: 20px;
+    border-bottom-right-radius: 40%;
+    border-bottom-left-radius: 40%;
+    font-size: 20px;
+    background-color: #636e72;
+    color: #fff;
+    &:hover {
+      border: 4px solid black;
+      color: black;
+      font-weight: 800;
     }
   }
 `;
 
-const Home = ({ films, filmActive }) => {
+const Home = ({ films, filmActive, pages1000, pages600 }) => {
   const [filmsView, setFilmVieW] = useState(6);
   const [homeFilms, setHomeFilms] = useState(null);
+
+  console.log(pages600);
 
   useEffect(() => {
     if (films) {
@@ -93,7 +105,15 @@ const Home = ({ films, filmActive }) => {
     return (
       <StyleHome>
         <div className="home">
-          <div className="home__container">
+          <div
+            className={
+              pages1000
+                ? "home__container"
+                : pages600
+                ? "home__container2"
+                : "home__container3"
+            }
+          >
             {filmsHome[0].map((film) => (
               <div
                 key={film.id}
@@ -129,8 +149,11 @@ const Home = ({ films, filmActive }) => {
   }
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({
+  filmData: { films },
+  filmResponsive: { pages1000, pages600 },
+}) => {
+  return { films, pages1000, pages600 };
 };
 
 const mapDispatchToProps = {

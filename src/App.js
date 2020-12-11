@@ -26,8 +26,8 @@ const StyleApp = styled.div`
     text-align: center;
     background-color: #636e72;
     padding: 3px 0;
+    cursor: pointer;
     i {
-      cursor: pointer;
     }
 
     span {
@@ -74,13 +74,13 @@ const StyleApp = styled.div`
 
 const App = () => {
   const [view, setView] = useState(true);
-  const a600 = useMediaQuery({ query: "(min-width: 600px)" });
+  const a700 = useMediaQuery({ query: "(min-width: 700px)" });
 
   useEffect(() => {
-    if (a600) {
+    if (a700) {
       setView(true);
     }
-  }, [a600]);
+  }, [a700]);
 
   const Vs = view ? <Sidebar view={view} setView={setView} /> : null;
 
@@ -89,17 +89,14 @@ const App = () => {
       <Router>
         <StyleApp>
           {!view && (
-            <div className="viewBlock">
-              <i
-                className="fas fa-exchange-alt fa-2x view"
-                onClick={() => setView(!view)}
-              ></i>
+            <div className="viewBlock" onClick={() => setView(!view)}>
+              <i className="fas fa-exchange-alt fa-2x view"></i>
               <span> Cinema Classic Shop</span>
             </div>
           )}
           <div
             className={
-              a600 ? "app" : "app__adap" + `${!view ? " appView" : ""}`
+              a700 ? "app" : "app__adap" + `${!view ? " appView" : ""}`
             }
           >
             {Vs}

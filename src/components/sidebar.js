@@ -250,9 +250,9 @@ const Sidebar = ({
   const [password, setPassword] = useLocalStorage("password");
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
-  const s600 = useMediaQuery({ query: "(min-width: 600px)" });
+  const s700 = useMediaQuery({ query: "(min-width: 700px)" });
 
-  console.log("view", view);
+  // console.log("view", view);
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -282,7 +282,7 @@ const Sidebar = ({
     logName,
   ]);
 
-  if (!s600) {
+  if (!s700) {
     return (
       <StyleSidebarAdap>
         <div className="sidebar">
