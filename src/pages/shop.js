@@ -136,6 +136,9 @@ const StylesShop = styled.div`
         padding-top: 5px;
         border-bottom: 3px solid black;
         border-top: 3px solid black;
+        i {
+          cursor: pointer;
+        }
       }
       ul {
         li {
@@ -305,6 +308,9 @@ const StylesShop = styled.div`
       }
     }
   }
+  .shop__null {
+    display: none;
+  }
 `;
 
 const Shop = ({
@@ -331,6 +337,8 @@ const Shop = ({
   // стэйт для очистки value
   const [shopValueTitle, setShopValueTitle] = useState("");
   const [shopValueAuthor, setShopValueAuthor] = useState("");
+  // стэйтт видимости сайдбара категории
+  const [viewCateg, setViewCateg] = useState(true);
 
   useEffect(() => {
     if (films) {
@@ -343,6 +351,13 @@ const Shop = ({
       setShopAllPage(chunk(arrShop, 12));
     }
   }, [arrShop]);
+
+  //возвращаем сайдбар категории при увеличении ширины экрана
+  useEffect(() => {
+    if (pages600) {
+      setViewCateg(true);
+    }
+  }, [pages600]);
 
   //создаем переменную для изменения направления стрелки
   const classI =
@@ -437,6 +452,11 @@ const Shop = ({
     ? "shop820"
     : "shop600";
 
+  const sideTab = () => {
+    setViewCateg(!viewCateg);
+  };
+
+  console.log(viewCateg);
   return (
     <StylesShop>
       <div className={shop}>
@@ -444,9 +464,16 @@ const Shop = ({
           <div className="shop__nav">
             <h4>
               Catagories{" "}
-              {!pages600 ? <i className="fas fa-arrow-down"></i> : null}
+              {!pages600 ? (
+                <i
+                  className={
+                    viewCateg ? "fas fa-arrow-down" : "fas fa-arrow-up"
+                  }
+                  onClick={() => sideTab()}
+                ></i>
+              ) : null}
             </h4>
-            <ul>
+            <ul className={!viewCateg ? "shop__null" : null}>
               <li
                 onClick={(e) => changeFilms(e.currentTarget)}
                 className={stateShop === "All" ? "activeLi" : null}
