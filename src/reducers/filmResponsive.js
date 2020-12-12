@@ -1,11 +1,12 @@
 const updateFilmResponsive = (state, action) => {
   if (state === undefined) {
     return {
-      pages1200: true,
+      pages1280: true,
       pages1250: true,
+      pages1200: true,
+      pages1000: true,
       pages820: true,
       pages600: true,
-      pages1000: true,
     };
   }
 
@@ -39,7 +40,11 @@ const updateFilmResponsive = (state, action) => {
         ...state.filmResponsive,
         pages1250: action.payload,
       };
-
+    case "1280":
+      return {
+        ...state.filmResponsive,
+        pages1280: action.payload,
+      };
     default:
       return state.filmResponsive;
   }

@@ -17,45 +17,6 @@ const StylesShop = styled.div`
       "s h h h h"
       "s c c c c"
       "s p p p p";
-
-    .shop__sidebar {
-      grid-area: s;
-      background-color: brown;
-      .shop__nav {
-        text-align: center;
-        padding-top: 35px;
-        h4 {
-          font-size: 24px;
-          padding-bottom: 5px;
-          padding-top: 5px;
-          border-bottom: 3px solid black;
-          border-top: 3px solid black;
-        }
-        ul {
-          li {
-            font-family: "Sansita Swashed", cursive;
-            cursor: pointer;
-            font-size: 20px;
-            font-weight: 500;
-            padding-top: 15px;
-
-            &:hover {
-              background-color: #fff;
-            }
-          }
-          .activeLi {
-            &:after {
-              content: "";
-              display: block;
-              width: 90px;
-              height: 5px;
-              background-color: black;
-              margin: 0px auto;
-            }
-          }
-        }
-      }
-    }
     .shop__header {
       grid-area: h;
       background-color: cadetblue;
@@ -76,99 +37,284 @@ const StylesShop = styled.div`
         }
       }
     }
-    .shop__content {
-      grid-area: c;
-      background-color: darkorchid;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      grid-row-gap: 10px;
-      grid-column-gap: 2px;
-      padding: 10px 5px 5px 5px;
+  }
 
-      .shop__content_item {
-        position: relative;
-
-        h3 {
-          text-align: center;
-          font-size: 14px;
-          padding-bottom: 4px;
-        }
-        img {
-          width: 100%;
-          height: 300px;
-          display: block;
-          margin: 0px auto;
-        }
-        .shop__content_price {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          color: #fff;
-          background-color: #6d214f;
-          padding: 10px;
-          border-radius: 75%;
-        }
-        .shop__content_author {
-          position: absolute;
-          top: 40px;
-          max-width: 100px;
-          right: 5px;
-          color: #fff;
-          background-color: #6d214f;
-          text-align: center;
-          transform: rotate(10deg);
-          font-size: 11px;
+  .shop1280 {
+    display: grid;
+    grid-template-columns: 2fr 3.33fr 3.33fr 3.33fr;
+    grid-template-rows: 0.5fr 11fr 0.5fr;
+    min-height: 100vh;
+    grid-template-areas:
+      "s h h h"
+      "s c c c"
+      "s p p p";
+    .shop__header {
+      grid-area: h;
+      background-color: cadetblue;
+      .shop__form {
+        padding-top: 35px;
+        display: flex;
+        justify-content: space-evenly;
+        form {
+          input {
+            width: 220px;
+            padding: 10px 0 10px 5px;
+            font-size: 16px;
+            line-height: 16px;
+            border: 2px solid black;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+          }
         }
       }
     }
-    .shop__pagination {
-      grid-area: p;
-      display: flex;
-      justify-content: center;
-      padding: 5px 0;
-      div {
-        width: 50px;
-        background-color: #6d214f;
-        text-align: center;
-        border-radius: 75%;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        &:hover {
-          background-color: #fff;
+  }
+
+  .shop820 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 0.2fr 11fr 0.2fr;
+    min-height: 100vh;
+    grid-template-areas:
+      "s h h h h"
+      "s c c c c"
+      "s p p p p";
+    .shop__header {
+      grid-area: h;
+      background-color: cadetblue;
+      .shop__form {
+        padding-top: 35px;
+        display: flex;
+        justify-content: space-evenly;
+        form {
+          input {
+            width: 160px;
+            padding: 10px 0 10px 5px;
+            font-size: 16px;
+            line-height: 16px;
+            border: 2px solid black;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+          }
         }
       }
-      .activePage {
-        border: 6px solid black;
-      }
     }
-    .shop__none.shop__none {
-      display: block;
-      p {
-        font-family: "Sansita Swashed", cursive;
-        text-align: center;
-        font-size: 20px;
-        font-weight: 800;
-        margin-bottom: 20px;
-      }
-      button {
-        font-family: "Sansita Swashed", cursive;
+  }
+
+  .shop600 {
+    display: block;
+    .shop__header {
+      background-color: cadetblue;
+      .shop__form {
+        padding: 5px 0;
         display: block;
-        width: 100px;
-        height: 100px;
-        border-radius: 100%;
-        margin: 0px auto;
-        font-size: 13px;
-        &:hover {
-          border: 3px solid black;
+        text-align: center;
+        form {
+          input {
+            width: 220px;
+            padding: 10px 0 10px 5px;
+            font-size: 14px;
+            line-height: 16px;
+            border: 2px solid black;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+          }
         }
+      }
+    }
+  }
+
+  .shop__sidebar {
+    grid-area: s;
+    background-color: brown;
+    .shop__nav {
+      text-align: center;
+      padding-top: 35px;
+      h4 {
+        font-size: 24px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom: 3px solid black;
+        border-top: 3px solid black;
+      }
+      ul {
+        li {
+          font-family: "Sansita Swashed", cursive;
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: 500;
+          padding-top: 15px;
+
+          &:hover {
+            background-color: #fff;
+          }
+        }
+        .activeLi {
+          &:after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 5px;
+            background-color: black;
+            margin: 0px auto;
+          }
+        }
+      }
+    }
+  }
+
+  .shop__content {
+    grid-area: c;
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 2px;
+    padding: 10px 5px 5px 5px;
+    .shop__content_item {
+      position: relative;
+
+      h3 {
+        text-align: center;
+        font-size: 14px;
+        padding-bottom: 4px;
+      }
+      img {
+        width: 100%;
+        height: 300px;
+        display: block;
+        margin: 0px auto;
+      }
+    }
+  }
+
+  .shop__content1250 {
+    grid-area: c;
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 6px;
+    padding: 10px 5px 5px 5px;
+    .shop__content_item {
+      position: relative;
+
+      h3 {
+        text-align: center;
+        font-size: 1.4vmax;
+        padding-bottom: 4px;
+      }
+      img {
+        width: 100%;
+        height: 30vmax;
+        display: block;
+        margin: 0px auto;
+      }
+    }
+  }
+
+  .shop__content820 {
+    grid-area: c;
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 6px;
+    padding: 10px 5px 5px 5px;
+    .shop__content_item {
+      position: relative;
+
+      h3 {
+        text-align: center;
+        font-size: 1.6vmax;
+        padding-bottom: 4px;
+      }
+      img {
+        width: 100%;
+        height: 40vmax;
+        display: block;
+        margin: 0px auto;
+      }
+    }
+  }
+
+  .shop__content_price {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background-color: #6d214f;
+    padding: 10px;
+    border-radius: 75%;
+  }
+  .shop__content_author {
+    position: absolute;
+    top: 40px;
+    max-width: 100px;
+    right: 5px;
+    color: #fff;
+    background-color: #6d214f;
+    text-align: center;
+    transform: rotate(10deg);
+    font-size: 11px;
+  }
+
+  .shop__pagination {
+    grid-area: p;
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+    div {
+      width: 50px;
+      background-color: #6d214f;
+      text-align: center;
+      border-radius: 75%;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      &:hover {
+        background-color: #fff;
+      }
+    }
+    .activePage {
+      border: 6px solid black;
+    }
+  }
+  .shop__none.shop__none {
+    display: block;
+    p {
+      font-family: "Sansita Swashed", cursive;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    button {
+      font-family: "Sansita Swashed", cursive;
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      margin: 0px auto;
+      font-size: 13px;
+      &:hover {
+        border: 3px solid black;
       }
     }
   }
 `;
 
-const Shop = ({ films, filmActive }) => {
+const Shop = ({
+  films,
+  filmActive,
+  pages1280,
+  pages1250,
+  pages820,
+  pages600,
+}) => {
   //стэйт для отображения
   const [arrShop, setArrShop] = useState(null);
   // стэйт активной кнопки
@@ -277,9 +423,23 @@ const Shop = ({ films, filmActive }) => {
     ? sortBy(arrShop, ["country"])
     : sortBy(arrShop, ["country"]).reverse();
 
+  const shopCont = pages1250
+    ? "shop__content"
+    : pages820
+    ? "shop__content1250"
+    : "shop__content820";
+
+  const shop = pages1280
+    ? "shop"
+    : pages820
+    ? "shop1280"
+    : pages600
+    ? "shop820"
+    : "shop600";
+
   return (
     <StylesShop>
-      <div className="shop">
+      <div className={shop}>
         <div className="shop__sidebar">
           <div className="shop__nav">
             <h4>Catagories</h4>
@@ -341,13 +501,13 @@ const Shop = ({ films, filmActive }) => {
           </div>
         </div>
         {shopNone && (
-          <div className="shop__content shop__none">
+          <div className={shopCont + " shop__none"}>
             <p>None</p>
-            <button onClick={() => searchReturn()}> return </button>
+            <button onClick={() => searchReturn()}>return</button>
           </div>
         )}
         {arrShop && stateShop === "All" && !shopNone && (
-          <div className="shop__content">
+          <div className={shopCont}>
             {chunk(arrShop, 12)[shopPage].map((film) => (
               <div
                 key={film.id}
@@ -365,7 +525,7 @@ const Shop = ({ films, filmActive }) => {
           </div>
         )}
         {arrShop && stateShop === "Year" && !shopNone && (
-          <div className="shop__content">
+          <div className={shopCont}>
             {chunk(filmsYear, 12)[shopPage].map((film) => (
               <div
                 key={film.id}
@@ -382,7 +542,7 @@ const Shop = ({ films, filmActive }) => {
           </div>
         )}
         {arrShop && stateShop === "Country" && !shopNone && (
-          <div className="shop__content">
+          <div className={shopCont}>
             {chunk(filmsCountry, 12)[shopPage].map((film) => (
               <div
                 key={film.id}
@@ -399,7 +559,7 @@ const Shop = ({ films, filmActive }) => {
           </div>
         )}
         {arrShop && stateShop === "Price" && !shopNone && (
-          <div className="shop__content">
+          <div className={shopCont}>
             {chunk(filmsPrice, 12)[shopPage].map((film) => (
               <div
                 key={film.id}
@@ -433,8 +593,11 @@ const Shop = ({ films, filmActive }) => {
   );
 };
 
-const mapStateToProps = ({ filmData: { films } }) => {
-  return { films };
+const mapStateToProps = ({
+  filmData: { films },
+  filmResponsive: { pages1280, pages1250, pages820, pages600 },
+}) => {
+  return { films, pages1280, pages1250, pages820, pages600 };
 };
 
 const mapDispatchToProps = {

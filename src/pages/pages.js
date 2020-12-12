@@ -6,6 +6,7 @@ import {
   filmActive,
   res1200,
   res1250,
+  res1280,
   res1000,
   res820,
   res600,
@@ -31,7 +32,9 @@ const Pages = ({
   res1000,
   res820,
   res600,
+  res1280,
 }) => {
+  const p1280 = useMediaQuery({ query: "(min-width: 1280px)" });
   const p1250 = useMediaQuery({ query: "(min-width: 1250px)" });
   const p1200 = useMediaQuery({ query: "(min-width: 1200px)" });
   const p1000 = useMediaQuery({ query: "(min-width: 1000px)" });
@@ -59,6 +62,10 @@ const Pages = ({
   useEffect(() => {
     res1250(p1250);
   }, [p1250, res1250]);
+
+  useEffect(() => {
+    res1280(p1280);
+  }, [p1280, res1280]);
 
   useEffect(() => {
     res820(p820);
@@ -96,6 +103,7 @@ const mapDispatchToProps = {
   filmActive,
   res1200,
   res1000,
+  res1280,
   res1250,
   res820,
   res600,
