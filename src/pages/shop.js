@@ -442,7 +442,10 @@ const Shop = ({
       <div className={shop}>
         <div className="shop__sidebar">
           <div className="shop__nav">
-            <h4>Catagories</h4>
+            <h4>
+              Catagories{" "}
+              {!pages600 ? <i className="fas fa-arrow-down"></i> : null}
+            </h4>
             <ul>
               <li
                 onClick={(e) => changeFilms(e.currentTarget)}
