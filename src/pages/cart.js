@@ -10,6 +10,7 @@ const StylesCart = styled.div`
     display: flex;
     background-color: #fff;
     min-height: 100%;
+
     .cart__shopping {
       background-color: #fff;
       flex: 0 1 65%;
@@ -99,7 +100,101 @@ const StylesCart = styled.div`
   }
 `;
 
-const Cart = ({ buy, total, films, filmTotal, filmActive }) => {
+const StylesCart820 = styled.div`
+  .cart {
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #fff;
+
+    .cart__shopping {
+      background-color: #fff;
+      flex: 0 1 65%;
+      padding: 20px;
+      h3 {
+        text-align: center;
+      }
+      .cart__nav {
+        background-color: #636e72;
+        font-weight: 700;
+        font-family: "Sansita Swashed", cursive;
+
+        li {
+          cursor: pointer;
+
+          &:hover {
+            background-color: #fff;
+            border-radius: 10px;
+          }
+        }
+      }
+      .cart__item {
+        margin-top: 10px;
+        display: flex;
+        padding: 5px 0;
+        color: black;
+        font-weight: 700;
+        font-family: "Sansita Swashed", cursive;
+
+        li {
+          flex: 0 0 25%;
+          text-align: center;
+        }
+        .cart__film {
+          p {
+            color: black;
+            &:hover {
+              outline: 6px solid black;
+            }
+          }
+        }
+        .cart__delete {
+          margin: 0 3px;
+          color: red;
+          &:hover {
+            border: 1px solid black;
+            border-radius: 100%;
+          }
+        }
+        i {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .cart__total {
+      background-color: darkgoldenrod;
+      flex: 0 1 35%;
+      padding: 20px;
+      background-color: #636e72;
+      color: #fff;
+
+      h4 {
+        text-align: center;
+      }
+      .cart__info {
+        padding-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        span {
+          font-size: 30px;
+          font-family: "Sansita Swashed", cursive;
+        }
+      }
+      button {
+        background-color: #fbb710;
+        width: 100px;
+        height: 60px;
+        border-radius: 20px;
+        display: block;
+        margin: 20px auto 0;
+        font-style: italic;
+        font-weight: 900;
+      }
+    }
+  }
+`;
+
+const Cart = ({ buy, total, films, filmTotal, filmActive, pages820 }) => {
   const [newBuy, setNewBuy] = useState(null);
 
   // делаем логику изменения значения кол-во и общей суммы в прайсе
@@ -206,8 +301,8 @@ const Cart = ({ buy, total, films, filmTotal, filmActive }) => {
     setNewBuy(addFilm);
   };
 
-  return (
-    <StylesCart style={{ height: "100%" }}>
+  const cartRender = () => {
+    return (
       <div className="cart">
         <div className="cart__shopping">
           <h3>Shopping Cart</h3>
@@ -264,12 +359,24 @@ const Cart = ({ buy, total, films, filmTotal, filmActive }) => {
           <button className="film__cart">Checkcout</button>
         </div>
       </div>
-    </StylesCart>
-  );
+    );
+  };
+
+  if (pages820) {
+    return <StylesCart style={{ height: "100%" }}>{cartRender()}</StylesCart>;
+  } else {
+    return (
+      <StylesCart820 style={{ height: "100%" }}>{cartRender()}</StylesCart820>
+    );
+  }
 };
 
-const mapStateToProps = ({ filmCart: { buy, total }, filmData: { films } }) => {
-  return { buy, total, films };
+const mapStateToProps = ({
+  filmCart: { buy, total },
+  filmData: { films },
+  filmResponsive: { pages820 },
+}) => {
+  return { buy, total, films, pages820 };
 };
 
 const mapDispatchToProps = {
