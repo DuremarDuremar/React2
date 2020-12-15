@@ -148,12 +148,11 @@ const StyledFilm1000 = styled.div`
     display: grid;
     grid-template-areas:
       "p in"
-      "f f"
+      "t t"
       "im im";
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     min-height: 100vh;
-    background-color: red;
 
     .film__poster {
       grid-area: p;
@@ -186,11 +185,13 @@ const StyledFilm1000 = styled.div`
         display: block;
 
         .film__info_country {
-          font-size: calc(0.8vmax + 6px);
+          margin-top: 10px;
+          font-size: calc(0.8vmax + 10px);
           font-weight: 700;
           font-family: "Ubuntu";
         }
         .film__info_author {
+          margin-top: 10px;
           font-size: calc(2vmax + 5px);
           font-weight: 400;
         }
@@ -214,14 +215,13 @@ const StyledFilm1000 = styled.div`
 
     .film__form {
       display: block;
-      grid-area: f;
-      justify-content: space-around;
-
+      margin-top: 15px;
       .film__input {
-        margin-top: 5px;
+        margin-top: 15px;
         display: flex;
         padding-top: 5px;
         justify-content: center;
+        margin-left: 15px;
         input {
           width: 50px;
           height: 40px;
@@ -244,23 +244,18 @@ const StyledFilm1000 = styled.div`
           }
         }
       }
-      .film__info_text {
-        margin-right: 10px;
-        margin-top: 5vmax;
-        margin-bottom: 5vmax;
-        padding: 5px;
-        font-size: calc(0.8vmax + 8px);
-        font-weight: 400;
-      }
+
       .film__slider {
         text-align: center;
         display: flex;
         justify-content: center;
+        align-items: center;
         .play-reverce {
           transform: rotate(180deg);
         }
         .film__play {
           cursor: pointer;
+
           &:hover {
             color: #fbb710;
           }
@@ -268,16 +263,28 @@ const StyledFilm1000 = styled.div`
         .film__cart {
           background-color: #fff;
           max-width: 100px;
-          max-height: 60px;
+          max-height: 80px;
+          min-height: 50px;
           font-weight: 700;
           border-radius: 20px;
           display: block;
           margin: 0 5px;
+          font-size: 15px;
+          padding: 3px;
           &:hover {
             background-color: #fbb710;
           }
         }
       }
+    }
+    .film__text {
+      grid-area: t;
+      margin-right: 10px;
+      margin-top: 5vmax;
+      margin-bottom: 2vmax;
+      padding: 5px;
+      font-size: calc(0.8vmax + 10px);
+      font-weight: 400;
     }
   }
 `;
@@ -445,58 +452,60 @@ const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
             </div>
             <div className="film__info_author">{filmAct.author}</div>
           </div>
-        </div>
-        <form action="" className="film__form">
-          <div className="film__info_text">
-            {!description ? <Spinner /> : <p>{description}</p>}
-          </div>
-          <div className="film__slider">
-            <i
-              className="fas fa-play fa-4x play-reverce film__play"
-              onClick={() => prevFilm()}
-            ></i>
-            <button
-              className="film__cart"
-              onClick={(event) => {
-                quantityFilm(event);
-              }}
-            >
-              Add to cart
-            </button>
-            <i
-              className="fas fa-play fa-4x film__play"
-              onClick={() => nextFilm()}
-            ></i>
-          </div>
-          <div className="film__input">
-            <input
-              type="number"
-              min="1"
-              max="10"
-              onChange={(e) => setQuantity(e.target.value)}
-              value={quantity}
-            />
-            <div className="film__info_arrow">
-              <div>
-                <i
-                  className="fas fa-sort-up"
-                  onClick={() => {
-                    quantity > 9 ? setQuantity(10) : setQuantity(quantity + 1);
-                  }}
-                ></i>
-              </div>
-              <div>
-                <i
-                  className="fas fa-sort-down"
-                  onClick={() => {
-                    quantity < 2 ? setQuantity(1) : setQuantity(quantity - 1);
-                  }}
-                ></i>
+          <form action="" className="film__form">
+            <div className="film__slider">
+              <i
+                className="fas fa-play fa-2x play-reverce film__play"
+                onClick={() => prevFilm()}
+              ></i>
+              <button
+                className="film__cart"
+                onClick={(event) => {
+                  quantityFilm(event);
+                }}
+              >
+                Add to cart
+              </button>
+              <i
+                className="fas fa-play fa-2x film__play"
+                onClick={() => nextFilm()}
+              ></i>
+            </div>
+            <div className="film__input">
+              <input
+                type="number"
+                min="1"
+                max="10"
+                onChange={(e) => setQuantity(e.target.value)}
+                value={quantity}
+              />
+              <div className="film__info_arrow">
+                <div>
+                  <i
+                    className="fas fa-sort-up"
+                    onClick={() => {
+                      quantity > 9
+                        ? setQuantity(10)
+                        : setQuantity(quantity + 1);
+                    }}
+                  ></i>
+                </div>
+                <div>
+                  <i
+                    className="fas fa-sort-down"
+                    onClick={() => {
+                      quantity < 2 ? setQuantity(1) : setQuantity(quantity - 1);
+                    }}
+                  ></i>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
 
+        <div className="film__text">
+          {!description ? <Spinner /> : <p>{description}</p>}
+        </div>
         <div className="film__images">
           {!frames ? (
             <Spinner />
