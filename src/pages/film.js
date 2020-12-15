@@ -158,12 +158,13 @@ const StyledFilm1000 = styled.div`
     .film__poster {
       grid-area: p;
       margin-right: 3vmax;
+      display: flex;
       img {
         display: block;
         max-width: 100%;
-        min-width: 180px;
+        min-width: 240px;
         max-height: calc(40vmax + 50px);
-        min-height: 300px;
+        min-height: 390px;
         border: 4px solid #6d214f;
         border-left: none;
       }
@@ -172,24 +173,18 @@ const StyledFilm1000 = styled.div`
     .film__info {
       font-family: "Sansita Swashed", cursive;
       grid-area: in;
+      margin-right: 10px;
       .film__info_price {
         padding-top: 15px;
-        font-size: calc(2vmax + 5px);
+        font-size: calc(2vmax + 7px);
         color: #fbb710;
-        &:before {
-          content: "";
-          display: block;
-          background-color: #fbb710;
-          width: 70px;
-          height: 5px;
-        }
       }
       .film__info_title {
         font-size: calc(2vmax + 12px);
       }
       .film__info_subtitle {
-        display: flex;
-        justify-content: space-around;
+        display: block;
+
         .film__info_country {
           font-size: calc(0.8vmax + 6px);
           font-weight: 700;
@@ -199,14 +194,6 @@ const StyledFilm1000 = styled.div`
           font-size: calc(2vmax + 5px);
           font-weight: 400;
         }
-      }
-      .film__info_text {
-        margin-right: 10px;
-        margin-top: 5vmax;
-        padding: 5px;
-        font-size: calc(0.8vmax + 8px);
-        font-weight: 400;
-        min-height: 280px;
       }
     }
 
@@ -226,14 +213,15 @@ const StyledFilm1000 = styled.div`
     }
 
     .film__form {
-      margin: 50px 0;
-      display: flex;
+      display: block;
       grid-area: f;
       justify-content: space-around;
 
       .film__input {
+        margin-top: 5px;
         display: flex;
         padding-top: 5px;
+        justify-content: center;
         input {
           width: 50px;
           height: 40px;
@@ -256,10 +244,18 @@ const StyledFilm1000 = styled.div`
           }
         }
       }
-
+      .film__info_text {
+        margin-right: 10px;
+        margin-top: 5vmax;
+        margin-bottom: 5vmax;
+        padding: 5px;
+        font-size: calc(0.8vmax + 8px);
+        font-weight: 400;
+      }
       .film__slider {
         text-align: center;
         display: flex;
+        justify-content: center;
         .play-reverce {
           transform: rotate(180deg);
         }
@@ -449,12 +445,29 @@ const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
             </div>
             <div className="film__info_author">{filmAct.author}</div>
           </div>
+        </div>
+        <form action="" className="film__form">
           <div className="film__info_text">
             {!description ? <Spinner /> : <p>{description}</p>}
           </div>
-        </div>
-
-        <form action="" className="film__form">
+          <div className="film__slider">
+            <i
+              className="fas fa-play fa-4x play-reverce film__play"
+              onClick={() => prevFilm()}
+            ></i>
+            <button
+              className="film__cart"
+              onClick={(event) => {
+                quantityFilm(event);
+              }}
+            >
+              Add to cart
+            </button>
+            <i
+              className="fas fa-play fa-4x film__play"
+              onClick={() => nextFilm()}
+            ></i>
+          </div>
           <div className="film__input">
             <input
               type="number"
@@ -482,25 +495,8 @@ const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
               </div>
             </div>
           </div>
-          <div className="film__slider">
-            <i
-              className="fas fa-play fa-4x play-reverce film__play"
-              onClick={() => prevFilm()}
-            ></i>
-            <button
-              className="film__cart"
-              onClick={(event) => {
-                quantityFilm(event);
-              }}
-            >
-              Add to cart
-            </button>
-            <i
-              className="fas fa-play fa-4x film__play"
-              onClick={() => nextFilm()}
-            ></i>
-          </div>
         </form>
+
         <div className="film__images">
           {!frames ? (
             <Spinner />
