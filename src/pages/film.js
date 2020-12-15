@@ -5,7 +5,7 @@ import { getAxiosFrames, getAxiosDescription } from "../server";
 import Spinner from "../components/spinner";
 import styled from "styled-components";
 
-const StylesFilm = styled.div`
+const StyledFilm = styled.div`
   .film {
     display: grid;
     grid-template-areas:
@@ -17,11 +17,13 @@ const StylesFilm = styled.div`
 
     .film__poster {
       grid-area: p;
-      margin-right: 15px;
+      margin-right: 3vmax;
       img {
         display: block;
         max-width: 100%;
-        max-height: 98vh;
+        min-width: 180px;
+        max-height: calc(40vmax + 50px);
+        min-height: 300px;
         border: 4px solid #6d214f;
         border-left: none;
       }
@@ -31,8 +33,7 @@ const StylesFilm = styled.div`
       grid-area: in;
       .film__info_price {
         padding-top: 15px;
-
-        font-size: 20px;
+        font-size: calc(2vmax + 5px);
         color: #fbb710;
         &:before {
           content: "";
@@ -43,26 +44,26 @@ const StylesFilm = styled.div`
         }
       }
       .film__info_title {
-        font-size: 35px;
+        font-size: calc(2vmax + 12px);
       }
       .film__info_subtitle {
         display: flex;
         justify-content: space-around;
         .film__info_country {
-          font-size: 15px;
+          font-size: calc(0.8vmax + 6px);
           font-weight: 700;
           font-family: "Ubuntu";
         }
         .film__info_author {
-          font-size: 25px;
+          font-size: calc(2vmax + 5px);
           font-weight: 400;
         }
       }
       .film__info_text {
         margin-right: 10px;
-        margin-top: 30px;
+        margin-top: 5vmax;
         padding: 5px;
-        font-size: 18px;
+        font-size: calc(0.8vmax + 8px);
         font-weight: 400;
         min-height: 280px;
       }
@@ -127,8 +128,8 @@ const StylesFilm = styled.div`
         }
         .film__cart {
           background-color: #fff;
-          width: 100px;
-          height: 60px;
+          max-width: 100px;
+          max-height: 60px;
           font-weight: 700;
           border-radius: 20px;
           display: block;
@@ -142,7 +143,150 @@ const StylesFilm = styled.div`
   }
 `;
 
-const Film = ({ film, films, total, filmBuy, filmTotal }) => {
+const StyledFilm1000 = styled.div`
+  .film {
+    display: grid;
+    grid-template-areas:
+      "p in"
+      "f f"
+      "im im";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    min-height: 100vh;
+    background-color: red;
+
+    .film__poster {
+      grid-area: p;
+      margin-right: 3vmax;
+      img {
+        display: block;
+        max-width: 100%;
+        min-width: 180px;
+        max-height: calc(40vmax + 50px);
+        min-height: 300px;
+        border: 4px solid #6d214f;
+        border-left: none;
+      }
+    }
+
+    .film__info {
+      font-family: "Sansita Swashed", cursive;
+      grid-area: in;
+      .film__info_price {
+        padding-top: 15px;
+        font-size: calc(2vmax + 5px);
+        color: #fbb710;
+        &:before {
+          content: "";
+          display: block;
+          background-color: #fbb710;
+          width: 70px;
+          height: 5px;
+        }
+      }
+      .film__info_title {
+        font-size: calc(2vmax + 12px);
+      }
+      .film__info_subtitle {
+        display: flex;
+        justify-content: space-around;
+        .film__info_country {
+          font-size: calc(0.8vmax + 6px);
+          font-weight: 700;
+          font-family: "Ubuntu";
+        }
+        .film__info_author {
+          font-size: calc(2vmax + 5px);
+          font-weight: 400;
+        }
+      }
+      .film__info_text {
+        margin-right: 10px;
+        margin-top: 5vmax;
+        padding: 5px;
+        font-size: calc(0.8vmax + 8px);
+        font-weight: 400;
+        min-height: 280px;
+      }
+    }
+
+    .film__images {
+      display: grid;
+      grid-area: im;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      padding: 20px;
+
+      .film__frame {
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .film__form {
+      margin: 50px 0;
+      display: flex;
+      grid-area: f;
+      justify-content: space-around;
+
+      .film__input {
+        display: flex;
+        padding-top: 5px;
+        input {
+          width: 50px;
+          height: 40px;
+          appearance: textfield;
+          color: #959595;
+          overflow: visible;
+          text-align: center;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .film__info_arrow {
+          display: block;
+          i {
+            cursor: pointer;
+            width: 20px;
+            padding-left: 3px;
+          }
+        }
+      }
+
+      .film__slider {
+        text-align: center;
+        display: flex;
+        .play-reverce {
+          transform: rotate(180deg);
+        }
+        .film__play {
+          cursor: pointer;
+          &:hover {
+            color: #fbb710;
+          }
+        }
+        .film__cart {
+          background-color: #fff;
+          max-width: 100px;
+          max-height: 60px;
+          font-weight: 700;
+          border-radius: 20px;
+          display: block;
+          margin: 0 5px;
+          &:hover {
+            background-color: #fbb710;
+          }
+        }
+      }
+    }
+  }
+`;
+
+const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
   window.scrollTo(0, 0);
 
   const [filmAct, setFilmAct] = useState(null);
@@ -201,8 +345,8 @@ const Film = ({ film, films, total, filmBuy, filmTotal }) => {
     return <Spinner />;
   }
 
-  return (
-    <StylesFilm>
+  const filmRender = () => {
+    return (
       <div className="film">
         <div className="film__poster">
           <img src={filmAct.image} alt={filmAct.title} />
@@ -285,15 +429,106 @@ const Film = ({ film, films, total, filmBuy, filmTotal }) => {
           )}
         </div>
       </div>
-    </StylesFilm>
-  );
+    );
+  };
+  const filmRender1000 = () => {
+    return (
+      <div className="film">
+        <div className="film__poster">
+          <img src={filmAct.image} alt={filmAct.title} />
+        </div>
+
+        <div className="film__info">
+          <div className="film__info_price">$ {filmAct.price}</div>
+          <div className="film__info_title">{filmAct.title}</div>
+          <div className="film__info_subtitle">
+            <div className="film__info_country">
+              {filmAct.country}
+              <p />
+              {filmAct.year}
+            </div>
+            <div className="film__info_author">{filmAct.author}</div>
+          </div>
+          <div className="film__info_text">
+            {!description ? <Spinner /> : <p>{description}</p>}
+          </div>
+        </div>
+
+        <form action="" className="film__form">
+          <div className="film__input">
+            <input
+              type="number"
+              min="1"
+              max="10"
+              onChange={(e) => setQuantity(e.target.value)}
+              value={quantity}
+            />
+            <div className="film__info_arrow">
+              <div>
+                <i
+                  className="fas fa-sort-up"
+                  onClick={() => {
+                    quantity > 9 ? setQuantity(10) : setQuantity(quantity + 1);
+                  }}
+                ></i>
+              </div>
+              <div>
+                <i
+                  className="fas fa-sort-down"
+                  onClick={() => {
+                    quantity < 2 ? setQuantity(1) : setQuantity(quantity - 1);
+                  }}
+                ></i>
+              </div>
+            </div>
+          </div>
+          <div className="film__slider">
+            <i
+              className="fas fa-play fa-4x play-reverce film__play"
+              onClick={() => prevFilm()}
+            ></i>
+            <button
+              className="film__cart"
+              onClick={(event) => {
+                quantityFilm(event);
+              }}
+            >
+              Add to cart
+            </button>
+            <i
+              className="fas fa-play fa-4x film__play"
+              onClick={() => nextFilm()}
+            ></i>
+          </div>
+        </form>
+        <div className="film__images">
+          {!frames ? (
+            <Spinner />
+          ) : (
+            frames.map((film, index) => (
+              <div className="film__frame" key={index}>
+                <img src={film.image} alt="film" />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  if (pages1000) {
+    return <StyledFilm>{filmRender()}</StyledFilm>;
+  } else {
+    return <StyledFilm1000>{filmRender1000()}</StyledFilm1000>;
+  }
 };
 
 const mapStateToProps = ({
   filmData: { film, films },
   filmCart: { total },
+  filmResponsive: { pages1000 },
 }) => {
-  return { film, films, total };
+  return { film, films, total, pages1000 };
 };
 
 const mapDispatchToProps = {

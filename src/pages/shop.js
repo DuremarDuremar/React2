@@ -127,6 +127,11 @@ const StylesShop = styled.div`
   .shop__sidebar {
     grid-area: s;
     background-color: brown;
+
+    .shopView {
+      padding-top: 5px !important;
+    }
+
     .shop__nav {
       text-align: center;
       padding-top: 35px;
@@ -136,9 +141,10 @@ const StylesShop = styled.div`
         padding-top: 5px;
         border-bottom: 3px solid black;
         border-top: 3px solid black;
-        i {
-          cursor: pointer;
-        }
+      }
+
+      .h4Cursor {
+        cursor: pointer;
       }
       ul {
         li {
@@ -233,6 +239,32 @@ const StylesShop = styled.div`
       h3 {
         text-align: center;
         font-size: 1.6vmax;
+        padding-bottom: 4px;
+      }
+      img {
+        width: 100%;
+        height: 40vmax;
+        display: block;
+        margin: 0px auto;
+      }
+    }
+  }
+
+  .shop__content600 {
+    grid-area: c;
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 6px;
+    padding: 10px 5px 5px 5px;
+    .shop__content_item {
+      position: relative;
+
+      h3 {
+        text-align: center;
+        font-size: 2vmax;
         padding-bottom: 4px;
       }
       img {
@@ -442,7 +474,9 @@ const Shop = ({
     ? "shop__content"
     : pages820
     ? "shop__content1250"
-    : "shop__content820";
+    : pages600
+    ? "shop__content820"
+    : "shop__content600";
 
   const shop = pages1280
     ? "shop"
@@ -461,18 +495,19 @@ const Shop = ({
     <StylesShop>
       <div className={shop}>
         <div className="shop__sidebar">
-          <div className="shop__nav">
-            <h4>
-              Catagories{" "}
-              {!pages600 ? (
+          <div className={pages600 ? "shop__nav" : "shop__nav shopView"}>
+            {!pages600 ? (
+              <h4 onClick={() => sideTab()} className="h4Cursor">
+                Catagories{" "}
                 <i
                   className={
                     viewCateg ? "fas fa-arrow-down" : "fas fa-arrow-up"
                   }
-                  onClick={() => sideTab()}
                 ></i>
-              ) : null}
-            </h4>
+              </h4>
+            ) : (
+              <h4>Catagories</h4>
+            )}
             <ul className={!viewCateg ? "shop__null" : null}>
               <li
                 onClick={(e) => changeFilms(e.currentTarget)}
