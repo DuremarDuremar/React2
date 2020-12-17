@@ -96,6 +96,13 @@ const res600 = (res) => {
   };
 };
 
+const res470 = (res) => {
+  return {
+    type: "470",
+    payload: res,
+  };
+};
+
 export {
   filmLoaded,
   filmActive,
@@ -111,4 +118,5 @@ export {
   res1000,
   res820,
   res600,
+  res470,
 };

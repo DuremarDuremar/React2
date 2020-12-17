@@ -10,6 +10,7 @@ import {
   res1000,
   res820,
   res600,
+  res470,
 } from "../reducers/action";
 import getRandomInt from "../utils/getRandom";
 import Server from "../server";
@@ -32,6 +33,7 @@ const Pages = ({
   res1000,
   res820,
   res600,
+  res470,
   res1280,
 }) => {
   const p1280 = useMediaQuery({ query: "(min-width: 1280px)" });
@@ -40,6 +42,7 @@ const Pages = ({
   const p1000 = useMediaQuery({ query: "(min-width: 1000px)" });
   const p820 = useMediaQuery({ query: "(min-width: 820px)" });
   const p600 = useMediaQuery({ query: "(min-width: 600px)" });
+  const p470 = useMediaQuery({ query: "(min-width: 470px)" });
 
   //получаем масиис фильмов
   useEffect(() => {
@@ -79,6 +82,10 @@ const Pages = ({
     res1000(p1000);
   }, [p1000, res1000]);
 
+  useEffect(() => {
+    res470(p470);
+  }, [p470, res470]);
+
   return (
     <div className="pages">
       <Switch>
@@ -107,6 +114,7 @@ const mapDispatchToProps = {
   res1250,
   res820,
   res600,
+  res470,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);

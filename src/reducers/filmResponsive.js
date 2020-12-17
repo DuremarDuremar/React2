@@ -7,10 +7,17 @@ const updateFilmResponsive = (state, action) => {
       pages1000: true,
       pages820: true,
       pages600: true,
+      pages470: true,
     };
   }
 
   switch (action.type) {
+    case "470":
+      return {
+        ...state.filmResponsive,
+        pages470: action.payload,
+      };
+
     case "600":
       return {
         ...state.filmResponsive,

@@ -276,6 +276,32 @@ const StylesShop = styled.div`
     }
   }
 
+  .shop__content470 {
+    grid-area: c;
+    background-color: darkorchid;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 6px;
+    padding: 10px 5px 5px 5px;
+    .shop__content_item {
+      position: relative;
+
+      h3 {
+        text-align: center;
+        font-size: 2vmax;
+        padding-bottom: 4px;
+      }
+      img {
+        width: 100%;
+        height: calc(50vw + 50px);
+        display: block;
+        margin: 0px auto;
+      }
+    }
+  }
+
   .shop__content_price {
     position: absolute;
     bottom: 0;
@@ -352,6 +378,7 @@ const Shop = ({
   pages1250,
   pages820,
   pages600,
+  pages470,
 }) => {
   //стэйт для отображения
   const [arrShop, setArrShop] = useState(null);
@@ -476,7 +503,9 @@ const Shop = ({
     ? "shop__content1250"
     : pages600
     ? "shop__content820"
-    : "shop__content600";
+    : pages470
+    ? "shop__content600"
+    : "shop__content470";
 
   const shop = pages1280
     ? "shop"
@@ -490,7 +519,7 @@ const Shop = ({
     setViewCateg(!viewCateg);
   };
 
-  console.log(viewCateg);
+  console.log("pages470", pages470);
   return (
     <StylesShop>
       <div className={shop}>
@@ -579,8 +608,10 @@ const Shop = ({
                 className="shop__content_item"
                 onClick={() => filmActive(film)}
               >
-                <div className="shop__content_author">{film.author}</div>
-                <h3>{film.title}</h3>
+                {pages470 ? (
+                  <div className="shop__content_author">{film.author}</div>
+                ) : null}
+                {pages470 ? <h3>{film.title}</h3> : null}
                 <Link to="/film">
                   <img src={film.image} alt={film.title} />
                 </Link>
@@ -660,9 +691,9 @@ const Shop = ({
 
 const mapStateToProps = ({
   filmData: { films },
-  filmResponsive: { pages1280, pages1250, pages820, pages600 },
+  filmResponsive: { pages1280, pages1250, pages820, pages600, pages470 },
 }) => {
-  return { films, pages1280, pages1250, pages820, pages600 };
+  return { films, pages1280, pages1250, pages820, pages600, pages470 };
 };
 
 const mapDispatchToProps = {
