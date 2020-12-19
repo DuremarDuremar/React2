@@ -340,17 +340,6 @@ const Sidebar = ({
               <p> ${total}</p>
             </NavLink>
           </div>
-          <div className="sidebar__link">
-            <button>
-              <i className="fab fa-instagram-square"></i>
-            </button>
-            <button>
-              <i className="fab fa-facebook-f"></i>
-            </button>
-            <button>
-              <i className="fab fa-twitter "></i>
-            </button>
-          </div>
         </div>
       </StyleSidebarAdap>
     );

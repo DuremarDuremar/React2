@@ -141,8 +141,8 @@ const StylesReg = styled.div`
     border-bottom: 3px solid #6d214f;
     .reg__img_wrapper {
       display: grid;
-      padding: 20px 0;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      padding: 20px 5px;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 
       img {
         background-color: black;
