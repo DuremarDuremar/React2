@@ -246,6 +246,7 @@ const StyledFilm1000 = styled.div`
       }
 
       .film__slider {
+        padding-top: 25px;
         text-align: center;
         display: flex;
         justify-content: center;
@@ -289,13 +290,185 @@ const StyledFilm1000 = styled.div`
   }
 `;
 
-const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
+const StyledFilm600 = styled.div`
+  .film {
+    display: grid;
+    grid-template-areas:
+      "w w"
+      "t t"
+      "im im";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    min-height: 100vh;
+
+    .film__wrapper {
+      grid-area: w;
+      position: relative;
+      margin: 0px auto;
+    }
+
+    .film__poster {
+      margin-right: 3vmax;
+      display: flex;
+      img {
+        display: block;
+        max-width: 100%;
+        min-width: 240px;
+        max-height: calc(40vmax + 50px);
+        min-height: 390px;
+        border: 4px solid #6d214f;
+        border-left: none;
+      }
+    }
+
+    .film__info {
+      border-radius: 40px;
+      font-family: "Sansita Swashed", cursive;
+      position: absolute;
+      bottom: -30px;
+      left: 0;
+      background-color: #636e72;
+
+      .film__info_price {
+        font-size: calc(2vmax + 7px);
+        color: #fbb710;
+        text-align: center;
+      }
+    }
+
+    .film__images {
+      display: grid;
+      grid-area: im;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      padding: 20px;
+
+      .film__frame {
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .film__form {
+      display: block;
+
+      .film__input {
+        margin-top: 15px;
+        display: flex;
+        padding-top: 5px;
+        justify-content: center;
+        margin-left: 15px;
+        input {
+          border: 3px solid black;
+          width: 50px;
+          height: 60px;
+          font-size: 17px;
+          appearance: textfield;
+          color: #959595;
+          overflow: visible;
+          text-align: center;
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        .film__info_arrow {
+          display: block;
+          i {
+            cursor: pointer;
+            width: 20px;
+            padding-left: 3px;
+          }
+        }
+      }
+
+      .film__slider {
+        padding-top: 25px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .play-reverce {
+          transform: rotate(180deg);
+        }
+        .film__play {
+          cursor: pointer;
+
+          &:hover {
+            color: #fbb710;
+          }
+        }
+        .film__cart {
+          background-color: #fff;
+          max-width: 100px;
+          max-height: 80px;
+          min-height: 50px;
+          font-weight: 700;
+          border-radius: 20px;
+          display: block;
+          margin: 0 5px;
+          font-size: 15px;
+          padding: 3px;
+          &:hover {
+            background-color: #fbb710;
+          }
+        }
+      }
+    }
+    .film__text {
+      grid-area: t;
+      margin-top: 7vmax;
+      margin-bottom: 2vmax;
+      .film__info_title {
+        font-size: calc(2vmax + 12px);
+        text-align: center;
+      }
+      .film__info_subtitle {
+        display: block;
+        text-align: center;
+        .film__info_author {
+          margin-top: 10px;
+          font-size: calc(2vmax + 5px);
+          font-weight: 400;
+        }
+        .film__info_country {
+          margin-top: 10px;
+          font-size: calc(0.8vmax + 10px);
+          font-weight: 700;
+          font-family: "Ubuntu";
+        }
+      }
+      p {
+        margin-right: 10px;
+        padding: 5px;
+        font-size: calc(0.8vmax + 10px);
+        font-weight: 400;
+      }
+    }
+  }
+`;
+
+const Film = ({
+  film,
+  films,
+  total,
+  filmBuy,
+  filmTotal,
+  pages1000,
+  pages600,
+}) => {
   window.scrollTo(0, 0);
 
   const [filmAct, setFilmAct] = useState(null);
   const [frames, setFrames] = useState([]);
   const [description, setDescription] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+  console.log("pages600", pages600);
+  console.log("pages1000", pages1000);
 
   useEffect(() => {
     if (film) {
@@ -520,20 +693,112 @@ const Film = ({ film, films, total, filmBuy, filmTotal, pages1000 }) => {
       </div>
     );
   };
+  const filmRender600 = () => {
+    return (
+      <div className="film">
+        <div className="film__wrapper">
+          <div className="film__poster">
+            <img src={filmAct.image} alt={filmAct.title} />
+          </div>
+          <div className="film__info">
+            <div className="film__info_price">$ {filmAct.price}</div>
 
-  if (pages1000) {
+            <form action="" className="film__form">
+              <div className="film__slider">
+                <i
+                  className="fas fa-play fa-2x play-reverce film__play"
+                  onClick={() => prevFilm()}
+                ></i>
+                <button
+                  className="film__cart"
+                  onClick={(event) => {
+                    quantityFilm(event);
+                  }}
+                >
+                  Add to cart
+                </button>
+                <i
+                  className="fas fa-play fa-2x film__play"
+                  onClick={() => nextFilm()}
+                ></i>
+              </div>
+              <div className="film__input">
+                <input
+                  type="number"
+                  min="1"
+                  max="10"
+                  onChange={(e) => setQuantity(e.target.value)}
+                  value={quantity}
+                />
+                <div className="film__info_arrow">
+                  <div>
+                    <i
+                      className="fas fa-sort-up fa-2x"
+                      onClick={() => {
+                        quantity > 9
+                          ? setQuantity(10)
+                          : setQuantity(quantity + 1);
+                      }}
+                    ></i>
+                  </div>
+                  <div>
+                    <i
+                      className="fas fa-sort-down fa-2x"
+                      onClick={() => {
+                        quantity < 2
+                          ? setQuantity(1)
+                          : setQuantity(quantity - 1);
+                      }}
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div className="film__text">
+          <div className="film__info_title">{filmAct.title}</div>
+          <div className="film__info_subtitle">
+            <div className="film__info_author">{filmAct.author}</div>
+            <div className="film__info_country">
+              {filmAct.country}
+              <p />
+              {filmAct.year}
+            </div>
+          </div>
+          {!description ? <Spinner /> : <p>{description}</p>}
+        </div>
+        <div className="film__images">
+          {!frames ? (
+            <Spinner />
+          ) : (
+            frames.map((film, index) => (
+              <div className="film__frame" key={index}>
+                <img src={film.image} alt="film" />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  if (pages1000 && pages600) {
     return <StyledFilm>{filmRender()}</StyledFilm>;
-  } else {
+  } else if (pages600) {
     return <StyledFilm1000>{filmRender1000()}</StyledFilm1000>;
+  } else {
+    return <StyledFilm600>{filmRender600()}</StyledFilm600>;
   }
 };
 
 const mapStateToProps = ({
   filmData: { film, films },
   filmCart: { total },
-  filmResponsive: { pages1000 },
+  filmResponsive: { pages1000, pages600 },
 }) => {
-  return { film, films, total, pages1000 };
+  return { film, films, total, pages1000, pages600 };
 };
 
 const mapDispatchToProps = {

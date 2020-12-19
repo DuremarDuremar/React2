@@ -212,12 +212,12 @@ const StylesShop = styled.div`
 
       h3 {
         text-align: center;
-        font-size: 1.4vmax;
+        font-size: 1.4vw;
         padding-bottom: 4px;
       }
       img {
         width: 100%;
-        height: 30vmax;
+        height: 30vw;
         display: block;
         margin: 0px auto;
       }
@@ -243,7 +243,7 @@ const StylesShop = styled.div`
       }
       img {
         width: 100%;
-        height: 40vmax;
+        height: 40vw;
         display: block;
         margin: 0px auto;
       }
@@ -264,7 +264,7 @@ const StylesShop = styled.div`
 
       h3 {
         text-align: center;
-        font-size: 2vmax;
+        font-size: 2vw;
         padding-bottom: 4px;
       }
       img {

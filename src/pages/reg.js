@@ -12,81 +12,144 @@ import styled from "styled-components";
 const StylesReg = styled.div`
   .reg {
     display: grid;
-    grid-template-rows: minmax(220px, auto) minmax(300px, auto);
+    grid-template-rows: minmax(100px, auto) minmax(170px, auto);
     min-height: 100%;
-    form {
-      display: flex;
-      background-color: burlywood;
-      .reg__input {
-        border-right: 3px solid black;
-        flex: 0 1 70%;
-        input {
-          display: block;
-          margin: 0px auto;
-          margin-top: 20px;
-          padding: 10px 10px 10px 5px;
-          border-radius: 9px;
-          border: 1px solid black;
-          &:last-child {
-            margin-bottom: 30px;
-          }
-        }
-        h4 {
-          text-align: center;
-          margin-top: 10px;
-          font-style: italic;
-          margin-bottom: 5px;
-          cursor: pointer;
-          color: black;
-          &:hover {
-            &::after {
-              content: "";
-              display: block;
-              width: 80px;
-              height: 2px;
-              background-color: #6d214f;
-              margin: 0px auto;
-            }
-          }
+  }
+
+  .reg__form {
+    display: flex;
+    background-color: burlywood;
+    .reg__input {
+      border-right: 3px solid black;
+      flex: 0 1 70%;
+      input {
+        display: block;
+        margin: 0px auto;
+        margin-top: 20px;
+        padding: 10px 10px 10px 5px;
+        border-radius: 9px;
+        border: 1px solid black;
+        &:last-child {
+          margin-bottom: 30px;
         }
       }
-      .reg__submit {
-        flex: 0 1 30%;
-        h2 {
-          text-align: center;
-          margin-top: 20px;
-          margin-bottom: 20px;
-        }
-        button {
-          margin: 0px auto;
-          background-color: #fff;
-          width: 100px;
-          height: 60px;
-          font-weight: 700;
-          border-radius: 20px;
-          display: block;
-
-          &:hover {
-            background-color: #fbb710;
+      h4 {
+        text-align: center;
+        margin-top: 10px;
+        font-style: italic;
+        margin-bottom: 5px;
+        cursor: pointer;
+        color: black;
+        &:hover {
+          &::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 2px;
+            background-color: #6d214f;
+            margin: 0px auto;
           }
         }
       }
     }
-    .reg__img {
-      display: grid;
-      border-bottom: 3px solid #6d214f;
-      .reg__img_wrapper {
-        display: grid;
-        padding: 20px 0;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    .reg__submit {
+      flex: 0 1 30%;
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      button {
+        margin: 0px auto;
+        background-color: #fff;
+        width: 100px;
+        height: 60px;
+        font-weight: 700;
+        border-radius: 20px;
+        display: block;
 
-        img {
-          background-color: black;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 30px;
+        &:hover {
+          background-color: #fbb710;
         }
+      }
+    }
+  }
+
+  .reg__form820 {
+    display: block;
+    background-color: burlywood;
+    .reg__input {
+      flex: 0 1 70%;
+      input {
+        display: block;
+        margin: 0px auto;
+        margin-top: 20px;
+        padding: 10px 10px 10px 5px;
+        border-radius: 9px;
+        border: 1px solid black;
+        font-size: 18px;
+        &:last-child {
+          margin-bottom: 30px;
+        }
+      }
+      h4 {
+        text-align: center;
+        margin-top: 10px;
+        font-style: italic;
+        margin-bottom: 5px;
+        cursor: pointer;
+        color: black;
+        font-size: 20px;
+        &:hover {
+          &::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 2px;
+            background-color: #6d214f;
+            margin: 0px auto;
+          }
+        }
+      }
+    }
+    .reg__submit {
+      flex: 0 1 30%;
+      h2 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 25px;
+      }
+      button {
+        margin: 0px auto;
+        background-color: #fff;
+        width: 100px;
+        height: 60px;
+        font-weight: 700;
+        border-radius: 20px;
+        display: block;
+
+        &:hover {
+          background-color: #fbb710;
+        }
+      }
+    }
+  }
+
+  .reg__img {
+    display: grid;
+    border-bottom: 3px solid #6d214f;
+    .reg__img_wrapper {
+      display: grid;
+      padding: 20px 0;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+      img {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 30px;
       }
     }
   }
@@ -158,7 +221,10 @@ const Reg = ({
   return (
     <StylesReg style={{ height: "100%" }}>
       <div className="reg">
-        <form onSubmit={handleSubmit}>
+        <form
+          className={pages820 ? "reg__form" : "reg__form820"}
+          onSubmit={handleSubmit}
+        >
           <div className="reg__input">
             {!loginTrue && (
               <input
