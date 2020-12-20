@@ -467,9 +467,6 @@ const Film = ({
   const [description, setDescription] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  console.log("pages600", pages600);
-  console.log("pages1000", pages1000);
-
   useEffect(() => {
     if (film) {
       setFilmAct(film);

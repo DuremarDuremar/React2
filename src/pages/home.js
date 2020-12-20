@@ -90,8 +90,6 @@ const Home = ({ films, filmActive, pages1000, pages600 }) => {
   const [filmsView, setFilmVieW] = useState(6);
   const [homeFilms, setHomeFilms] = useState(null);
 
-  console.log(pages600);
-
   useEffect(() => {
     if (films) {
       shuffle(films);

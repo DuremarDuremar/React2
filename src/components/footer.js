@@ -1,25 +1,35 @@
 import React from "react";
-import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
 const StyleFooter = styled.div`
+  .footer__link {
+    display: flex;
+    background-color: darkorchid;
+    justify-content: space-around;
+    padding-top: 10px;
+
+    button {
+      width: 30px;
+      height: 30px;
+      padding: 2px !important;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+      &:hover {
+        background-color: #6d214f;
+        color: #fff;
+      }
+    }
+  }
   .footer__null {
-    background-color: #6d214f;
+    background-color: #636e72;
   }
 `;
 
 const Footer = () => {
-  const f700 = useMediaQuery({ query: "(min-width: 700px)" });
-
-  if (!f700) {
-    return (
+  return (
+    <div className="footer">
       <StyleFooter>
-        <p className="footer__null"></p>
-      </StyleFooter>
-    );
-  } else {
-    return (
-      <div className="footer">
         <div className="footer__link">
           <button>
             <i className="fab fa-instagram-square fa-2x"></i>
@@ -31,9 +41,9 @@ const Footer = () => {
             <i className="fab fa-twitter fa-2x"></i>
           </button>
         </div>
-      </div>
-    );
-  }
+      </StyleFooter>
+    </div>
+  );
 };
 
 export default Footer;

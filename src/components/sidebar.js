@@ -8,128 +8,123 @@ import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
 const StyleSidebar = styled.div`
-  .sidebar {
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 10px;
-    border-right: 4px solid #6d214f;
+  .sidebar__title {
+    font-family: "Sansita Swashed", cursive;
+    font-weight: 700;
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+  .sidebar__nav {
+    font-family: "Sansita Swashed", cursive;
+    font-weight: 700;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 30px;
 
-    .sidebar__title {
-      font-family: "Sansita Swashed", cursive;
-      font-weight: 700;
-      font-size: 25px;
-      margin-bottom: 30px;
-    }
-    .sidebar__nav {
-      font-family: "Sansita Swashed", cursive;
-      font-weight: 700;
-      font-weight: 400;
-      font-size: 18px;
-      margin-bottom: 30px;
-
-      ul {
-        .sidebar__li {
-          display: block;
-          &:not(:first-child) {
-            margin-top: 20px;
-          }
-          li {
-            color: black;
-            cursor: pointer;
-
-            &:hover {
-              color: #6d214f;
-            }
-          }
+    ul {
+      .sidebar__li {
+        display: block;
+        &:not(:first-child) {
+          margin-top: 20px;
         }
-        .sidebar__name {
-          text-align: center;
-          font-size: 20px;
-          font-style: normal;
-          border: 3px solid #6d214f;
-          border-radius: 30px;
-          background-color: #fff;
-          i {
-            margin-left: 6px;
-            cursor: pointer;
-            color: black;
+        li {
+          color: black;
+          cursor: pointer;
+
+          &:hover {
+            color: #6d214f;
           }
         }
       }
+      .sidebar__name {
+        text-align: center;
+        font-size: 20px;
+        font-style: normal;
+        border: 3px solid #6d214f;
+        border-radius: 30px;
+        background-color: #fff;
+        i {
+          margin-left: 6px;
+          cursor: pointer;
+          color: black;
+        }
+      }
     }
-    .sidebar__search {
-      font-weight: 600;
-      margin-bottom: 20px;
-      p {
-        cursor: pointer;
+  }
+  .sidebar__search {
+    font-weight: 600;
+    margin-bottom: 20px;
+    p {
+      cursor: pointer;
+      display: inline-block;
+    }
+  }
+  .sidebar__cart {
+    font-weight: 600;
+    margin-bottom: 30px;
+    p {
+      color: black;
+      cursor: pointer;
+      display: inline-block;
+      &:hover {
+        color: #6d214f;
+      }
+    }
+    span {
+      color: #fbb710;
+    }
+  }
+  .sidebar__link {
+    display: flex;
+    button {
+      width: 30px;
+      height: 30px;
+      padding: 2px;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+      &:hover {
+        background-color: #6d214f;
+        color: #fff;
+      }
+    }
+  }
+  .sidebar__li.active {
+    li {
+      color: #6d214f !important;
+      &:before {
+        content: "";
         display: inline-block;
+        background-color: #6d214f;
+        width: 40px;
+        height: 9px;
+        margin-right: 5px;
       }
     }
-    .sidebar__cart {
-      font-weight: 600;
-      margin-bottom: 30px;
-      p {
-        color: black;
-        cursor: pointer;
-        display: inline-block;
-        &:hover {
-          color: #6d214f;
-        }
-      }
-      span {
-        color: #fbb710;
-      }
-    }
-    .sidebar__link {
-      display: flex;
-      button {
-        width: 30px;
-        height: 30px;
-        padding: 2px;
-        &:not(:last-child) {
-          margin-right: 10px;
-        }
-        &:hover {
-          background-color: #6d214f;
-          color: #fff;
-        }
-      }
-    }
-    .sidebar__li.active {
-      li {
-        color: #6d214f !important;
-        &:before {
-          content: "";
-          display: inline-block;
-          background-color: #6d214f;
-          width: 40px;
-          height: 9px;
-          margin-right: 5px;
-        }
-      }
-    }
+  }
 
-    .sidebar__p.active {
-      p {
-        color: #6d214f !important;
-        &:after {
-          content: "";
-          display: block;
-          background-color: #6d214f;
-          width: 60px;
-          height: 9px;
-          margin-right: 5px;
-        }
+  .sidebar__p.active {
+    p {
+      color: #6d214f !important;
+      &:after {
+        content: "";
+        display: block;
+        background-color: #6d214f;
+        width: 60px;
+        height: 9px;
+        margin-right: 5px;
       }
     }
   }
 `;
 
 const StyleSidebarAdap = styled.div`
-  .sidebar {
+  .sidebar__wrapper {
     padding-top: 10px;
     padding-left: 15px;
     border-right: 4px solid #6d214f;
+    background-color: #636e72;
+    height: 100%;
 
     .view {
       cursor: pointer;
@@ -285,7 +280,7 @@ const Sidebar = ({
   if (!s700) {
     return (
       <StyleSidebarAdap>
-        <div className="sidebar">
+        <div className="sidebar__wrapper">
           <i
             className="fas fa-exchange-alt fa-3x view"
             onClick={() => setView(!view)}
@@ -346,8 +341,8 @@ const Sidebar = ({
   }
 
   return (
-    <StyleSidebar>
-      <div className="sidebar">
+    <div className="sidebar">
+      <StyleSidebar>
         <div className="sidebar__title">
           {s1200 ? (
             "Cinema__Classic__Shop"
@@ -395,11 +390,11 @@ const Sidebar = ({
             </NavLink>
           </ul>
         </div>
-        <div className="sidebar__search">
+        {/* <div className="sidebar__search">
           <p>
             <i className="fas fa-search"></i> Search
           </p>
-        </div>
+        </div> */}
         <div className="sidebar__cart">
           <NavLink className="sidebar__p" to="/cart">
             <p>
@@ -419,8 +414,8 @@ const Sidebar = ({
             <i className="fab fa-twitter fa-2x"></i>
           </button>
         </div>
-      </div>
-    </StyleSidebar>
+      </StyleSidebar>
+    </div>
   );
 };
 

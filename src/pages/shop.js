@@ -519,7 +519,6 @@ const Shop = ({
     setViewCateg(!viewCateg);
   };
 
-  console.log("pages470", pages470);
   return (
     <StylesShop>
       <div className={shop}>

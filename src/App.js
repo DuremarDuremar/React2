@@ -15,9 +15,7 @@ const StyleApp = styled.div`
     max-width: 1360px;
     margin: 0px auto;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-areas:
-      "s p p p"
-      "f f f f";
+    grid-template-areas: "s p p p";
   }
 
   .viewBlock {
@@ -42,6 +40,7 @@ const StyleApp = styled.div`
     max-width: 1360px;
     margin: 0px auto;
     grid-template-columns: repeat(6, 1fr);
+    /* grid-template-rows: 11fr 1fr; */
     grid-template-areas:
       "s p p p p p"
       "f f f f f f";
@@ -56,19 +55,24 @@ const StyleApp = styled.div`
   .sidebar {
     grid-area: s;
     background-color: #636e72;
-    height: 100%;
+    /* height: 100%; */
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 10px;
+    border-right: 4px solid #6d214f;
   }
 
   .pages {
     grid-area: p;
     background-color: gray;
-    height: 100%;
+    /* height: 100%; */
   }
 
   .footer {
     grid-area: f;
-    background-color: green;
-    min-height: 30px;
+    width: 100%;
+    height: 100%;
+    background-color: #636e72;
   }
 `;
 
@@ -101,7 +105,7 @@ const App = () => {
           >
             {Vs}
             <Pages />
-            <Footer />
+            {a700 ? null : <Footer />}
           </div>
         </StyleApp>
       </Router>
