@@ -54,6 +54,14 @@ const logUrl = (url) => {
   };
 };
 
+const logEnter = (email, password) => {
+  return {
+    type: "ENTER",
+    payloadEmail: email,
+    payloadPassword: password,
+  };
+};
+
 const res1280 = (res) => {
   return {
     type: "1280",
@@ -112,6 +120,7 @@ export {
   logName,
   logSubmit,
   logUrl,
+  logEnter,
   res1200,
   res1250,
   res1280,

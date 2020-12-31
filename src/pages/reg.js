@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logName, logSubmit, logUrl } from "../reducers/action";
+import { logName, logSubmit, logUrl, logEnter } from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
 import getRandomInt from "../utils/getRandom";
 import Spinner from "../components/spinner";
@@ -164,6 +164,7 @@ const Reg = ({
   logSubmit,
   submit,
   logUrl,
+  logEnter,
   pages820,
   pages1200,
   pages1250,
@@ -171,8 +172,9 @@ const Reg = ({
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
-  const [, setEmail] = useLocalStorage("email");
-  const [, setPassword] = useLocalStorage("password");
+  const [email, setEmail] = useLocalStorage("email");
+  const [password, setPassword] = useLocalStorage("password");
+  const [returnHome, setReturnHome] = useState(false);
 
   // мешаем разные кадры
   const int = () => {
@@ -205,13 +207,19 @@ const Reg = ({
     }
   }, [films]);
 
+  console.log("emailReg", email);
+
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+    logEnter(email, password);
+    setReturnHome(true);
     logSubmit(true);
-
-    console.log("enter");
   };
+
+  if (returnHome) {
+    return <Redirect to="/" />;
+  }
 
   // если зарегистрированы, переходим на главную страницу
   if (login) {
@@ -280,15 +288,13 @@ const Reg = ({
 
 const mapStateToProps = ({
   filmData: { films },
-  filmLog: { login, name, email, password, submit },
+  filmLog: { login, name, submit },
   filmResponsive: { pages1200, pages1250, pages820 },
 }) => {
   return {
     films,
     login,
     name,
-    email,
-    password,
     submit,
     pages820,
     pages1200,
@@ -300,6 +306,7 @@ const mapDispatchToProps = {
   logName,
   logSubmit,
   logUrl,
+  logEnter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);

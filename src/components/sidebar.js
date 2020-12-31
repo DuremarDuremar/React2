@@ -239,22 +239,27 @@ const Sidebar = ({
   logName,
   view,
   setView,
+  emailLog,
+  passwordLog,
 }) => {
-  const [, setToken] = useLocalStorage("token");
+  const [token, setToken] = useLocalStorage("token");
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
+
+  const emaliEnter = email.length > 1 ? email : emailLog;
+  const passwordEnter = password.length > 1 ? password : passwordLog;
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
   const s700 = useMediaQuery({ query: "(min-width: 700px)" });
 
-  // console.log("view", view);
+  console.log("emaliEnter", emaliEnter);
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
     if (submit) {
       getAxiosLogin(
-        email,
-        password,
+        emaliEnter,
+        passwordEnter,
         logSubmit,
         url,
         name,
@@ -266,8 +271,8 @@ const Sidebar = ({
       return;
     }
   }, [
-    email,
-    password,
+    emaliEnter,
+    passwordEnter,
     submit,
     logSubmit,
     url,
@@ -276,6 +281,10 @@ const Sidebar = ({
     setToken,
     logName,
   ]);
+
+  console.log("emailSide", email);
+
+  console.log("emailLog", emailLog);
 
   if (!s700) {
     return (
@@ -421,9 +430,9 @@ const Sidebar = ({
 
 const mapStateToProps = ({
   filmCart: { total },
-  filmLog: { login, name, submit, url },
+  filmLog: { login, name, submit, url, emailLog, passwordLog },
 }) => {
-  return { total, login, name, submit, url };
+  return { total, login, name, submit, url, emailLog, passwordLog };
 };
 
 const mapDispatchToProps = {
