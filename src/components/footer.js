@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyleFooter = styled.div`
   .footer__link {
     display: flex;
-    background-color: darkorchid;
+    background-color: #6d214f;
     justify-content: space-around;
     padding-top: 10px;
 
@@ -22,7 +22,7 @@ const StyleFooter = styled.div`
     }
   }
   .footer__null {
-    background-color: #636e72;
+    background-color: #6d214f;
   }
 `;
 

@@ -174,7 +174,6 @@ const Reg = ({
   const [regFrames2, setRegFrames2] = useState(null);
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
-  const [returnHome, setReturnHome] = useState(false);
 
   // мешаем разные кадры
   const int = () => {
@@ -213,13 +212,8 @@ const Reg = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     logEnter(email, password);
-    setReturnHome(true);
     logSubmit(true);
   };
-
-  if (returnHome) {
-    return <Redirect to="/" />;
-  }
 
   // если зарегистрированы, переходим на главную страницу
   if (login) {

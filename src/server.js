@@ -156,6 +156,72 @@ export default class Server {
         "https://st.kp.yandex.net/im/poster/2/4/4/kinopoisk.ru-Andrey-Rublyov-2447504.jpg",
       filmId: 8385,
     },
+    {
+      id: 15,
+      title: "Развод по-итальянски",
+      author: "Пьетро Джерми",
+      year: 1961,
+      price: 12,
+      country: "Италия",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/5a978d35-f975-430e-8688-4cd657d8b1c5/800x800",
+      filmId: 57000,
+    },
+    {
+      id: 16,
+      title: "Таксист",
+      author: "Мартин Скорсезе",
+      year: 1976,
+      price: 13,
+      country: "США",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/c98c2cc9-aae0-4320-a3fd-29a7d6858553/800x800",
+      filmId: 358,
+    },
+    {
+      id: 17,
+      title: "Пустоши",
+      author: "Терренс Малик",
+      year: 1973,
+      price: 15,
+      country: "США",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/958e7a24-659b-4420-b257-22abd5696145/800x800",
+      filmId: 6977,
+    },
+    {
+      id: 18,
+      title: "Бразилия",
+      author: "Терри Гиллиам",
+      year: 1985,
+      price: 10,
+      country: "Великобритания, США",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/57b2f4f4-9a28-4a7c-b211-690bf62edf29/800x800",
+      filmId: 483,
+    },
+    {
+      id: 19,
+      title: "Выкорми ворона",
+      author: "Карлос Саура",
+      year: 1975,
+      price: 12,
+      country: "Испания",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/f687cde3-d150-4378-8e8e-62c60b89cc74/800x800",
+      filmId: 59011,
+    },
+    {
+      id: 20,
+      title: "Наконец в безопасности!",
+      author: "Фред С. Ньюмейер, Сэм Тейлор",
+      year: 1923,
+      price: 14,
+      country: "США",
+      image:
+        "https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/9b2266dc-291b-4921-9b7a-8cc9334d3c17/800x800",
+      filmId: 76976,
+    },
   ];
 
   getServer() {

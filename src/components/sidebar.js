@@ -122,6 +122,7 @@ const StyleSidebarAdap = styled.div`
   .sidebar__wrapper {
     padding-top: 10px;
     padding-left: 15px;
+    padding-right: 3px;
     border-right: 4px solid #6d214f;
     background-color: #636e72;
     height: 100%;
@@ -150,6 +151,7 @@ const StyleSidebarAdap = styled.div`
           &:not(:first-child) {
             margin-top: 20px;
           }
+
           i {
             color: black;
             cursor: pointer;
@@ -166,6 +168,7 @@ const StyleSidebarAdap = styled.div`
           border: 3px solid #6d214f;
           border-radius: 30px;
           background-color: #fff;
+
           i {
             margin-left: 6px;
             cursor: pointer;
@@ -246,8 +249,8 @@ const Sidebar = ({
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
 
-  const emaliEnter = email.length > 1 ? email : emailLog;
-  const passwordEnter = password.length > 1 ? password : passwordLog;
+  const emaliEnter = emailLog.length > 1 ? emailLog : email;
+  const passwordEnter = passwordLog.length > 1 ? passwordLog : password;
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
   const s700 = useMediaQuery({ query: "(min-width: 700px)" });
