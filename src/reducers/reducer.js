@@ -4,7 +4,7 @@ import updateFilmLog from "./filmLog";
 import updateFilmResponsive from "./filmResponsive";
 
 const reducer = (state, action) => {
-  console.log(action.type);
+  // console.log(action.type);
   return {
     filmData: updateFilmData(state, action),
     filmCart: updateFilmCart(state, action),

@@ -245,7 +245,7 @@ const Sidebar = ({
   emailLog,
   passwordLog,
 }) => {
-  const [token, setToken] = useLocalStorage("token");
+  const [, setToken] = useLocalStorage("token");
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
 
@@ -254,8 +254,6 @@ const Sidebar = ({
 
   const s1200 = useMediaQuery({ query: "(min-width: 1200px)" });
   const s700 = useMediaQuery({ query: "(min-width: 700px)" });
-
-  console.log("emaliEnter", emaliEnter);
 
   //делаем запрос отправляя данные для входа либо регистрации
   useEffect(() => {
@@ -284,10 +282,6 @@ const Sidebar = ({
     setToken,
     logName,
   ]);
-
-  console.log("emailSide", email);
-
-  console.log("emailLog", emailLog);
 
   if (!s700) {
     return (

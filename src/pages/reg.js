@@ -206,8 +206,6 @@ const Reg = ({
     }
   }, [films]);
 
-  console.log("emailReg", email);
-
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
   const handleSubmit = (e) => {
     e.preventDefault();
