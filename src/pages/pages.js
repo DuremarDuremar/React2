@@ -19,15 +19,20 @@ import Film from "./film";
 import Shop from "./shop";
 import Reg from "./reg";
 import Cart from "./cart";
+import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 
 const dataServer = new Server();
+
+const PagesStyle = styled.div`
+  grid-area: p;
+  background-color: gray;
+`;
 
 const Pages = ({
   films,
   filmLoaded,
   filmActive,
-  film,
   res1200,
   res1250,
   res1000,
@@ -44,7 +49,7 @@ const Pages = ({
   const p600 = useMediaQuery({ query: "(min-width: 600px)" });
   const p470 = useMediaQuery({ query: "(min-width: 470px)" });
 
-  //получаем масиис фильмов
+  //получаем массив фильмов
   useEffect(() => {
     dataServer.getServer().then((data) => {
       filmLoaded(data);
@@ -87,7 +92,7 @@ const Pages = ({
   }, [p470, res470]);
 
   return (
-    <div className="pages">
+    <PagesStyle>
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/film" component={Film} />
@@ -97,12 +102,12 @@ const Pages = ({
         <Route path="/cart" component={Cart} />
         <Redirect to="/" />
       </Switch>
-    </div>
+    </PagesStyle>
   );
 };
 
-const mapStateToProps = ({ filmData: { films, film } }) => {
-  return { films, film };
+const mapStateToProps = ({ filmData: { films } }) => {
+  return { films };
 };
 
 const mapDispatchToProps = {
