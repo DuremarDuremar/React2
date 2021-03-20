@@ -7,33 +7,60 @@ import shuffle from "../utils/shuffle";
 import { titleSearch, authorSearch } from "../utils/search";
 import styled from "styled-components";
 
-const StylesShop = styled.div`
-  .shop {
-    display: grid;
+const StyledShop = styled.div`
+  min-height: 100vh;
+  display: grid;
+  display: ${(props) => (props.pages600 ? "grid" : "block")};
+
+  ${(props) =>
+    props.pages1280 &&
+    `
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr 10.8fr 0.2fr;
-    min-height: 100vh;
     grid-template-areas:
       "s h h h h"
       "s c c c c"
-      "s p p p p";
+      "s p p p p"; 
+  `}
+  ${(props) =>
+    !props.pages1280 &&
+    props.pages820 &&
+    `
+    grid-template-columns: 2fr 3.33fr 3.33fr 3.33fr;
+    grid-template-rows: 0.5fr 11fr 0.5fr;
+    grid-template-areas:
+    "s h h h"
+    "s c c c"
+    "s p p p";
+  `}
+   ${(props) =>
+    !props.pages820 &&
+    props.pages600 &&
+    ` 
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 0.2fr 11fr 0.2fr;
+  grid-template-areas:
+    "s h h h h"
+    "s c c c c"
+    "s p p p p";
+  `}
+
     .shop__header {
-      grid-area: h;
-      background-color: cadetblue;
-      .shop__form {
-        padding-top: 35px;
-        display: flex;
-        justify-content: space-evenly;
-        form {
-          input {
-            width: 220px;
-            padding: 10px 0 10px 5px;
-            font-size: 16px;
-            line-height: 16px;
-            border: 2px solid black;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-          }
+    grid-area: h;
+    background-color: cadetblue;
+    .shop__form {
+      padding-top: 35px;
+      display: flex;
+      justify-content: space-evenly;
+      form {
+        input {
+          width: 220px;
+          padding: 10px 0 10px 5px;
+          font-size: 16px;
+          line-height: 16px;
+          border: 2px solid black;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
         }
       }
     }
@@ -371,6 +398,42 @@ const StylesShop = styled.div`
   }
 `;
 
+const ShopHeader = styled.div`
+  grid-area: h;
+  background-color: cadetblue;
+`;
+
+const ShopForm = styled.div`
+  ${(props) =>
+    props.pages600 &&
+    `
+  padding-top: 35px;
+  display: flex;
+  justify-content: space-evenly;
+  `}
+  ${(props) =>
+    !props.pages600 &&
+    `
+    padding: 5px 0;
+    display: block;
+    text-align: center;
+  `}
+
+  
+  form {
+    input {
+      width: ${(props) =>
+        props.pages600 ? "calc(22vw + 20px)" : "calc(42vw + 20px)"};
+      padding: 10px 0 10px 5px;
+      font-size: 16px;
+      line-height: 16px;
+      border: 2px solid black;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+  }
+`;
+
 const Shop = ({
   films,
   filmActive,
@@ -520,171 +583,165 @@ const Shop = ({
   };
 
   return (
-    <StylesShop>
-      <div className={shop}>
-        <div className="shop__sidebar">
-          <div className={pages600 ? "shop__nav" : "shop__nav shopView"}>
-            {!pages600 ? (
-              <h4 onClick={() => sideTab()} className="h4Cursor">
-                Catagories{" "}
-                <i
-                  className={
-                    viewCateg ? "fas fa-arrow-down" : "fas fa-arrow-up"
-                  }
-                ></i>
-              </h4>
-            ) : (
-              <h4>Catagories</h4>
-            )}
-            <ul className={!viewCateg ? "shop__null" : null}>
-              <li
-                onClick={(e) => changeFilms(e.currentTarget)}
-                className={stateShop === "All" ? "activeLi" : null}
-                id="All"
-              >
-                All {all("All")}
-              </li>
-              <li
-                onClick={(e) => changeArrow(e.currentTarget)}
-                className={stateShop === "Year" ? "activeLi" : null}
-                id="Year"
-              >
-                Year {arrow(classI, "Year")}
-              </li>
-              <li
-                onClick={(e) => changeArrow(e.currentTarget)}
-                className={stateShop === "Country" ? "activeLi" : null}
-                id="Country"
-              >
-                Country {arrow(classI, "Country")}
-              </li>
-              <li
-                onClick={(e) => changeArrow(e.currentTarget)}
-                className={stateShop === "Price" ? "activeLi" : null}
-                id="Price"
-              >
-                Price {arrow(classI, "Price")}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="shop__header">
-          <div className="shop__form">
-            <form>
-              <input
-                className="shop__search_title"
-                type="text"
-                placeholder="film"
-                onChange={(e) => searchTitle(e.target.value)}
-                value={shopValueTitle}
-              />
-              {/* <button>go</button> */}
-            </form>
-
-            <form>
-              <input
-                className="shop__search_autor"
-                type="text"
-                placeholder="author"
-                onChange={(e) => searchAuthor(e.target.value)}
-                value={shopValueAuthor}
-              />
-              {/* <button>go</button> */}
-            </form>
-          </div>
-        </div>
-        {shopNone && (
-          <div className={shopCont + " shop__none"}>
-            <p>None</p>
-            <button onClick={() => searchReturn()}>return</button>
-          </div>
-        )}
-        {arrShop && stateShop === "All" && !shopNone && (
-          <div className={shopCont}>
-            {chunk(arrShop, 12)[shopPage].map((film) => (
-              <div
-                key={film.id}
-                className="shop__content_item"
-                onClick={() => filmActive(film)}
-              >
-                {pages470 ? (
-                  <div className="shop__content_author">{film.author}</div>
-                ) : null}
-                {pages470 ? <h3>{film.title}</h3> : null}
-                <Link to="/film">
-                  <img src={film.image} alt={film.title} />
-                </Link>
-                <div className="shop__content_price">{film.price} $</div>
-              </div>
-            ))}
-          </div>
-        )}
-        {arrShop && stateShop === "Year" && !shopNone && (
-          <div className={shopCont}>
-            {chunk(filmsYear, 12)[shopPage].map((film) => (
-              <div
-                key={film.id}
-                className="shop__content_item"
-                onClick={() => filmActive(film)}
-              >
-                <h3>{film.year}</h3>
-                <Link to="/film">
-                  <img src={film.image} alt={film.title} />
-                </Link>
-                <div className="shop__content_price">{film.price} $</div>
-              </div>
-            ))}
-          </div>
-        )}
-        {arrShop && stateShop === "Country" && !shopNone && (
-          <div className={shopCont}>
-            {chunk(filmsCountry, 12)[shopPage].map((film) => (
-              <div
-                key={film.id}
-                className="shop__content_item"
-                onClick={() => filmActive(film)}
-              >
-                <h3>{film.country}</h3>
-                <Link to="/film">
-                  <img src={film.image} alt={film.title} />
-                </Link>
-                <div className="shop__content_price">{film.price} $</div>
-              </div>
-            ))}
-          </div>
-        )}
-        {arrShop && stateShop === "Price" && !shopNone && (
-          <div className={shopCont}>
-            {chunk(filmsPrice, 12)[shopPage].map((film) => (
-              <div
-                key={film.id}
-                className="shop__content_item"
-                onClick={() => filmActive(film)}
-              >
-                <h3>{film.price}$</h3>
-                <Link to="/film">
-                  <img src={film.image} alt={film.title} />
-                </Link>
-                <div className="shop__content_price">{film.price} $</div>
-              </div>
-            ))}
-          </div>
-        )}
-        <div className="shop__pagination">
-          {shopAllPage &&
-            !shopNone &&
-            shopAllPage.map((page, indexPage) => (
-              <div
-                key={indexPage}
-                onClick={() => setShopPage(indexPage)}
-                className={indexPage === shopPage ? "activePage" : null}
-              >
-                {indexPage + 1}
-              </div>
-            ))}
+    <StyledShop pages1280={pages1280} pages820={pages820} pages600={pages600}>
+      <div className="shop__sidebar">
+        <div className={pages600 ? "shop__nav" : "shop__nav shopView"}>
+          {!pages600 ? (
+            <h4 onClick={() => sideTab()} className="h4Cursor">
+              Catagories{" "}
+              <i
+                className={viewCateg ? "fas fa-arrow-down" : "fas fa-arrow-up"}
+              ></i>
+            </h4>
+          ) : (
+            <h4>Catagories</h4>
+          )}
+          <ul className={!viewCateg ? "shop__null" : null}>
+            <li
+              onClick={(e) => changeFilms(e.currentTarget)}
+              className={stateShop === "All" ? "activeLi" : null}
+              id="All"
+            >
+              All {all("All")}
+            </li>
+            <li
+              onClick={(e) => changeArrow(e.currentTarget)}
+              className={stateShop === "Year" ? "activeLi" : null}
+              id="Year"
+            >
+              Year {arrow(classI, "Year")}
+            </li>
+            <li
+              onClick={(e) => changeArrow(e.currentTarget)}
+              className={stateShop === "Country" ? "activeLi" : null}
+              id="Country"
+            >
+              Country {arrow(classI, "Country")}
+            </li>
+            <li
+              onClick={(e) => changeArrow(e.currentTarget)}
+              className={stateShop === "Price" ? "activeLi" : null}
+              id="Price"
+            >
+              Price {arrow(classI, "Price")}
+            </li>
+          </ul>
         </div>
       </div>
-    </StylesShop>
+      <ShopHeader>
+        <ShopForm pages1280={pages1280} pages820={pages820} pages600={pages600}>
+          <form>
+            <input
+              className="shop__search_title"
+              type="text"
+              placeholder="film"
+              onChange={(e) => searchTitle(e.target.value)}
+              value={shopValueTitle}
+            />
+          </form>
+
+          <form>
+            <input
+              className="shop__search_autor"
+              type="text"
+              placeholder="author"
+              onChange={(e) => searchAuthor(e.target.value)}
+              value={shopValueAuthor}
+            />
+          </form>
+        </ShopForm>
+      </ShopHeader>
+      {shopNone && (
+        <div className={shopCont + " shop__none"}>
+          <p>None</p>
+          <button onClick={() => searchReturn()}>return</button>
+        </div>
+      )}
+      {arrShop && stateShop === "All" && !shopNone && (
+        <div className={shopCont}>
+          {chunk(arrShop, 12)[shopPage].map((film) => (
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
+              {pages470 ? (
+                <div className="shop__content_author">{film.author}</div>
+              ) : null}
+              {pages470 ? <h3>{film.title}</h3> : null}
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {arrShop && stateShop === "Year" && !shopNone && (
+        <div className={shopCont}>
+          {chunk(filmsYear, 12)[shopPage].map((film) => (
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
+              <h3>{film.year}</h3>
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {arrShop && stateShop === "Country" && !shopNone && (
+        <div className={shopCont}>
+          {chunk(filmsCountry, 12)[shopPage].map((film) => (
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
+              <h3>{film.country}</h3>
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
+      )}
+      {arrShop && stateShop === "Price" && !shopNone && (
+        <div className={shopCont}>
+          {chunk(filmsPrice, 12)[shopPage].map((film) => (
+            <div
+              key={film.id}
+              className="shop__content_item"
+              onClick={() => filmActive(film)}
+            >
+              <h3>{film.price}$</h3>
+              <Link to="/film">
+                <img src={film.image} alt={film.title} />
+              </Link>
+              <div className="shop__content_price">{film.price} $</div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="shop__pagination">
+        {shopAllPage &&
+          !shopNone &&
+          shopAllPage.map((page, indexPage) => (
+            <div
+              key={indexPage}
+              onClick={() => setShopPage(indexPage)}
+              className={indexPage === shopPage ? "activePage" : null}
+            >
+              {indexPage + 1}
+            </div>
+          ))}
+      </div>
+    </StyledShop>
   );
 };
 

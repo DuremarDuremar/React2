@@ -42,11 +42,11 @@ const FilmPoster = styled.div`
   margin-right: 3vmax;
   display: ${(props) => !props.pages1000 && "flex"};
   img {
-    min-width: ${(props) => (props.pages1000 ? "180px" : "240px")};
+    min-width: ${(props) => props.pages1000 && "180px"};
     display: block;
     max-width: 100%;
-    max-height: calc(40vmax + 50px);
-    min-height: ${(props) => (props.pages1000 ? "300px" : "390px")};
+    max-height: calc(40vmax + 250px);
+    min-height: ${(props) => props.pages1000 && "300px"};
     border: 4px solid #6d214f;
     border-left: none;
   }
@@ -212,6 +212,7 @@ const FilmWrapper = styled.div`
   grid-area: w;
   position: relative;
   margin: 0px auto;
+  min-height: 450px;
 `;
 
 const FilmText = styled.div`
@@ -253,7 +254,7 @@ const FilmImages = styled.div`
     props.pages600
       ? "repeat(auto-fit, minmax(300px, 1fr))"
       : "repeat(auto-fit, minmax(200px, 1fr))"};
-  padding: 20px;
+  padding: 1vw;
 
   .film__frame {
     img {
@@ -441,14 +442,6 @@ const Film = ({
       </FilmImages>
     </StyledFilm>
   );
-
-  // if (pages1000 && pages600) {
-  //   return <StyledFilm>{filmRender()}</StyledFilm>;
-  // } else if (pages600) {
-  //   return <StyledFilm1000>{filmRender1000()}</StyledFilm1000>;
-  // } else {
-  //   return <StyledFilm600>{filmRender600()}</StyledFilm600>;
-  // }
 };
 
 const mapStateToProps = ({
