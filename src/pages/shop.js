@@ -67,96 +67,10 @@ const StyledShop = styled.div`
 
  
 
-  .shop__sidebar {
-    grid-area: s;
-    background-color: brown;
+  
 
-    .shopView {
-      padding-top: 5px !important;
-    }
+ 
 
-    .shop__nav {
-      text-align: center;
-      padding-top: 35px;
-      h4 {
-        font-size: 24px;
-        padding-bottom: 5px;
-        padding-top: 5px;
-        border-bottom: 3px solid black;
-        border-top: 3px solid black;
-      }
-
-      .h4Cursor {
-        cursor: pointer;
-      }
-      ul {
-        li {
-          font-family: "Sansita Swashed", cursive;
-          cursor: pointer;
-          font-size: 20px;
-          font-weight: 500;
-          padding-top: 15px;
-
-          &:hover {
-            background-color: #fff;
-          }
-        }
-        .activeLi {
-          &:after {
-            content: "";
-            display: block;
-            width: 90px;
-            height: 5px;
-            background-color: black;
-            margin: 0px auto;
-          }
-        }
-      }
-    }
-  }
-
-  .shop__content_price {
-    position: absolute;
-    bottom: 0;
-    right: 10px;
-    color: #fff;
-    background-color: #6d214f;
-    padding: 10px;
-    border-radius: 75%;
-  }
-  .shop__content_author {
-    position: absolute;
-    top: 40px;
-    max-width: 100px;
-    right: 5px;
-    color: #fff;
-    background-color: #6d214f;
-    text-align: center;
-    transform: rotate(10deg);
-    font-size: 11px;
-  }
-
-  .shop__pagination {
-    grid-area: p;
-    display: flex;
-    justify-content: center;
-    padding: 5px 0;
-    div {
-      width: 50px;
-      background-color: #6d214f;
-      text-align: center;
-      border-radius: 75%;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      &:hover {
-        background-color: #fff;
-      }
-    }
-    .activePage {
-      border: 6px solid black;
-    }
-  }
 
   .shop__null {
     display: none;
@@ -169,12 +83,13 @@ const ShopHeader = styled.div`
 `;
 
 const ShopForm = styled.div`
+  min-height: 80px;
   ${(props) =>
     props.pages600 &&
     `
-  padding-top: 35px;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   `}
   ${(props) =>
     !props.pages600 &&
@@ -209,7 +124,7 @@ const ShopContent = styled.div`
     props.pages1250 &&
     `
     grid-template-columns: repeat(4, 1fr);
-  
+    grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 2px;
   `}
   ${(props) =>
@@ -245,6 +160,7 @@ ${(props) =>
   overflow: hidden;
   .shop__content_item {
     position: relative;
+    max-height: 320px;
 
     h3 {
       text-align: center;
@@ -259,7 +175,7 @@ ${(props) =>
         props.pages1250 &&
         `
     width: 100%;
-    height: 300px;
+    min-height: 300px;
   `}
 
       ${(props) =>
@@ -294,6 +210,26 @@ ${(props) =>
     height: 77vw;
   `}
     }
+  }
+  .shop__content_price {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: #fff;
+    background-color: #6d214f;
+    padding: 10px;
+    border-radius: 75%;
+  }
+  .shop__content_author {
+    position: absolute;
+    top: 40px;
+    max-width: 100px;
+    right: 5px;
+    color: #fff;
+    background-color: #6d214f;
+    text-align: center;
+    transform: rotate(10deg);
+    font-size: 11px;
   }
 `;
 
@@ -386,16 +322,6 @@ const ShopNav = styled.div`
     cursor: pointer;
   }
   ul {
-    /* .activeLi {
-      &:after {
-        content: "";
-        display: block;
-        width: 90px;
-        height: 5px;
-        background-color: black;
-        margin: 0px auto;
-      }
-    } */
   }
 `;
 
@@ -419,6 +345,28 @@ const Li = styled.li`
   `}
   &:hover {
     background-color: #fff;
+  }
+`;
+
+const ShopPagination = styled.div`
+  grid-area: p;
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
+  div {
+    width: 50px;
+    background-color: #6d214f;
+    text-align: center;
+    border-radius: 75%;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+  .activePage {
+    border: 6px solid black;
   }
 `;
 
@@ -552,6 +500,7 @@ const Shop = ({
     setViewCateg(!viewCateg);
   };
 
+  // массив ссылок и его перебор для навигации
   const arrNav = ["All", "Year", "Country", "Price"];
   const nav = arrNav.map((item, index) => {
     return (
@@ -589,37 +538,7 @@ const Shop = ({
           ) : (
             <h4>Catagories</h4>
           )}
-          <ul className={!viewCateg ? "shop__null" : null}>
-            {nav}
-            {/* <li
-              onClick={(e) => changeFilms(e.currentTarget)}
-              className={stateShop === "All" ? "activeLi" : null}
-              id="All"
-            >
-              All {all("All")}
-            </li>
-            <li
-              onClick={(e) => changeArrow(e.currentTarget)}
-              className={stateShop === "Year" ? "activeLi" : null}
-              id="Year"
-            >
-              Year {arrow(classI, "Year")}
-            </li>
-            <li
-              onClick={(e) => changeArrow(e.currentTarget)}
-              className={stateShop === "Country" ? "activeLi" : null}
-              id="Country"
-            >
-              Country {arrow(classI, "Country")}
-            </li>
-            <li
-              onClick={(e) => changeArrow(e.currentTarget)}
-              className={stateShop === "Price" ? "activeLi" : null}
-              id="Price"
-            >
-              Price {arrow(classI, "Price")}
-            </li> */}
-          </ul>
+          <ul className={!viewCateg ? "shop__null" : null}>{nav}</ul>
         </ShopNav>
       </ShopBar>
       <ShopHeader>
@@ -742,7 +661,7 @@ const Shop = ({
           ))}
         </ShopContent>
       )}
-      <div className="shop__pagination">
+      <ShopPagination>
         {shopAllPage &&
           !shopNone &&
           shopAllPage.map((page, indexPage) => (
@@ -754,7 +673,7 @@ const Shop = ({
               {indexPage + 1}
             </div>
           ))}
-      </div>
+      </ShopPagination>
     </StyledShop>
   );
 };
