@@ -176,6 +176,11 @@ const FilmInfo = styled.div`
         justify-content: center;
         align-items: center;
   `}
+
+      button {
+        min-width: 50px;
+      }
+
       .play-reverce {
         transform: rotate(180deg);
       }
@@ -248,6 +253,7 @@ const FilmText = styled.div`
 `;
 
 const FilmImages = styled.div`
+  overflow: hidden;
   display: grid;
   grid-area: im;
   grid-template-columns: ${(props) =>
@@ -367,7 +373,7 @@ const Film = ({
             <div className="film__info_arrow">
               <div>
                 <i
-                  className={`fas fa-sort-up + ${!pages600 && "fa-2x"}`}
+                  className={`fas fa-sort-up + ${!pages600 && "fa-lg"}`}
                   onClick={() => {
                     quantity > 9 ? setQuantity(10) : setQuantity(quantity + 1);
                   }}
@@ -375,7 +381,7 @@ const Film = ({
               </div>
               <div>
                 <i
-                  className={`fas fa-sort-down + ${!pages600 && "fa-2x"}`}
+                  className={`fas fa-sort-down + ${!pages600 && "fa-lg"}`}
                   onClick={() => {
                     quantity < 2 ? setQuantity(1) : setQuantity(quantity - 1);
                   }}
@@ -395,7 +401,7 @@ const Film = ({
                 quantityFilm(event);
               }}
             >
-              Add to cart
+              {pages600 ? "Add to cart" : "Add"}
             </button>
             <i
               className="fas fa-play fa-4x film__play"
