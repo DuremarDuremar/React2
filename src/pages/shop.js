@@ -13,7 +13,19 @@ const StyledShop = styled.div`
   display: ${(props) => (props.pages600 ? "grid" : "block")};
 
   ${(props) =>
+    props.none &&
+    `
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 2fr 10fr;
+    grid-template-areas:
+      "s h h h h"
+      "s n n n n";
+      
+  `}
+
+  ${(props) =>
     props.pages1280 &&
+    !props.none &&
     `
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr 10.8fr 0.2fr;
@@ -25,6 +37,7 @@ const StyledShop = styled.div`
   ${(props) =>
     !props.pages1280 &&
     props.pages820 &&
+    !props.none &&
     `
     grid-template-columns: 2fr 3.33fr 3.33fr 3.33fr;
     grid-template-rows: 0.5fr 11fr 0.5fr;
@@ -36,6 +49,7 @@ const StyledShop = styled.div`
    ${(props) =>
     !props.pages820 &&
     props.pages600 &&
+    !props.none &&
     ` 
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 0.2fr 11fr 0.2fr;
@@ -284,32 +298,128 @@ ${(props) =>
 `;
 
 const ShopNone = styled.div`
-display: flex;
-flex-direction: column;
-/* align-items: center; */
-justify-content: center;
+  grid-area: n;
+  padding-top: 30px;
 
-    p {
-      font-family: "Sansita Swashed", cursive;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 20px;
-    }
-    button {
-      font-family: "Sansita Swashed", cursive;
-      display: block;
-      width: 100px;
-      height: 100px;
-      border-radius: 100%;
-      margin: 0px auto;
-      font-size: 13px;
-      &:hover {
-        border: 3px solid black;
-      }
+  p {
+    font-family: "Sansita Swashed", cursive;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  button {
+    font-family: "Sansita Swashed", cursive;
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    margin: 0px auto;
+    font-size: 13px;
+    &:hover {
+      border: 3px solid black;
     }
   }
+`;
 
+const ShopBar = styled.div`
+  grid-area: s;
+  background-color: brown;
+
+  .shopView {
+    padding-top: 5px !important;
+  }
+
+  .shop__nav {
+    text-align: center;
+    padding-top: 35px;
+    h4 {
+      font-size: 24px;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      border-bottom: 3px solid black;
+      border-top: 3px solid black;
+    }
+
+    .h4Cursor {
+      cursor: pointer;
+    }
+    ul {
+      li {
+        font-family: "Sansita Swashed", cursive;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 500;
+        padding-top: 15px;
+
+        &:hover {
+          background-color: #fff;
+        }
+      }
+      /* .activeLi {
+        &:after {
+          content: "";
+          display: block;
+          width: 90px;
+          height: 5px;
+          background-color: black;
+          margin: 0px auto;
+        }
+      } */
+    }
+  }
+`;
+
+const ShopNav = styled.div`
+  text-align: center;
+  padding-top: ${(props) => (props.pages600 ? "35px" : "0")};
+
+  h4 {
+    font-size: 24px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+  }
+
+  .h4Cursor {
+    cursor: pointer;
+  }
+  ul {
+    /* .activeLi {
+      &:after {
+        content: "";
+        display: block;
+        width: 90px;
+        height: 5px;
+        background-color: black;
+        margin: 0px auto;
+      }
+    } */
+  }
+`;
+
+const Li = styled.li`
+  font-family: "Sansita Swashed", cursive;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  padding-top: 15px;
+  ${(props) =>
+    props.active &&
+    `
+    &:after {
+        content: "";
+        display: block;
+        width: 90px;
+        height: 5px;
+        background-color: black;
+        margin: 0px auto;
+      }
+  `}
+  &:hover {
+    background-color: #fff;
+  }
 `;
 
 const Shop = ({
@@ -438,32 +548,37 @@ const Shop = ({
     ? sortBy(arrShop, ["country"])
     : sortBy(arrShop, ["country"]).reverse();
 
-  const shopCont = pages1250
-    ? "shop__content"
-    : pages820
-    ? "shop__content1250"
-    : pages600
-    ? "shop__content820"
-    : pages470
-    ? "shop__content600"
-    : "shop__content470";
-
-  const shop = pages1280
-    ? "shop"
-    : pages820
-    ? "shop1280"
-    : pages600
-    ? "shop820"
-    : "shop600";
-
   const sideTab = () => {
     setViewCateg(!viewCateg);
   };
 
+  const arrNav = ["All", "Year", "Country", "Price"];
+  const nav = arrNav.map((item, index) => {
+    return (
+      <Li
+        onClick={(e) => {
+          item === "All"
+            ? changeFilms(e.currentTarget)
+            : changeArrow(e.currentTarget);
+        }}
+        id={item}
+        key={index}
+        active={stateShop === item ? true : false}
+      >
+        {item} {item === "All" ? all(item) : arrow(classI, item)}
+      </Li>
+    );
+  });
+
   return (
-    <StyledShop pages1280={pages1280} pages820={pages820} pages600={pages600}>
-      <div className="shop__sidebar">
-        <div className={pages600 ? "shop__nav" : "shop__nav shopView"}>
+    <StyledShop
+      pages1280={pages1280}
+      pages820={pages820}
+      pages600={pages600}
+      none={shopNone}
+    >
+      <ShopBar>
+        <ShopNav pages600={pages600}>
           {!pages600 ? (
             <h4 onClick={() => sideTab()} className="h4Cursor">
               Catagories{" "}
@@ -475,7 +590,8 @@ const Shop = ({
             <h4>Catagories</h4>
           )}
           <ul className={!viewCateg ? "shop__null" : null}>
-            <li
+            {nav}
+            {/* <li
               onClick={(e) => changeFilms(e.currentTarget)}
               className={stateShop === "All" ? "activeLi" : null}
               id="All"
@@ -502,10 +618,10 @@ const Shop = ({
               id="Price"
             >
               Price {arrow(classI, "Price")}
-            </li>
+            </li> */}
           </ul>
-        </div>
-      </div>
+        </ShopNav>
+      </ShopBar>
       <ShopHeader>
         <ShopForm pages1280={pages1280} pages820={pages820} pages600={pages600}>
           <form>
@@ -530,12 +646,10 @@ const Shop = ({
         </ShopForm>
       </ShopHeader>
       {shopNone && (
-        <ShopContent none>
-          <ShopNone>
-            <p>None</p>
-            <button onClick={() => searchReturn()}>return</button>
-          </ShopNone>
-        </ShopContent>
+        <ShopNone>
+          <p>None</p>
+          <button onClick={() => searchReturn()}>return</button>
+        </ShopNone>
       )}
       {arrShop && stateShop === "All" && !shopNone && (
         <ShopContent
