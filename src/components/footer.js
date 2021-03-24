@@ -9,6 +9,7 @@ const StyleFooter = styled.div`
     padding-top: 10px;
 
     button {
+      transition: all ease-out 0.55s;
       width: 30px;
       height: 30px;
       padding: 2px !important;

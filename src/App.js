@@ -13,6 +13,7 @@ const Global = createGlobalStyle`
   padding: 0;
   margin: 0;
   border: 0;
+  user-select: none;
 }
 
 body {
@@ -38,9 +39,12 @@ ul li {
 }
 
 button {
+  outline: none;
   cursor: pointer;
 }
-
+input{
+  outline: none;
+}
 
 `;
 

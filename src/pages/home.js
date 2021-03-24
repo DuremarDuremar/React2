@@ -24,18 +24,23 @@ const HomeItem = styled.div`
   position: relative;
   z-index: 1;
   border: 4px solid #6d214f;
+  transition: all ease-out 0.95s;
+
   img {
     width: 100%;
     height: 100%;
     display: block;
+    transition: all ease-out 0.95s;
   }
   .home__item_info {
+    transition: all ease-out 0.95s;
     position: absolute;
     z-index: 2;
     bottom: 0;
     width: 100%;
     background-color: #636e72;
-    display: none;
+    opacity: 0;
+    visibility: hidden;
     text-align: center;
     padding: 10px 0;
   }
@@ -58,7 +63,8 @@ const HomeItem = styled.div`
   }
 
   &:hover .home__item_info {
-    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 `;
 
@@ -74,6 +80,7 @@ const HomeMore = styled.div`
   font-size: 20px;
   background-color: #636e72;
   color: #fff;
+  transition: all ease-out 0.35s;
   &:hover {
     border: 4px solid black;
     color: black;

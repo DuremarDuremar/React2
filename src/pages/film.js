@@ -186,6 +186,7 @@ const FilmInfo = styled.div`
       }
       .film__play {
         cursor: pointer;
+        transition: all ease-out 0.65s;
         &:hover {
           color: #fbb710;
         }
@@ -198,6 +199,7 @@ const FilmInfo = styled.div`
         border-radius: 20px;
         display: block;
         margin: 0 5px;
+        transition: all ease-out 0.65s;
         ${(props) =>
           !props.pages1000 &&
           `

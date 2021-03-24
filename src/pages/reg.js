@@ -42,14 +42,19 @@ const RegForm = styled.form`
       cursor: pointer;
       color: black;
       font-size: ${(props) => !props.pages820 && "20px"};
+      position: relative;
       &:hover {
         &::after {
           content: "";
           display: block;
           width: 80px;
-          height: 2px;
+          height: 3px;
           background-color: #6d214f;
-          margin: 0px auto;
+          margin: 0 auto;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          right: 0;
         }
       }
     }
@@ -71,6 +76,7 @@ const RegForm = styled.form`
       font-weight: 700;
       border-radius: 20px;
       display: block;
+      transition: all ease-out 0.35s;
 
       &:hover {
         background-color: #fbb710;
@@ -82,6 +88,7 @@ const RegForm = styled.form`
 const RegImage = styled.div`
   display: grid;
   border-bottom: 3px solid #6d214f;
+  min-height: 70vh;
   .reg__img_wrapper {
     display: grid;
     padding: 20px 5px;

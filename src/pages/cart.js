@@ -52,6 +52,7 @@ const CartItem = styled.ul`
   .cart__film {
     p {
       color: black;
+      transition: all ease-out 0.25s;
       &:hover {
         outline: 6px solid black;
       }
@@ -255,11 +256,13 @@ const Cart = ({
       <CartShopping>
         <h3>Shopping Cart</h3>
 
-        <CartItem className="cart__nav">
-          <li>Film</li>
-          <li>Price</li>
-          <li>Quantity</li>
-        </CartItem>
+        {pages470 && (
+          <CartItem pages470={pages470} className="cart__nav">
+            <li>Film</li>
+            <li>Price</li>
+            <li>Quantity</li>
+          </CartItem>
+        )}
 
         {newBuy && (
           <div className="cart__content">
@@ -280,14 +283,6 @@ const Cart = ({
       </CartTotal>
     </StylesCart>
   );
-
-  // if (pages820) {
-  //   return <StylesCart style={{ height: "100%" }}>{cartRender}</StylesCart>;
-  // } else {
-  //   return (
-  //     <StylesCart820 style={{ height: "100%" }}>{cartRender}</StylesCart820>
-  //   );
-  // }
 };
 
 const mapStateToProps = ({
