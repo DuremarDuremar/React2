@@ -6,195 +6,112 @@ import { filmBuy, filmActive, filmTotal } from "../reducers/action";
 import styled from "styled-components";
 
 const StylesCart = styled.div`
-  .cart {
-    display: flex;
-    background-color: #fff;
-    min-height: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+  display: ${(props) => (props.pages820 ? "flex" : "block")};
+`;
 
-    .cart__shopping {
-      background-color: #fff;
-      flex: 0 1 65%;
-      padding: 20px;
-      h3 {
-        text-align: center;
-      }
-      .cart__nav {
-        background-color: #636e72;
-        font-weight: 700;
-        font-family: "Sansita Swashed", cursive;
+const CartShopping = styled.div`
+  flex: 0 1 65%;
+  padding: 20px;
+  h3 {
+    text-align: center;
+  }
+  .cart__nav {
+    background-color: #636e72;
+    font-weight: 700;
+    font-family: "Sansita Swashed", cursive;
 
-        li {
-          cursor: pointer;
+    li {
+      cursor: pointer;
 
-          &:hover {
-            background-color: #fff;
-            border-radius: 10px;
-          }
-        }
-      }
-      .cart__item {
-        margin-top: 10px;
-        display: flex;
-        padding: 5px 0;
-        color: black;
-        font-weight: 700;
-        font-family: "Sansita Swashed", cursive;
-
-        li {
-          flex: 0 0 25%;
-          text-align: center;
-        }
-        .cart__film {
-          p {
-            color: black;
-            &:hover {
-              outline: 6px solid black;
-            }
-          }
-        }
-        .cart__delete {
-          margin: 0 3px;
-          color: red;
-          &:hover {
-            border: 1px solid black;
-            border-radius: 100%;
-          }
-        }
-        i {
-          cursor: pointer;
-        }
-      }
-    }
-
-    .cart__total {
-      background-color: darkgoldenrod;
-      flex: 0 1 35%;
-      padding: 20px;
-      background-color: #636e72;
-      color: #fff;
-      border-left: 4px solid #6d214f;
-
-      h4 {
-        text-align: center;
-      }
-      .cart__info {
-        padding-top: 20px;
-        text-align: center;
-        font-size: 18px;
-        span {
-          font-size: 30px;
-          font-family: "Sansita Swashed", cursive;
-        }
-      }
-      button {
-        background-color: #fbb710;
-        width: 100px;
-        height: 60px;
-        border-radius: 20px;
-        display: block;
-        margin: 20px auto 0;
-        font-style: italic;
-        font-weight: 900;
+      &:hover {
+        background-color: #fff;
+        border-radius: 10px;
       }
     }
   }
 `;
 
-const StylesCart820 = styled.div`
-  .cart {
-    display: flex;
-    flex-direction: column-reverse;
-    background-color: #fff;
+const CartItem = styled.ul`
+  margin-top: 10px;
+  display: flex;
+  padding: 5px 0;
+  color: black;
+  font-weight: 700;
+  font-family: "Sansita Swashed", cursive;
+  flex-wrap: ${(props) => (props.pages470 ? "nowrap" : "wrap")};
 
-    .cart__shopping {
-      background-color: #fff;
-      flex: 0 1 65%;
-      padding: 20px;
-      h3 {
-        text-align: center;
-      }
-      .cart__nav {
-        background-color: #636e72;
-        font-weight: 700;
-        font-family: "Sansita Swashed", cursive;
-
-        li {
-          cursor: pointer;
-
-          &:hover {
-            background-color: #fff;
-            border-radius: 10px;
-          }
-        }
-      }
-      .cart__item {
-        margin-top: 10px;
-        display: flex;
-        padding: 5px 0;
-        color: black;
-        font-weight: 700;
-        font-family: "Sansita Swashed", cursive;
-
-        li {
-          flex: 0 0 25%;
-          text-align: center;
-        }
-        .cart__film {
-          p {
-            color: black;
-            &:hover {
-              outline: 6px solid black;
-            }
-          }
-        }
-        .cart__delete {
-          margin: 0 3px;
-          color: red;
-          &:hover {
-            border: 1px solid black;
-            border-radius: 100%;
-          }
-        }
-        i {
-          cursor: pointer;
-        }
-      }
+  li {
+    flex: ${(props) => (props.pages470 ? "0 0 25%" : "0 0 50%")};
+    text-align: center;
+    :first-child {
+      width: ${(props) => (props.pages470 ? "100%" : "calc(60px + 5vw)")};
     }
-
-    .cart__total {
-      background-color: darkgoldenrod;
-      flex: 0 1 35%;
-      padding: 20px;
-      background-color: #636e72;
-      color: #fff;
-
-      h4 {
-        text-align: center;
-      }
-      .cart__info {
-        padding-top: 20px;
-        text-align: center;
-        font-size: 18px;
-        span {
-          font-size: 30px;
-          font-family: "Sansita Swashed", cursive;
-        }
-      }
-      button {
-        background-color: #fbb710;
-        width: 100px;
-        height: 60px;
-        border-radius: 20px;
-        display: block;
-        margin: 20px auto 0;
-        font-style: italic;
-        font-weight: 900;
+  }
+  .cart__film {
+    p {
+      color: black;
+      &:hover {
+        outline: 6px solid black;
       }
     }
   }
+  .cart__delete {
+    margin: 0 3px;
+    color: red;
+    &:hover {
+      border: 1px solid black;
+      border-radius: 100%;
+    }
+  }
+  i {
+    cursor: pointer;
+  }
 `;
 
-const Cart = ({ buy, total, films, filmTotal, filmActive, pages820 }) => {
+const CartTotal = styled.div`
+  /* background-color: darkgoldenrod; */
+  flex: 0 1 35%;
+  padding: 20px;
+  min-height: 80vh;
+  background-color: #636e72;
+  color: #fff;
+  border-left: ${(props) => (props.pages820 ? "4px solid #6d214f" : "none")};
+
+  h4 {
+    text-align: center;
+  }
+  .cart__info {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    span {
+      font-size: 30px;
+      font-family: "Sansita Swashed", cursive;
+    }
+  }
+  button {
+    background-color: #fbb710;
+    width: 100px;
+    height: 60px;
+    border-radius: 20px;
+    display: block;
+    margin: 20px auto 0;
+    font-style: italic;
+    font-weight: 900;
+  }
+`;
+
+const Cart = ({
+  buy,
+  total,
+  films,
+  filmTotal,
+  filmActive,
+  pages820,
+  pages470,
+}) => {
   const [newBuy, setNewBuy] = useState(null);
 
   // делаем логику изменения значения кол-во и общей суммы в прайсе
@@ -301,82 +218,84 @@ const Cart = ({ buy, total, films, filmTotal, filmActive, pages820 }) => {
     setNewBuy(addFilm);
   };
 
-  const cartRender = () => {
+  const itemCart = (film) => {
     return (
-      <div className="cart">
-        <div className="cart__shopping">
-          <h3>Shopping Cart</h3>
-
-          <ul className="cart__nav cart__item">
-            <li>Film</li>
-            <li>Price</li>
-            <li>Quantity</li>
-          </ul>
-
-          {newBuy && (
-            <div className="cart__content">
-              {newBuy.map((film) => (
-                <ul
-                  className="cart__item"
-                  key={film.id}
-                  onClick={() => returnLinkFilm(film.id)}
-                >
-                  <li className="cart__film">
-                    <Link to="/film">
-                      <p>{film.title}</p>
-                    </Link>
-                  </li>
-                  <li>${film.price}</li>
-                  <li>{film.quantity}</li>
-                  <li>
-                    <i
-                      className="fas fa-angle-left"
-                      onClick={() => deleteFilmCart(film.id)}
-                    ></i>
-                    <i
-                      className="fas fa-minus-circle cart__delete"
-                      onClick={() => deleteFilmAll(film.id)}
-                    ></i>
-                    <i
-                      className="fas fa-angle-right"
-                      onClick={() => addFilmCart(film.id)}
-                    ></i>
-                  </li>
-                </ul>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="cart__total">
-          <h4>Cart Total</h4>
-          <div className="cart__quantity cart__info">
-            Quantity: <span> {totalAll()} </span>
-            <i>{buy.length !== 1 ? "films" : "film"}</i>
-          </div>
-          <div className="cart__sum cart__info">
-            Total: <span> ${total}</span>
-          </div>
-          <button className="film__cart">Checkcout</button>
-        </div>
-      </div>
+      <CartItem
+        key={film.id}
+        onClick={() => returnLinkFilm(film.id)}
+        pages470={pages470}
+      >
+        <li className="cart__film">
+          <Link to="/film">
+            <p>{film.title}</p>
+          </Link>
+        </li>
+        <li>${film.price}</li>
+        <li>{film.quantity}</li>
+        <li>
+          <i
+            className="fas fa-angle-left"
+            onClick={() => deleteFilmCart(film.id)}
+          ></i>
+          <i
+            className="fas fa-minus-circle cart__delete"
+            onClick={() => deleteFilmAll(film.id)}
+          ></i>
+          <i
+            className="fas fa-angle-right"
+            onClick={() => addFilmCart(film.id)}
+          ></i>
+        </li>
+      </CartItem>
     );
   };
 
-  if (pages820) {
-    return <StylesCart style={{ height: "100%" }}>{cartRender()}</StylesCart>;
-  } else {
-    return (
-      <StylesCart820 style={{ height: "100%" }}>{cartRender()}</StylesCart820>
-    );
-  }
+  return (
+    <StylesCart pages820={pages820}>
+      <CartShopping>
+        <h3>Shopping Cart</h3>
+
+        <CartItem className="cart__nav">
+          <li>Film</li>
+          <li>Price</li>
+          <li>Quantity</li>
+        </CartItem>
+
+        {newBuy && (
+          <div className="cart__content">
+            {newBuy.map((film) => itemCart(film))}
+          </div>
+        )}
+      </CartShopping>
+      <CartTotal pages820={pages820}>
+        <h4>Cart Total</h4>
+        <div className="cart__quantity cart__info">
+          Quantity: <span> {totalAll()} </span>
+          <i>{buy.length !== 1 ? "films" : "film"}</i>
+        </div>
+        <div className="cart__sum cart__info">
+          Total: <span> ${total}</span>
+        </div>
+        <button className="film__cart">Checkcout</button>
+      </CartTotal>
+    </StylesCart>
+  );
+
+  // if (pages820) {
+  //   return <StylesCart style={{ height: "100%" }}>{cartRender}</StylesCart>;
+  // } else {
+  //   return (
+  //     <StylesCart820 style={{ height: "100%" }}>{cartRender}</StylesCart820>
+  //   );
+  // }
 };
 
 const mapStateToProps = ({
   filmCart: { buy, total },
   filmData: { films },
-  filmResponsive: { pages820 },
+  filmResponsive: { pages820, pages470 },
 }) => {
-  return { buy, total, films, pages820 };
+  return { buy, total, films, pages820, pages470 };
 };
 
 const mapDispatchToProps = {

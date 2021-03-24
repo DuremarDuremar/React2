@@ -329,7 +329,7 @@ const Film = ({
   // функция добавления кол-во и отправка в корзину
   const quantityFilm = (event) => {
     event.preventDefault();
-    console.log("quantity", quantity);
+    // console.log("quantity", quantity);
     filmBuy({ ...filmAct, quantity: quantity });
     filmTotal(total + quantity * filmAct.price);
   };
