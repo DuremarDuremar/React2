@@ -129,7 +129,9 @@ const App = () => {
     }
   }, [a700]);
 
-  const Vs = view ? <Sidebar view={view} setView={setView} /> : null;
+  const Vs = view ? (
+    <Sidebar view={view} setView={setView} a700={a700} />
+  ) : null;
 
   return (
     <Provider store={Store}>

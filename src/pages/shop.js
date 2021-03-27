@@ -223,13 +223,15 @@ ${(props) =>
   .shop__content_author {
     position: absolute;
     top: 40px;
-    max-width: 100px;
+    font-style: italic;
+    border-radius: 5px;
     right: 5px;
     color: #fff;
     background-color: #6d214f;
-    text-align: center;
+    text-align: left;
     transform: rotate(10deg);
     font-size: 11px;
+    padding: 3px;
   }
 `;
 
@@ -354,6 +356,7 @@ const ShopPagination = styled.div`
   justify-content: center;
   padding: 5px 0;
   div {
+    transition: all ease-out 0.65s;
     width: 50px;
     background-color: #6d214f;
     text-align: center;
@@ -584,7 +587,7 @@ const Shop = ({
               onClick={() => filmActive(film)}
             >
               {pages470 ? (
-                <div className="shop__content_author">{film.author}</div>
+                <p className="shop__content_author">{film.author}</p>
               ) : null}
               {pages470 ? <h3>{film.title}</h3> : null}
               <Link to="/film">
