@@ -285,8 +285,6 @@ const Film = ({
   pages1000,
   pages600,
 }) => {
-  window.scrollTo(0, 0);
-
   const [filmAct, setFilmAct] = useState(null);
   const [frames, setFrames] = useState([]);
   const [description, setDescription] = useState(null);
@@ -401,7 +399,11 @@ const Film = ({
           <div className="film__slider">
             <i
               className="fas fa-play fa-4x play-reverce film__play"
-              onClick={() => prevFilm()}
+              onClick={() => {
+                prevFilm();
+                setFramesNum(6);
+                window.scrollTo(0, 0);
+              }}
             ></i>
             <button
               className="film__cart"
@@ -413,7 +415,11 @@ const Film = ({
             </button>
             <i
               className="fas fa-play fa-4x film__play"
-              onClick={() => nextFilm()}
+              onClick={() => {
+                nextFilm();
+                setFramesNum(6);
+                window.scrollTo(0, 0);
+              }}
             ></i>
           </div>
         </form>

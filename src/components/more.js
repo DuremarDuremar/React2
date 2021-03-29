@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { animateScroll as scroll } from "react-scroll";
 
 const StyledMore = styled.div`
   cursor: pointer;
@@ -36,15 +37,16 @@ const More = (props) => {
   return (
     <StyledMore
       {...props}
-      onClick={() =>
+      onClick={() => {
         props.setImage(
           props.film
             ? props.image > 11
               ? 12
               : props.image + num
             : props.image + num
-        )
-      }
+        );
+        scroll.scrollToBottom();
+      }}
     >
       More
     </StyledMore>
