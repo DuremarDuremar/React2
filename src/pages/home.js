@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import More from "../components/more";
 import { connect } from "react-redux";
 import { filmActive } from "../reducers/action";
 import { chunk } from "lodash";
@@ -68,26 +69,6 @@ const HomeItem = styled.div`
   }
 `;
 
-const HomeMore = styled.div`
-  cursor: pointer;
-  text-align: center;
-  margin: 0px auto;
-  width: 50%;
-  height: 30px;
-  margin-bottom: 20px;
-  border-bottom-right-radius: 40%;
-  border-bottom-left-radius: 40%;
-  font-size: 20px;
-  background-color: #636e72;
-  color: #fff;
-  transition: all ease-out 0.35s;
-  &:hover {
-    border: 4px solid black;
-    color: black;
-    font-weight: 800;
-  }
-`;
-
 const Home = ({ films, filmActive, pages1000, pages600 }) => {
   const [filmsView, setFilmVieW] = useState(6);
   const [homeFilms, setHomeFilms] = useState(null);
@@ -122,7 +103,7 @@ const Home = ({ films, filmActive, pages1000, pages600 }) => {
             </HomeItem>
           ))}
         </HomeContainer>
-        <HomeMore onClick={() => setFilmVieW(filmsView + 3)}>more</HomeMore>
+        <More setImage={setFilmVieW} image={filmsView} homeFilms={homeFilms} />
       </StyleHome>
     );
   } else {

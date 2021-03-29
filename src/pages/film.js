@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { filmBuy, filmTotal } from "../reducers/action";
 import { getAxiosFrames, getAxiosDescription } from "../server";
+import More from "../components/more";
 import Spinner from "../components/spinner";
 import styled from "styled-components";
 
 const StyledFilm = styled.div`
   display: grid;
-
+  position: relative;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   min-height: 100vh;
+
   ${(props) =>
     props.pages1000 &&
     `
@@ -258,6 +260,7 @@ const FilmImages = styled.div`
   overflow: hidden;
   display: grid;
   grid-area: im;
+  margin-bottom: 20px;
   grid-template-columns: ${(props) =>
     props.pages600
       ? "repeat(auto-fit, minmax(300px, 1fr))"
@@ -288,6 +291,7 @@ const Film = ({
   const [frames, setFrames] = useState([]);
   const [description, setDescription] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [framesNum, setFramesNum] = useState(6);
 
   useEffect(() => {
     if (film) {
@@ -300,9 +304,11 @@ const Film = ({
       getAxiosDescription(filmAct.filmId).then((response) =>
         setDescription(response)
       );
-      getAxiosFrames(filmAct.filmId).then((response) => setFrames(response));
+      getAxiosFrames(filmAct.filmId, framesNum).then((response) =>
+        setFrames(response)
+      );
     }
-  }, [filmAct]);
+  }, [filmAct, framesNum]);
 
   // функция перелистывания вперед
   const nextFilm = () => {
@@ -448,6 +454,7 @@ const Film = ({
           ))
         )}
       </FilmImages>
+      <More film setImage={setFramesNum} image={framesNum} />
     </StyledFilm>
   );
 };
