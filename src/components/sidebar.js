@@ -10,7 +10,7 @@ const StyleSidebar = styled.div`
   grid-area: s;
   background-color: #636e72;
   padding-top: 30px;
-  padding-left: 30px;
+  padding-left: ${(props) => (props.a700 ? "30px" : "10px")};
   padding-right: 10px;
   border-right: 4px solid #6d214f;
 
@@ -30,29 +30,6 @@ const StyleSidebar = styled.div`
     cursor: pointer;
   }
 
-  .sidebar__search {
-    font-weight: 600;
-    margin-bottom: 20px;
-    p {
-      cursor: pointer;
-      display: inline-block;
-    }
-  }
-  .sidebar__cart {
-    font-weight: 600;
-    margin-bottom: 30px;
-    p {
-      color: black;
-      cursor: pointer;
-      display: inline-block;
-      &:hover {
-        color: #6d214f;
-      }
-    }
-    span {
-      color: #fbb710;
-    }
-  }
   .sidebar__link {
     display: flex;
     button {
@@ -143,6 +120,7 @@ const SidebarNav = styled.div`
       border: 3px solid #6d214f;
       border-radius: 30px;
       background-color: #fff;
+      padding: 5px;
       i {
         margin-left: 6px;
         cursor: pointer;
@@ -248,69 +226,6 @@ const Sidebar = ({
     logName,
   ]);
 
-  // if (!a700) {
-  //   return (
-  //     <StyleSidebarAdap>
-  //       <div className="sidebar__wrapper">
-  //         <i
-  //           className="fas fa-exchange-alt fa-3x view"
-  //           onClick={() => setView(!view)}
-  //         ></i>
-
-  //         <div className="sidebar__title">
-  //           <p>
-  //             Cinema <br />
-  //             Classic
-  //             <br />
-  //             Shop
-  //           </p>
-  //         </div>
-  //         <div className="sidebar__nav">
-  //           <ul>
-  //             {!login ? (
-  //               <NavLink className="sidebar__li" to="/log">
-  //                 <i className="fas fa-key fa-2x"></i>
-  //               </NavLink>
-  //             ) : (
-  //               <li className="sidebar__name">
-  //                 Hello, {name}
-  //                 <Link to="/">
-  //                   <i
-  //                     className="fas fa-sign-out-alt"
-  //                     title="exit"
-  //                     onClick={() => {
-  //                       logLogin(false);
-  //                       setToken("");
-  //                       setPassword("");
-  //                       setEmail("");
-  //                     }}
-  //                   ></i>
-  //                 </Link>
-  //               </li>
-  //             )}
-  //             <NavLink className="sidebar__li" to="/" exact>
-  //               <i className="fas fa-home fa-2x"></i>
-  //             </NavLink>
-  //             <NavLink className="sidebar__li" to="/shop">
-  //               <i className="fas fa-layer-group fa-2x"></i>
-  //             </NavLink>
-  //             <NavLink className="sidebar__li" to="/film">
-  //               <i className="fas fa-film fa-2x"></i>
-  //             </NavLink>
-  //           </ul>
-  //         </div>
-  //         <div className="sidebar__cart">
-  //           <NavLink className="sidebar__p" to="/cart">
-  //             <i className="fas fa-shopping-cart fa-2x"></i>
-
-  //             <p> ${total}</p>
-  //           </NavLink>
-  //         </div>
-  //       </div>
-  //     </StyleSidebarAdap>
-  //   );
-  // }
-
   const title = (
     <>
       {pages1200 ? (
@@ -335,7 +250,7 @@ const Sidebar = ({
   );
 
   return (
-    <StyleSidebar>
+    <StyleSidebar a700={a700}>
       {!a700 && (
         <i
           className="fas fa-exchange-alt fa-3x view"
@@ -348,7 +263,7 @@ const Sidebar = ({
         <ul>
           {!login ? (
             <NavLink className="sidebar__li" to="/log">
-              <li>Sign In</li>
+              {a700 ? <li>Sign In</li> : <i className="fas fa-key fa-2x"></i>}
             </NavLink>
           ) : (
             <li className="sidebar__name">

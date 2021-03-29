@@ -22,7 +22,7 @@ const RegForm = styled.form`
     border-right: ${(props) => props.pages820 && "3px solid black"};
     flex: 0 1 70%;
     input {
-      max-width: ${(props) => !props.pages820 && "calc(120px + 20vw)"};
+      max-width: ${(props) => !props.pages820 && "calc(110px + 20vw)"};
       display: block;
       margin: 0px auto;
       margin-top: 20px;
