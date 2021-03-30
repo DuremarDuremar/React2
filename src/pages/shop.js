@@ -5,6 +5,7 @@ import { filmActive } from "../reducers/action";
 import { sortBy, chunk } from "lodash";
 import shuffle from "../utils/shuffle";
 import { titleSearch, authorSearch } from "../utils/search";
+import { animateScroll as scroll } from "react-scroll";
 import styled from "styled-components";
 
 const StyledShop = styled.div`
@@ -670,7 +671,10 @@ const Shop = ({
           shopAllPage.map((page, indexPage) => (
             <div
               key={indexPage}
-              onClick={() => setShopPage(indexPage)}
+              onClick={() => {
+                setShopPage(indexPage);
+                scroll.scrollToTop();
+              }}
               className={indexPage === shopPage ? "activePage" : null}
             >
               {indexPage + 1}

@@ -13,7 +13,12 @@ const StyleSidebar = styled.div`
   padding-left: ${(props) => (props.a700 ? "30px" : "10px")};
   padding-right: 10px;
   border-right: 4px solid #6d214f;
+  min-width: 45px;
+`;
 
+const SidebsrWrapper = styled.div`
+  position: fixed;
+  z-index: 4;
   .sidebar__li.active {
     i {
       color: #6d214f !important;
@@ -113,20 +118,52 @@ const SidebarNav = styled.div`
         }
       }
     }
-    .sidebar__name {
-      text-align: center;
-      font-size: 20px;
-      font-style: normal;
-      border: 3px solid #6d214f;
-      border-radius: 30px;
-      background-color: #fff;
-      padding: 5px;
-      i {
-        margin-left: 6px;
-        cursor: pointer;
-        color: black;
-      }
-    }
+  }
+`;
+
+const SidebarName = styled.div`
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  border: 3px solid #6d214f;
+  border-radius: 30px;
+  background-color: #fff;
+  padding: 3px 7px;
+  font-size: 18px;
+
+  ${(props) =>
+    !props.a700 &&
+    `
+
+    transition: width ease-out 0.95s;
+    cursor: pointer;
+    width: 35px;
+     :hover{
+       width: 140px;
+     }
+    :hover p{
+      white-space: normal;
+      visibility: visible;
+      position: static;
+      
+      
+  }
+  `}
+
+  p {
+    ${(props) =>
+      !props.a700 &&
+      `
+    white-space: nowrap;
+    visibility: hidden;
+    position: absolute;
+  
+  `}
+  }
+  i {
+    margin-left: 6px;
+    cursor: pointer;
+    color: black;
   }
 `;
 
@@ -249,85 +286,96 @@ const Sidebar = ({
     </>
   );
 
+  const nameBar = (name) => {
+    return (
+      <SidebarName as="li" a700={a700} name={name}>
+        <p>Hello, {name}</p>
+
+        <Link to="/">
+          <i
+            className={
+              a700 ? "fas fa-sign-out-alt" : "fas fa-sign-out-alt fa-2x"
+            }
+            title="exit"
+            onClick={() => {
+              logLogin(false);
+              setToken("");
+              setPassword("");
+              setEmail("");
+            }}
+          ></i>
+        </Link>
+      </SidebarName>
+    );
+  };
+
   return (
     <StyleSidebar a700={a700}>
-      {!a700 && (
-        <i
-          className="fas fa-exchange-alt fa-3x view"
-          onClick={() => setView(!view)}
-        ></i>
-      )}
-      <SidebarTitle a700={a700}>{title}</SidebarTitle>
+      <SidebsrWrapper>
+        {!a700 && (
+          <i
+            className="fas fa-exchange-alt fa-3x view"
+            onClick={() => setView(!view)}
+          ></i>
+        )}
+        <SidebarTitle a700={a700}>{title}</SidebarTitle>
 
-      <SidebarNav>
-        <ul>
-          {!login ? (
-            <NavLink className="sidebar__li" to="/log">
-              {a700 ? <li>Sign In</li> : <i className="fas fa-key fa-2x"></i>}
-            </NavLink>
-          ) : (
-            <li className="sidebar__name">
-              Hello, {name}
-              <Link to="/">
-                <i
-                  className="fas fa-sign-out-alt"
-                  title="exit"
-                  onClick={() => {
-                    logLogin(false);
-                    setToken("");
-                    setPassword("");
-                    setEmail("");
-                  }}
-                ></i>
-              </Link>
-            </li>
-          )}
-          <NavLink className="sidebar__li" to="/" exact>
-            {a700 ? <li>Home</li> : <i className="fas fa-home fa-2x"></i>}
-          </NavLink>
-          <NavLink className="sidebar__li" to="/shop">
-            {a700 ? (
-              <li>Shop </li>
+        <SidebarNav>
+          <ul>
+            {!login ? (
+              <NavLink className="sidebar__li" to="/log">
+                {a700 ? <li>Sign In</li> : <i className="fas fa-key fa-2x"></i>}
+              </NavLink>
             ) : (
-              <i className="fas fa-layer-group fa-2x"></i>
+              nameBar(name)
+            )}
+            <NavLink className="sidebar__li" to="/" exact>
+              {a700 ? <li>Home</li> : <i className="fas fa-home fa-2x"></i>}
+            </NavLink>
+            <NavLink className="sidebar__li" to="/shop">
+              {a700 ? (
+                <li>Shop </li>
+              ) : (
+                <i className="fas fa-layer-group fa-2x"></i>
+              )}
+            </NavLink>
+            <NavLink className="sidebar__li" to="/film">
+              {a700 ? <li>Film</li> : <i className="fas fa-film fa-2x"></i>}
+            </NavLink>
+          </ul>
+        </SidebarNav>
+
+        <SidebarCart a700={a700}>
+          <NavLink className="sidebar__p" to="/cart">
+            {a700 ? (
+              <>
+                <p>
+                  <i className="fas fa-shopping-cart"></i> Cart
+                </p>
+                <span> ${total}</span>
+              </>
+            ) : (
+              <>
+                <i className="fas fa-shopping-cart fa-2x"></i>{" "}
+                <div> ${total}</div>{" "}
+              </>
             )}
           </NavLink>
-          <NavLink className="sidebar__li" to="/film">
-            {a700 ? <li>Film</li> : <i className="fas fa-film fa-2x"></i>}
-          </NavLink>
-        </ul>
-      </SidebarNav>
-
-      <SidebarCart a700={a700}>
-        <NavLink className="sidebar__p" to="/cart">
-          {a700 ? (
-            <>
-              <p>
-                <i className="fas fa-shopping-cart"></i> Cart
-              </p>
-              <span> ${total}</span>
-            </>
-          ) : (
-            <>
-              <i className="fas fa-shopping-cart fa-2x"></i>{" "}
-              <div> ${total}</div>{" "}
-            </>
-          )}
-        </NavLink>
-      </SidebarCart>
-      {a700 && (
-        <SidebarLink>
-          <button>
-            <i className="fab fa-instagram-square fa-2x"></i>
-          </button>
-          <button>
-            <i className="fab fa-facebook-f fa-2x"></i>
-          </button>
-          <button>
-            <i className="fab fa-twitter fa-2x"></i>
-          </button>
-        </SidebarLink>
-      )}
+        </SidebarCart>
+        {a700 && (
+          <SidebarLink>
+            <button>
+              <i className="fab fa-instagram-square fa-2x"></i>
+            </button>
+            <button>
+              <i className="fab fa-facebook-f fa-2x"></i>
+            </button>
+            <button>
+              <i className="fab fa-twitter fa-2x"></i>
+            </button>
+          </SidebarLink>
+        )}
+      </SidebsrWrapper>
     </StyleSidebar>
   );
 };

@@ -6,6 +6,7 @@ import { shuffle } from "lodash";
 import { logName, logSubmit, logUrl, logEnter } from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
 import getRandomInt from "../utils/getRandom";
+import { useForm } from "react-hook-form";
 import Spinner from "../components/spinner";
 import styled from "styled-components";
 
@@ -122,6 +123,7 @@ const Reg = ({
   const [regFrames2, setRegFrames2] = useState(null);
   const [email, setEmail] = useLocalStorage("email");
   const [password, setPassword] = useLocalStorage("password");
+  const { register, handleSubmit, errors } = useForm();
 
   // мешаем разные кадры
   const int = () => {
@@ -155,8 +157,7 @@ const Reg = ({
   }, [films]);
 
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (e) => {
     logEnter(email, password);
     logSubmit(true);
   };
@@ -168,7 +169,7 @@ const Reg = ({
 
   return (
     <StyledReg style={{ height: "100%" }}>
-      <RegForm onSubmit={handleSubmit} pages820={pages820}>
+      <RegForm onSubmit={handleSubmit(onSubmit)} pages820={pages820}>
         <div className="reg__input">
           {!loginTrue && (
             <input
@@ -176,6 +177,7 @@ const Reg = ({
               placeholder="Name"
               className="reg__name"
               value={name}
+              ref={register}
               onChange={(e) => logName(e.target.value)}
             />
           )}
@@ -184,14 +186,14 @@ const Reg = ({
             type="email"
             placeholder="Email"
             className="reg__email"
-            // value={email}
+            ref={register}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             className="reg__password"
-            // value={password}
+            ref={register}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Link to={loginTrue ? "log/reg" : "/log"}>

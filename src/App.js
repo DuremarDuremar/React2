@@ -49,20 +49,6 @@ input{
 `;
 
 const All = styled.div`
-  .sidebar {
-    grid-area: s;
-    background-color: #636e72;
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 10px;
-    border-right: 4px solid #6d214f;
-  }
-
-  /* .pages {
-    grid-area: p;
-    background-color: gray;
-  } */
-
   .footer {
     grid-area: f;
     width: 100%;
@@ -146,6 +132,7 @@ const App = () => {
           )}
           <Wrapper adap={a700 ? false : true} view={view}>
             {Vs}
+
             <Pages />
             {a700 ? null : <Footer />}
           </Wrapper>
