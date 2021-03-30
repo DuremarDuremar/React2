@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { getAxiosLogin } from "../server";
 import { connect } from "react-redux";
-import { logLogin, logSubmit, logName } from "../reducers/action";
+import { logLogin, logSubmit, logName, logError } from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
 import styled from "styled-components";
 
@@ -130,7 +130,7 @@ const SidebarName = styled.div`
   background-color: #fff;
   padding: 3px 7px;
   font-size: 18px;
-
+  max-width: 120px;
   ${(props) =>
     !props.a700 &&
     `
@@ -216,6 +216,7 @@ const Sidebar = ({
   total,
   login,
   logLogin,
+  logError,
   name,
   submit,
   logSubmit,
@@ -246,7 +247,8 @@ const Sidebar = ({
         name,
         logLogin,
         setToken,
-        logName
+        logName,
+        logError
       );
     } else {
       return;
@@ -261,6 +263,7 @@ const Sidebar = ({
     logLogin,
     setToken,
     logName,
+    logError,
   ]);
 
   const title = (
@@ -401,6 +404,7 @@ const mapDispatchToProps = {
   logLogin,
   logSubmit,
   logName,
+  logError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

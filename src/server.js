@@ -265,7 +265,8 @@ export const getAxiosLogin = async (
   name,
   log,
   settoken,
-  logname
+  logname,
+  logError
 ) => {
   const Users = () => {
     if (url === "users") {
@@ -295,9 +296,10 @@ export const getAxiosLogin = async (
       log(true);
       logname(res.data.user.username);
       settoken(res.data.user.token);
+      logError(null);
     })
     .catch((error) => {
       sub(false);
-      // alert(error);
+      logError(error);
     });
 };

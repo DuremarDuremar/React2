@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getAxiosFrames } from "../server";
 import { shuffle } from "lodash";
-import { logName, logSubmit, logUrl, logEnter } from "../reducers/action";
+import {
+  logName,
+  logSubmit,
+  logUrl,
+  logEnter,
+  logError,
+} from "../reducers/action";
 import useLocalStorage from "../utils/localStorage";
 import getRandomInt from "../utils/getRandom";
 import { useForm } from "react-hook-form";
@@ -105,13 +111,25 @@ const RegImage = styled.div`
   }
 `;
 
+const Errors = styled.div`
+  font-size: 14px;
+  line-height: 27px;
+  letter-spacing: 0.03em;
+  color: #8d96bd;
+  text-align: center;
+  i {
+    color: red;
+  }
+`;
 const Reg = ({
   films,
   match,
   login,
   name,
+  error,
   logName,
   logSubmit,
+  logError,
   submit,
   logUrl,
   logEnter,
@@ -121,9 +139,10 @@ const Reg = ({
   const [regFrames0, setRegFrames0] = useState(null);
   const [regFrames1, setRegFrames1] = useState(null);
   const [regFrames2, setRegFrames2] = useState(null);
-  const [email, setEmail] = useLocalStorage("email");
-  const [password, setPassword] = useLocalStorage("password");
-  const { register, handleSubmit, errors } = useForm();
+  const [, setEmail] = useLocalStorage("email");
+  const [, setPassword] = useLocalStorage("password");
+  const [errorBlock, setErrorBlock] = useState(false);
+  const { register, handleSubmit } = useForm();
 
   // мешаем разные кадры
   const int = () => {
@@ -157,9 +176,14 @@ const Reg = ({
   }, [films]);
 
   // заходим на сайт или регистрируемся, прверяем есть ли у нас ник
-  const onSubmit = (e) => {
-    logEnter(email, password);
+  const onSubmit = (data) => {
+    setErrorBlock(true);
+    logName(data.name);
+    setEmail(data.email);
+    setPassword(data.password);
+    logEnter(data.email, data.password);
     logSubmit(true);
+    logError(null);
   };
 
   // если зарегистрированы, переходим на главную страницу
@@ -176,9 +200,8 @@ const Reg = ({
               type="text"
               placeholder="Name"
               className="reg__name"
-              value={name}
-              ref={register}
-              onChange={(e) => logName(e.target.value)}
+              name="name"
+              ref={register({ required: true })}
             />
           )}
 
@@ -186,19 +209,24 @@ const Reg = ({
             type="email"
             placeholder="Email"
             className="reg__email"
-            ref={register}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            ref={register({ required: true, minLength: 8 })}
           />
           <input
             type="password"
             placeholder="Password"
             className="reg__password"
-            ref={register}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            ref={register({ required: true })}
           />
           <Link to={loginTrue ? "log/reg" : "/log"}>
             <h4>{loginTrue ? "Need an account?" : "Have an account?"}</h4>
           </Link>
+          {error && errorBlock && (
+            <Errors>
+              <i className="fas fa-exclamation-circle"></i> account not found
+            </Errors>
+          )}
         </div>
         <div className="reg__submit">
           <h2>{loginTrue ? "Sign in" : "Sign up"}</h2>
@@ -225,7 +253,7 @@ const Reg = ({
 
 const mapStateToProps = ({
   filmData: { films },
-  filmLog: { login, name, submit },
+  filmLog: { login, name, submit, error },
   filmResponsive: { pages1250, pages820 },
 }) => {
   return {
@@ -235,6 +263,7 @@ const mapStateToProps = ({
     submit,
     pages820,
     pages1250,
+    error,
   };
 };
 
@@ -243,6 +272,7 @@ const mapDispatchToProps = {
   logSubmit,
   logUrl,
   logEnter,
+  logError,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reg);

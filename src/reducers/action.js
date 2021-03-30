@@ -33,6 +33,13 @@ const logLogin = (log) => {
   };
 };
 
+const logError = (error) => {
+  return {
+    type: "ERROR",
+    payload: error,
+  };
+};
+
 const logName = (name) => {
   return {
     type: "NAME",
@@ -119,6 +126,7 @@ export {
   logLogin,
   logName,
   logSubmit,
+  logError,
   logUrl,
   logEnter,
   res1200,
