@@ -48,14 +48,7 @@ input{
 
 `;
 
-const All = styled.div`
-  .footer {
-    grid-area: f;
-    width: 100%;
-    height: 100%;
-    background-color: #6d214f;
-  }
-`;
+const All = styled.div``;
 
 const ViewBlock = styled.div`
   display: block;

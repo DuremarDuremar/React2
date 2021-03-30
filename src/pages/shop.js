@@ -268,50 +268,12 @@ const ShopBar = styled.div`
   .shopView {
     padding-top: 5px !important;
   }
-
-  .shop__nav {
-    text-align: center;
-    padding-top: 35px;
-    h4 {
-      font-size: 24px;
-      padding-bottom: 5px;
-      padding-top: 5px;
-      border-bottom: 3px solid black;
-      border-top: 3px solid black;
-    }
-
-    .h4Cursor {
-      cursor: pointer;
-    }
-    ul {
-      li {
-        font-family: "Sansita Swashed", cursive;
-        cursor: pointer;
-        font-size: 20px;
-        font-weight: 500;
-        padding-top: 15px;
-
-        &:hover {
-          background-color: #fff;
-        }
-      }
-      /* .activeLi {
-        &:after {
-          content: "";
-          display: block;
-          width: 90px;
-          height: 5px;
-          background-color: black;
-          margin: 0px auto;
-        }
-      } */
-    }
-  }
 `;
 
 const ShopNav = styled.div`
   text-align: center;
   padding-top: ${(props) => (props.pages600 ? "35px" : "0")};
+  padding-bottom: ${(props) => (props.pages600 ? "0x" : "5px")};
 
   h4 {
     font-size: 24px;
@@ -325,6 +287,17 @@ const ShopNav = styled.div`
     cursor: pointer;
   }
   ul {
+    li {
+      font-family: "Sansita Swashed", cursive;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 500;
+      padding-top: 15px;
+
+      &:hover {
+        background-color: #fff;
+      }
+    }
   }
 `;
 

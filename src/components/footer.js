@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const StyleFooter = styled.div`
+  grid-area: f;
+  width: 100%;
+  height: 100%;
+  background-color: #6d214f;
+  padding-bottom: 4px;
   .footer__link {
     display: flex;
     background-color: #6d214f;
@@ -29,21 +34,19 @@ const StyleFooter = styled.div`
 
 const Footer = () => {
   return (
-    <div className="footer">
-      <StyleFooter>
-        <div className="footer__link">
-          <button>
-            <i className="fab fa-instagram-square fa-2x"></i>
-          </button>
-          <button>
-            <i className="fab fa-facebook-f fa-2x"></i>
-          </button>
-          <button>
-            <i className="fab fa-twitter fa-2x"></i>
-          </button>
-        </div>
-      </StyleFooter>
-    </div>
+    <StyleFooter>
+      <div className="footer__link">
+        <button>
+          <i className="fab fa-instagram-square fa-2x"></i>
+        </button>
+        <button>
+          <i className="fab fa-facebook-f fa-2x"></i>
+        </button>
+        <button>
+          <i className="fab fa-twitter fa-2x"></i>
+        </button>
+      </div>
+    </StyleFooter>
   );
 };
 
