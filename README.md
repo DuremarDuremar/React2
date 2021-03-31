@@ -1,3 +1,15 @@
+Интернет магазин классического кино
+
+Выполнен с использованием React Hooks, Redax, styled-components
+
+<img src="img/dec02.png" width=660 height=330>
+<img src="img/dec01.png" width=660 height=330>
+<span><img src="img/adap01.jpeg" width=400 height=600> <img src="img/adap02.jpeg" width=400 height=600></span>
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
